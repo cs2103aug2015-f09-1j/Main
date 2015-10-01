@@ -1,4 +1,4 @@
 //empty
-public class Javas {
+public class Jarvas {
 
 }
