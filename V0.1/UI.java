@@ -2,16 +2,48 @@ package repo;
 
 import java.util.Scanner;
 
+/**
+ * This class is used to show a simple UI.
+ * It contains the constant Strings in public.
+ * There are two APIs: 
+ * showMessage(String str): void for main function to show the message.
+ * getCommand(): String for logic part to get input.
+ * @author Li Huiying
+ */
+
 public class UI {
+	
+	public static final String MESSAGE_WELCOME = "Welcome to TextBuddy. %s is ready for use";
+	public static final String MESSAGE_ADD = "added to mytextfile.txt: \"%s\"";
+	public static final String MESSAGE_DELETE = "deleted from mytextfile.txt: \"%s\"";
+	public static final String MESSAGE_DISPLAY_FORMAT = "%d. %s\n";
+	public static final String MESSAGE_CLEAR = "all content deleted from %s";
+	public static final String MESSAGE_SORTED = "Tasks sorted";
+	public static final String MESSAGE_INVAILD_ARGUMENTS_NUMBER = "Enter mytextfile!";
+	public static final String MESSAGE_INVALID_FILE = "Enter valid mytextfile!";
+	public static final String MESSAGE_INVALID_COMMAND = "Invalid Command.";
+	public static final String MESSAGE_IOEXCEPTION = "IOException.";
+	public static final String MESSAGE_SEARCH = "Results of searching:\n";
+	public static final String COMMAND_ADD = "add";
+	public static final String COMMAND_DELETE = "delete";
+	public static final String COMMAND_CLEAR = "clear";
+	public static final String COMMAND_DISPLAY = "display";
+	public static final String COMMAND_SORT = "sort";
+	public static final String COMMAND_SEARCH = "search";
+	public static final String COMMAND_EXIT = "exit";
+	public static final String EMPTY_STRING = "";
+	
 	Scanner input;
+	String command;
 	UI(){
 		input = new Scanner(System.in);
-		System.out.println("UI is ready.");
+		System.out.println(MESSAGE_WELCOME);
 	}
-	public void show(String str){
+	public void showMessage(String str){
 		System.out.println(str);
 	}
 	public String getCommand(){
-		return input.nextLine();
+		command = input.nextLine();
+		return command;
 	}
 }
