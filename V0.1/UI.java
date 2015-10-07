@@ -42,7 +42,7 @@ public class UI {
 	public void showMessage(String str){
 		System.out.println(str);
 	}
-	public String getCommand(){
+	public String returnInput(){
 		command = input.nextLine();
 		return command;
 	}
