@@ -1,14 +1,18 @@
 package repo;
-
 import java.util.Vector;
 
 public class Logic {
-	String command;
+	
+	String commandStr;
+	String contentStr;
+	Parser.CommandType commandType;
 	Logic(){
 		System.out.println("Logic is ready.");
 	}
 	public void getInput(String str){
-		// TODO str is the input	
+		commandStr = getFirstWord(str);	
+		contentStr = removeFirstWord(str);
+		commandType = Parser.determineCommandType(commandStr);
 	}
 	public void execute(){
 		// TODO execute the command
@@ -31,5 +35,13 @@ public class Logic {
 		 * use \n to make a new line in the string)
 		 **/
 		return null;
+	}
+	private static String getFirstWord(String userCommand) {
+		String commandTypeString = userCommand.trim().split("\\s+")[0];
+		return commandTypeString;
+	}
+	private static String removeFirstWord(String userCommand) {
+		String temp = userCommand.replace(getFirstWord(userCommand), "").trim();
+		return temp;
 	}
 }
