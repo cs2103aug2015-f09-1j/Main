@@ -2,13 +2,6 @@ import java.util.GregorianCalendar;
 import java.util.Vector;
 
 public class Logic {
-<<<<<<< HEAD
-
-	public static final String EMPTY_STRING = "";
-	public static final String NEWLINE = "\n";
-	public static final String LOGIC_READY = "Logic is ready.";
-=======
->>>>>>> e528afab42b57446a79cbbe27d03495b27eda71f
 	
 	enum RequiredField {
 		TASKDUEDATE,TASKLOCATION
@@ -27,15 +20,7 @@ public class Logic {
 		contentStr = removeFirstWord(str);
 		commandType = Parser.determineCommandType(commandStr);
 	}
-	
-	private void displayTasks(){
-		for(int i = 0; i < tasks.size(); i++){
-			output += tasks.elementAt(i).printTasks() + NEWLINE;
-		}
-	}
-	
-	
-	public void execute(){
+	public void execute(Vector<Task> currentTasks){
 		//Execute the command
 		switch(commandType){
 			case ADD: 
@@ -44,18 +29,16 @@ public class Logic {
 				tasks.add(temp);
 				break;
 			case DELETE:
-				for(int i = 0; i < tasks.size(); i++){
-					if(contentStr.equals(tasks.get(i))){
+				for(int i=0; i<currentTasks.size(); i++){
+					if(contentStr.equals(currentTasks.get(i))){
 						System.out.println("TRUELA!");
-						tasks.remove(i);
-						tasks = (Vector)tasks.clone();
+						currentTasks.remove(i);
+						tasks=(Vector)currentTasks.clone();
 					}
 				}
 				break;
-			case DISPLAY:
-				displayTasks();
-				break;
-			/*case SEARCH:
+			/*case SORT:
+			case SEARCH:
 				// get content from storage
 				
 				// display output
@@ -76,7 +59,6 @@ public class Logic {
 
 	public void getOriginalTasks(Vector<Task> returnTasks) {
 		// TODO initialize the vector for tasks
-		tasks = (Vector<Task>) returnTasks.clone();
 		
 	}
 	public Vector<Task> returnNewTasks() {
