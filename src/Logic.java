@@ -32,6 +32,8 @@ public class Logic {
 				deleteTask(contentStr);
 				
 				break;
+			case EDIT:
+				editTask(contentStr);
 			/*case SORT:
 			case SEARCH:
 				// get content from storage
@@ -50,6 +52,39 @@ public class Logic {
 			default:
 				System.out.println("Invalid Input\n");
 		}
+	}
+	private void editTask(String contentStr2) {
+		// TODO Auto-generated method stub
+		String taskDateToBeEdit = getSplittedString(contentStr2, RequiredField.TASKDUEDATE);
+		String taskNameToBeEdit = getTask(contentStr2);
+		int indexOfTask = getIndexofTask(taskNameToBeEdit);
+		if(indexOfTask == -1){
+			System.out.println("no such task");
+		} else {
+			int[] dueDateIntArr = convertDueDateStrtoIntarr(taskDateToBeEdit);
+			tasks.get(indexOfTask).setDueDate(new GregorianCalendar(
+					dueDateIntArr[0],
+					dueDateIntArr[1], 
+					dueDateIntArr[2], 
+					dueDateIntArr[3], 
+					dueDateIntArr[4]));
+		}
+		
+	}
+	private int getIndexofTask(String taskNameToBeEdit) {
+		// TODO Auto-generated method stub
+		int i;
+		for(i=0; i<tasks.size();i++){
+			if(tasks.get(i).getTaskName().equals(taskNameToBeEdit)){
+				break;
+			}
+		}
+		if(i>=tasks.size()){
+			return -1;
+		}else{
+			return i;
+		}
+		
 	}
 	private void deleteTask(String contentStr2) {
 		// TODO Auto-generated method stub
