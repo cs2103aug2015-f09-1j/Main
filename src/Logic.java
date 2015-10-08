@@ -25,7 +25,7 @@ public class Logic {
 		switch(commandType){
 			case ADD: 
 				// Add to vector
-				Task temp = new Task(getTask(contentStr),getDueDate(contentStr));
+				Task temp = new Task(getTask(contentStr).trim(),getDueDate(contentStr));
 				tasks.add(temp);
 				break;
 			case DELETE:
@@ -34,6 +34,7 @@ public class Logic {
 				break;
 			case EDIT:
 				editTask(contentStr);
+				break;
 			/*case SORT:
 			case SEARCH:
 				// get content from storage
@@ -43,6 +44,8 @@ public class Logic {
 				break;*/
 			case DISPLAY: 
 				displayTask(tasks);
+				break;
+
 			case EXIT:
 				System.exit(0);
 			default:
@@ -54,7 +57,7 @@ public class Logic {
 		
 		System.out.println("###############################");
 		for(int i=0; i<tasks.size(); i++){
-			System.out.println( tasks.get(i).getTaskName() + " " + tasks.get(i).getDueDate());
+			System.out.println( tasks.get(i).getTaskName() + " ");
 		}
 		System.out.println("###############################");
 	}
@@ -94,7 +97,7 @@ public class Logic {
 	private void deleteTask(String contentStr2) {
 		// TODO Auto-generated method stub
 		for(int i=0; i<tasks.size();i++){
-			if(tasks.get(i).getTaskName().equals(contentStr2));{
+			if(tasks.get(i).getTaskName().equals(contentStr2)){
 				tasks.remove(i);
 			}
 		}
@@ -178,7 +181,6 @@ public class Logic {
 			i++;
 		}
 		String dueDateStr = arr[i].trim().replace(str, "");
-		
 		return dueDateStr;
 	}
 
