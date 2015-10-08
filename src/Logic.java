@@ -40,18 +40,23 @@ public class Logic {
 				
 				// display output
 				
-				break;
-			case EDIT: 
-				// get content from storage
-				
-				// update content
-				
 				break;*/
+			case DISPLAY: 
+				displayTask(tasks);
 			case EXIT:
 				System.exit(0);
 			default:
 				System.out.println("Invalid Input\n");
 		}
+	}
+	
+	private void displayTask(Vector<Task> tasks){
+		
+		System.out.println("###############################");
+		for(int i=0; i<tasks.size(); i++){
+			System.out.println( tasks.get(i).getTaskName() + " " + tasks.get(i).getDueDate());
+		}
+		System.out.println("###############################");
 	}
 	private void editTask(String contentStr2) {
 		// TODO Auto-generated method stub
