@@ -86,7 +86,7 @@ public class Logic {
 		String taskName = str.trim().substring(0, str.indexOf('-'));
 		return taskName;
 	}
-	private static String getSplitedString(String str,RequiredField requiredField){
+	private static String getSplittedString(String str,RequiredField requiredField){
 		String removedTaskName = str.replace(getTask(str), "");
 		String[] strArr = removedTaskName.split("-");
 		String returnStr = null;
