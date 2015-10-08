@@ -8,7 +8,7 @@ public class Logic {
 	String contentStr;
 	String output = "";
 	Parser.CommandType commandType;
-	Vector <String> tasks = new Vector <String>();
+	Vector <Task> tasks = new Vector <Task>();
 	Logic(){
 		System.out.println("Logic is ready.");
 	}
@@ -17,12 +17,13 @@ public class Logic {
 		contentStr = removeFirstWord(str);
 		commandType = Parser.determineCommandType(commandStr);
 	}
-	public void execute(Vector<String> currentTasks){
+	public void execute(Vector<Task> currentTasks){
 		//Execute the command
 		switch(commandType){
 			case ADD: 
 				// Add to vector
-				tasks.add(contentStr);
+				Task temp = new Task();
+				//tasks.add(contentStr);
 				break;
 			case DELETE:
 				for(int i=0; i<currentTasks.size(); i++){
@@ -52,11 +53,11 @@ public class Logic {
 				System.out.println("Invalid Input\n");
 		}
 	}
-	public void getOriginalTasks(Vector<String> returnTasks) {
+	public void getOriginalTasks(Vector<Task> returnTasks) {
 		// TODO initialize the vector for tasks
 		
 	}
-	public Vector<String> returnNewTasks() {
+	public Vector<Task> returnNewTasks() {
 		//Return the new vector contains tasks after each operation
 		return tasks;
 	}

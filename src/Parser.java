@@ -6,7 +6,7 @@
 
 public class Parser {
 	enum CommandType {
-		ADD, EDIT, DELETE,SORT,SEARCH, INVALID, EXIT
+		ADD, EDIT, DELETE,SORT,SEARCH,AT,DUE, INVALID, EXIT
 	};
 	
 	protected static CommandType determineCommandType(String commandTypeString) {
