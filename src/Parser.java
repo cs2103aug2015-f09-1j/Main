@@ -16,7 +16,7 @@ public class Parser {
 	public static final String COMMAND_EXIT = "exit";
 	public static final String ERROR_COMMAND_EMPTY = "command type string cannot be empty!";
 	
-	enum CommandType {
+	public enum CommandType {
 		ADD, EDIT, DELETE, SORT, SEARCH, INVALID, EXIT, CLEAR, DISPLAY
 	};
 	

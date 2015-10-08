@@ -11,7 +11,7 @@ public class Storage {
 	public static final String ERROR_FILE_UNREFRESH = "File not refrshed";
 	public static final String EMPTY_STRING = "";
 	
-	Vector <String> tasks = new Vector <String>();
+	Vector <Task> tasks = new Vector <Task>();
 	int size = tasks.size();
 	String filename = EMPTY_STRING;
 	Storage(){
@@ -42,8 +42,8 @@ public class Storage {
 			 // Creating new files
 			 FileWriter fw = new FileWriter(filename);
 			 PrintWriter pw = new PrintWriter(fw);
-			 for(String str : tasks){
-			    pw.println(str);
+			 for(Task task : tasks){
+			    pw.println(task.printTasks());
 			 }
 			 pw.close();
 		 }
@@ -52,13 +52,13 @@ public class Storage {
 		 }
 		
 	}
-	public Vector<String> returnTasks() {
+	public Vector<Task> returnTasks() {
 		// Return the vector contains tasks
 		return tasks;
 	}
-	public void getNewTasks(Vector<String> returnNewTasks) {
+	public void getNewTasks(Vector<Task> returnNewTasks) {
 		//Get the new tasks for storing into the file
-		tasks = (Vector)returnNewTasks.clone();
+		tasks = (Vector<Task>)returnNewTasks.clone();
 	}
 	public String returnOutput() {
 		//Return the feedback to logic

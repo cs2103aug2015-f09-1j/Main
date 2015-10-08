@@ -3,6 +3,7 @@ import java.util.Vector;
 public class Logic {
 
 	public static final String EMPTY_STRING = "";
+	public static final String NEWLINE = "\n";
 	public static final String LOGIC_READY = "Logic is ready.";
 	
 	enum RequiredField {
@@ -22,7 +23,15 @@ public class Logic {
 		contentStr = removeFirstWord(str);
 		commandType = Parser.determineCommandType(commandStr);
 	}
-	public void execute(Vector<Task> currentTasks){
+	
+	private void displayTasks(){
+		for(int i = 0; i < tasks.size(); i++){
+			output += tasks.elementAt(i).printTasks() + NEWLINE;
+		}
+	}
+	
+	
+	public void execute(){
 		//Execute the command
 		switch(commandType){
 			case ADD: 
@@ -31,16 +40,18 @@ public class Logic {
 				//tasks.add(contentStr);
 				break;
 			case DELETE:
-				for(int i=0; i<currentTasks.size(); i++){
-					if(contentStr.equals(currentTasks.get(i))){
+				for(int i = 0; i < tasks.size(); i++){
+					if(contentStr.equals(tasks.get(i))){
 						System.out.println("TRUELA!");
-						currentTasks.remove(i);
-						tasks=(Vector)currentTasks.clone();
+						tasks.remove(i);
+						tasks = (Vector)tasks.clone();
 					}
 				}
 				break;
-			/*case SORT:
-			case SEARCH:
+			case DISPLAY:
+				displayTasks();
+				break;
+			/*case SEARCH:
 				// get content from storage
 				
 				// display output
@@ -60,6 +71,7 @@ public class Logic {
 	}
 	public void getOriginalTasks(Vector<Task> returnTasks) {
 		// TODO initialize the vector for tasks
+		tasks = (Vector<Task>) returnTasks.clone();
 		
 	}
 	public Vector<Task> returnNewTasks() {
