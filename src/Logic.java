@@ -1,9 +1,7 @@
+import java.util.GregorianCalendar;
 import java.util.Vector;
 
 public class Logic {
-
-	public static final String EMPTY_STRING = "";
-	public static final String LOGIC_READY = "Logic is ready.";
 	
 	enum RequiredField {
 		TASKDUEDATE,TASKLOCATION
@@ -11,11 +9,11 @@ public class Logic {
 
 	String commandStr;
 	String contentStr;
-	String output = EMPTY_STRING;
+	String output = "";
 	Parser.CommandType commandType;
 	Vector <Task> tasks = new Vector <Task>();
 	Logic(){
-		System.out.println(LOGIC_READY);
+		System.out.println("Logic is ready.");
 	}
 	public void getInput(String str){
 		commandStr = getFirstWord(str);	
@@ -27,8 +25,8 @@ public class Logic {
 		switch(commandType){
 			case ADD: 
 				// Add to vector
-				Task temp = new Task();
-				//tasks.add(contentStr);
+				Task temp = new Task(getTask(contentStr),getDueDate(contentStr));
+				tasks.add(temp);
 				break;
 			case DELETE:
 				for(int i=0; i<currentTasks.size(); i++){
@@ -58,6 +56,7 @@ public class Logic {
 				System.out.println("Invalid Input\n");
 		}
 	}
+
 	public void getOriginalTasks(Vector<Task> returnTasks) {
 		// TODO initialize the vector for tasks
 		
@@ -89,6 +88,27 @@ public class Logic {
 		String taskName = str.trim().substring(0, str.indexOf('-'));
 		return taskName;
 	}
+	private GregorianCalendar getDueDate(String contentStr2) {
+		// TODO Auto-generated method stub
+		String dueDateStr = getSplittedString(contentStr2, RequiredField.TASKDUEDATE);
+		int[] dueDateIntArr = convertDueDateStrtoIntarr(dueDateStr);
+		GregorianCalendar temp = new GregorianCalendar(
+				dueDateIntArr[0],
+				dueDateIntArr[1],
+				dueDateIntArr[2],
+				dueDateIntArr[3],
+				dueDateIntArr[4]);
+		return temp;
+	}
+	
+	private int[] convertDueDateStrtoIntarr(String dueDateStr) {
+		String[] dueDateStrArr= dueDateStr.split("/");
+		int[] dueDateIntArr=new int[dueDateStrArr.length];
+		for(int i=0;i<dueDateStrArr.length;i++){
+			dueDateIntArr[i] = Integer.parseInt(dueDateStrArr[i]);
+		}
+		return dueDateIntArr;
+	}
 	private static String getSplittedString(String str,RequiredField requiredField){
 		String removedTaskName = str.replace(getTask(str), "");
 		String[] strArr = removedTaskName.split("-");
@@ -104,7 +124,16 @@ public class Logic {
 		}
 		return returnStr;
 	}
-	private static String getContent(String[] arr, String string){
-		return "123";
+	private static String getContent(String[] arr, String str){
+		int i=0;
+		for(String s: arr){
+			if(s.contains(str)){
+				break;
+			}
+			i++;
+		}
+		String dueDateStr = arr[i].trim().replace(str, "");
+		
+		return dueDateStr;
 	}
 }
