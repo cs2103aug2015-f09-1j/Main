@@ -22,7 +22,7 @@ public class Jarvas {
 	private static void run(){
 		while(true){
 			logic.getInput(ui.returnInput());
-			logic.execute(storage.returnTasks());
+			logic.execute();
 			//storage.getNewTasks(logic.returnNewTasks());
 			storage.refreshFile();
 			logic.getOutput(storage.returnOutput());
