@@ -2,7 +2,7 @@ package repo;
 
 import java.io.File;
 
-public class Start {
+public class Jarvas {
 	private static UI ui;
 	private static Logic logic;
 	private static Storage storage;
