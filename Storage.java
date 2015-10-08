@@ -1,19 +1,22 @@
 package repo;
 
-import java.io.File;
+import java.io.*;
 import java.util.Vector;
 
 public class Storage {
 	Vector <String> tasks = new Vector <String>();
 	int size = tasks.size();
+	String filename = "";
 	Storage(){
 		// No filename indicated by user
 		try{
 			// Creating new files
 			FileWriter fw = new FileWriter("mytextfile.txt");
 			PrintWriter pw = new PrintWriter(fw);
+			filename = "mytextfile.txt";
+
 		}catch(IOException e){
-			out.println("ERROR! In creating new file");
+			System.out.println("ERROR! In creating new file");
 		}
 	}
 	public Storage(String str) {
@@ -21,16 +24,26 @@ public class Storage {
 			// Creating new files
 			FileWriter fw = new FileWriter(str);
 			PrintWriter pw = new PrintWriter(fw);
+			filename = str;
 		}catch(IOException e){
-			out.println("ERROR! In creating new file");
+			System.out.println("ERROR! In creating new file");
 		}
 	}
 	public void refreshFile(){
 		//Save the new Vector into the file
-		for(String str : tasks){
-			pw.println(str);
-		}
-		pw.close();
+		 try{
+			 // Creating new files
+			 FileWriter fw = new FileWriter(filename);
+			 PrintWriter pw = new PrintWriter(fw);
+			 for(String str : tasks){
+			    pw.println(str);
+			 }
+			 pw.close();
+		 }
+		 catch(IOException e){
+			   System.out.println("ERROR!");
+		 }
+		
 	}
 	public Vector<String> returnTasks() {
 		// Return the vector contains tasks
@@ -38,7 +51,7 @@ public class Storage {
 	}
 	public void getNewTasks(Vector<String> returnNewTasks) {
 		//Get the new tasks for storing into the file
-		tasks.add(returnNewTasks);
+		tasks=(Vector)returnNewTasks.clone();
 	}
 	public String returnOutput() {
 		//Return the feedback to logic
