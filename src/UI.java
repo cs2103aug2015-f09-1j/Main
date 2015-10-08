@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class UI {
 	
-	public static final String MESSAGE_WELCOME = "Welcome to TextBuddy. %s is ready for use";
+	public static final String MESSAGE_WELCOME = "#####################\n# WELCOME TO JARVAS #\n#####################";
 	public static final String MESSAGE_ADD = "added to mytextfile.txt: \"%s\"";
 	public static final String MESSAGE_DELETE = "deleted from mytextfile.txt: \"%s\"";
 	public static final String MESSAGE_DISPLAY_FORMAT = "%d. %s\n";
@@ -35,6 +35,7 @@ public class UI {
 		System.out.println(str);
 	}
 	public String returnInput(){
+		System.out.print("Please input your command: ");
 		command = input.nextLine();
 		return command;
 	}

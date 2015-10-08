@@ -15,6 +15,7 @@ public class Storage {
 	int size = tasks.size();
 	String filename = EMPTY_STRING;
 	Storage(){
+		System.out.println("Storage is ready.");
 		// No filename indicated by user
 		try{
 			// Creating new files
@@ -27,6 +28,7 @@ public class Storage {
 		}
 	}
 	public Storage(String str) {
+		System.out.println("Storage is ready.");
 		try{
 			// Creating new files
 			BufferedReader in = new BufferedReader(new FileReader(str));
