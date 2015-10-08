@@ -1,11 +1,14 @@
 package repo;
-
 import java.io.File;
 
 public class Jarvas {
 	private static UI ui;
 	private static Logic logic;
 	private static Storage storage;
+	public static void main(String[] args){
+		initialize(args);
+		run();
+	}
 	private static void initialize(String[] args){
 		ui = new UI();
 		logic = new Logic();
@@ -20,12 +23,13 @@ public class Jarvas {
 	private static void run(){
 		while(true){
 			logic.getInput(ui.returnInput());
-			logic.execute();
+			logic.execute(storage.returnTasks());
 			storage.getNewTasks(logic.returnNewTasks());
 			storage.refreshFile();
 			logic.getOutput(storage.returnOutput());
 			ui.showMessage(logic.returnOutput());
 		}
 	}
+
 	
 }
