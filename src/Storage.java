@@ -75,7 +75,6 @@ public class Storage {
 			size = tasks.size();
 			return TASK_UPLOADED;
 		}
-		else
-			return TASK_NOT_UPLOADED;
+		return "";
 	}
 }

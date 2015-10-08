@@ -76,6 +76,7 @@ public class Logic {
 					dueDateIntArr[2], 
 					dueDateIntArr[3], 
 					dueDateIntArr[4]));
+			System.out.println("Task " + taskNameToBeEdit + " has been updated successfully.");
 		}
 		
 	}
@@ -83,7 +84,7 @@ public class Logic {
 		// TODO Auto-generated method stub
 		int i;
 		for(i=0; i<tasks.size();i++){
-			if(tasks.get(i).getTaskName().equals(taskNameToBeEdit)){
+			if(tasks.get(i).getTaskName().equals(taskNameToBeEdit.trim())){
 				break;
 			}
 		}
