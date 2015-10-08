@@ -29,13 +29,8 @@ public class Logic {
 				tasks.add(temp);
 				break;
 			case DELETE:
-				for(int i=0; i<currentTasks.size(); i++){
-					if(contentStr.equals(currentTasks.get(i))){
-						System.out.println("TRUELA!");
-						currentTasks.remove(i);
-						tasks=(Vector)currentTasks.clone();
-					}
-				}
+				deleteTask(contentStr);
+				
 				break;
 			/*case SORT:
 			case SEARCH:
@@ -56,7 +51,14 @@ public class Logic {
 				System.out.println("Invalid Input\n");
 		}
 	}
-
+	private void deleteTask(String contentStr2) {
+		// TODO Auto-generated method stub
+		for(int i=0; i<tasks.size();i++){
+			if(tasks.get(i).getTaskName().equals(contentStr2));{
+				tasks.remove(i);
+			}
+		}
+	}
 	public void getOriginalTasks(Vector<Task> returnTasks) {
 		// TODO initialize the vector for tasks
 		
