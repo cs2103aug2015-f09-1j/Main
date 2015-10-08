@@ -45,12 +45,23 @@ public class Logic {
 			case DISPLAY: 
 				displayTask(tasks);
 				break;
-
+			case HELP:
+				displayHelp();
+				break;
 			case EXIT:
 				System.exit(0);
 			default:
 				System.out.println("Invalid Input\n");
 		}
+	}
+	
+	private void displayHelp(){
+		System.out.println("\n#####Commands for JARVAS:#####");
+		System.out.println("Add - Add task -due dd/mm/yyyy/hh/mm");
+		System.out.println("Delete - Delete task");
+		System.out.println("Edit - Edit task -due dd/mm/yyyy/hh/mm");
+		System.out.println("Display - Show the total tasks.");
+		System.out.println("Exit - Quit the problem");
 	}
 	
 	private void displayTask(Vector<Task> tasks){

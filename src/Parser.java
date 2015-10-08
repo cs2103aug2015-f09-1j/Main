@@ -14,10 +14,11 @@ public class Parser {
 	public static final String COMMAND_SEARCH = "search";
 	public static final String COMMAND_EDIT = "edit";
 	public static final String COMMAND_EXIT = "exit";
+	public static final String COMMAND_HELP = "help";
 	public static final String ERROR_COMMAND_EMPTY = "command type string cannot be empty!";
 	
 	enum CommandType {
-		ADD, EDIT, DELETE, SORT, SEARCH, INVALID, EXIT, CLEAR, DISPLAY
+		ADD, EDIT, DELETE, SORT, SEARCH, INVALID, EXIT, CLEAR, HELP, DISPLAY
 	};
 	
 	protected static CommandType determineCommandType(String commandTypeString) {
@@ -45,6 +46,9 @@ public class Parser {
 		} 
 		else if (commandTypeString.equalsIgnoreCase(COMMAND_SEARCH)) {
 		 	return CommandType.SEARCH;
+		} 
+		else if (commandTypeString.equalsIgnoreCase(COMMAND_HELP)) {
+		 	return CommandType.HELP;
 		} 
 		else if (commandTypeString.equalsIgnoreCase(COMMAND_EXIT)) {
 		 	return CommandType.EXIT;
