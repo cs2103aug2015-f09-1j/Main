@@ -4,19 +4,26 @@ import java.io.*;
 import java.util.Vector;
 
 public class Storage {
+	public static final String NEW_FILE_NAME = "mytextfile.txt";
+	public static final String ERROR_NEW_FILE = "ERROR! In creating new file";
+	public static final String TASK_UPLOADED = "Tasks has been updated";
+	public static final String TASK_NOT_UPLOADED = "Tasks not updated";
+	public static final String ERROR_FILE_UNREFRESH = "File not refrshed";
+	public static final String EMPTY_STRING = "";
+	
 	Vector <String> tasks = new Vector <String>();
 	int size = tasks.size();
-	String filename = "";
+	String filename = EMPTY_STRING;
 	Storage(){
 		// No filename indicated by user
 		try{
 			// Creating new files
-			FileWriter fw = new FileWriter("mytextfile.txt");
+			FileWriter fw = new FileWriter(NEW_FILE_NAME);
 			PrintWriter pw = new PrintWriter(fw);
-			filename = "mytextfile.txt";
+			filename = NEW_FILE_NAME;
 
 		}catch(IOException e){
-			System.out.println("ERROR! In creating new file");
+			System.out.println(ERROR_NEW_FILE);
 		}
 	}
 	public Storage(String str) {
@@ -26,7 +33,7 @@ public class Storage {
 			PrintWriter pw = new PrintWriter(fw);
 			filename = str;
 		}catch(IOException e){
-			System.out.println("ERROR! In creating new file");
+			System.out.println(ERROR_NEW_FILE);
 		}
 	}
 	public void refreshFile(){
@@ -41,7 +48,7 @@ public class Storage {
 			 pw.close();
 		 }
 		 catch(IOException e){
-			   System.out.println("ERROR!");
+			   System.out.println(ERROR_FILE_UNREFRESH);
 		 }
 		
 	}
@@ -51,15 +58,15 @@ public class Storage {
 	}
 	public void getNewTasks(Vector<String> returnNewTasks) {
 		//Get the new tasks for storing into the file
-		tasks=(Vector)returnNewTasks.clone();
+		tasks = (Vector)returnNewTasks.clone();
 	}
 	public String returnOutput() {
 		//Return the feedback to logic
 		if(size != tasks.size()){
 			size = tasks.size();
-			return "Tasks has been updated";
+			return TASK_UPLOADED;
 		}
 		else
-			return "Tasks not updated";
+			return TASK_NOT_UPLOADED;
 	}
 }

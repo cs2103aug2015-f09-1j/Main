@@ -1,6 +1,9 @@
 import java.util.Vector;
 
 public class Logic {
+
+	public static final String EMPTY_STRING = "";
+	public static final String LOGIC_READY = "Logic is ready.";
 	
 	enum RequiredField {
 		TASKDUEDATE,TASKLOCATION
@@ -8,11 +11,11 @@ public class Logic {
 
 	String commandStr;
 	String contentStr;
-	String output = "";
+	String output = EMPTY_STRING;
 	Parser.CommandType commandType;
 	Vector <Task> tasks = new Vector <Task>();
 	Logic(){
-		System.out.println("Logic is ready.");
+		System.out.println(LOGIC_READY);
 	}
 	public void getInput(String str){
 		commandStr = getFirstWord(str);	
