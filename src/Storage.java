@@ -56,9 +56,12 @@ public class Storage {
 		// Return the vector contains tasks
 		return tasks;
 	}
-	public void getNewTasks(Vector<String> returnNewTasks) {
+	public void getNewTasks(Vector<Task> returnNewTasks) {
 		//Get the new tasks for storing into the file
-		tasks = (Vector)returnNewTasks.clone();
+		tasks.clear();
+		for(int i=returnNewTasks.size(); i>0; i--){
+			tasks.add(returnNewTasks.get(i).getTaskName() + " " + returnNewTasks.get(i).getDueDate().toString());
+		}
 	}
 	public String returnOutput() {
 		//Return the feedback to logic
