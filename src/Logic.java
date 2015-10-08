@@ -20,7 +20,7 @@ public class Logic {
 		contentStr = removeFirstWord(str);
 		commandType = Parser.determineCommandType(commandStr);
 	}
-	public void execute(Vector<Task> currentTasks){
+	public void execute(){
 		//Execute the command
 		switch(commandType){
 			case ADD: 
