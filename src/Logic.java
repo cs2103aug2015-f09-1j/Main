@@ -94,9 +94,12 @@ public class Logic {
 			}
 		}
 	}
-	public void getOriginalTasks(Vector<Task> returnTasks) {
-		// TODO initialize the vector for tasks
-		
+	public void getOriginalTasks(Vector<String> returnTasks) {
+		//Initialize the vector for tasks
+		for(int i=0; i<returnTasks.size(); i++){
+			Task temp = new Task(getTask(returnTasks.get(i)),getDueDate(returnTasks.get(i)));
+			tasks.add(temp);			
+		}
 	}
 	public Vector<Task> returnNewTasks() {
 		//Return the new vector contains tasks after each operation
@@ -173,4 +176,5 @@ public class Logic {
 		
 		return dueDateStr;
 	}
+
 }

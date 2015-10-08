@@ -29,9 +29,13 @@ public class Storage {
 	public Storage(String str) {
 		try{
 			// Creating new files
-			FileWriter fw = new FileWriter(str);
-			PrintWriter pw = new PrintWriter(fw);
+			BufferedReader in = new BufferedReader(new FileReader(str));
+			String line;
+			while((line = in.readLine()) != null){
+				tasks.add(line);
+			}
 			filename = str;
+			in.close();
 		}catch(IOException e){
 			System.out.println(ERROR_NEW_FILE);
 		}
