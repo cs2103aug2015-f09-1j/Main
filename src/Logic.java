@@ -1,9 +1,11 @@
-
-
 import java.util.Vector;
 
 public class Logic {
 	
+	enum RequiredField {
+		TASKDUEDATE,TASKLOCATION
+	};
+
 	String commandStr;
 	String contentStr;
 	String output = "";
@@ -79,5 +81,27 @@ public class Logic {
 	private static String removeFirstWord(String userCommand) {
 		String temp = userCommand.replace(getFirstWord(userCommand), "").trim();
 		return temp;
+	}
+	private static String getTask(String str){
+		String taskName = str.trim().substring(0, str.indexOf('-'));
+		return taskName;
+	}
+	private static String getSplitedString(String str,RequiredField requiredField){
+		String removedTaskName = str.replace(getTask(str), "");
+		String[] strArr = removedTaskName.split("-");
+		String returnStr = null;
+		switch (requiredField) {
+		case TASKDUEDATE:
+			returnStr = getContent(strArr,"due ");
+			break;
+		case TASKLOCATION:
+			returnStr = getContent(strArr, "at"	);
+		default:
+			break;
+		}
+		return returnStr;
+	}
+	private static String getContent(String[] arr, String string){
+		return "123";
 	}
 }
