@@ -63,8 +63,8 @@ public class Storage {
 	public void getNewTasks(Vector<Task> returnNewTasks) {
 		//Get the new tasks for storing into the file
 		tasks.clear();
-		for(int i=returnNewTasks.size(); i>0; i--){
-			tasks.add(returnNewTasks.get(i).getTaskName() + " " + returnNewTasks.get(i).getDueDate().toString());
+		for(int i=0; i<returnNewTasks.size(); i++){
+			tasks.add(returnNewTasks.get(i).getTaskName() + " " + returnNewTasks.get(i).getDueDate() );
 		}
 	}
 	public String returnOutput() {
