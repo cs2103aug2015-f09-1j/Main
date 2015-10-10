@@ -1,3 +1,5 @@
+package sample;
+
 import java.util.GregorianCalendar;
 import java.util.Vector;
 
@@ -10,10 +12,14 @@ public class Logic {
 	String commandStr;
 	String contentStr;
 	String output = "";
+	Storage storage;
 	Parser.CommandType commandType;
 	Vector <Task> tasks = new Vector <Task>();
 	Logic(){
 		System.out.println("Logic is ready.");
+		storage = new Storage("mytextfile.txt");
+		getOriginalTasks();
+
 	}
 	public void getInput(String str){
 		commandStr = getFirstWord(str);	
@@ -43,7 +49,7 @@ public class Logic {
 				
 				break;*/
 			case DISPLAY: 
-				displayTask(tasks);
+				displayTask();
 				break;
 			case HELP:
 				displayHelp();
@@ -53,6 +59,8 @@ public class Logic {
 			default:
 				System.out.println("Invalid Input\n");
 		}
+		storage.getNewTasks(returnNewTasks());
+		storage.refreshFile();
 	}
 	
 	private void displayHelp(){
@@ -64,13 +72,9 @@ public class Logic {
 		System.out.println("Exit - Quit the problem");
 	}
 	
-	private void displayTask(Vector<Task> tasks){
+	public Vector<String> displayTask(){
 		
-		System.out.println("###############################");
-		for(int i=0; i<tasks.size(); i++){
-			System.out.println( tasks.get(i).getTaskName() + " ");
-		}
-		System.out.println("###############################");
+		return storage.returnTasks();
 	}
 	private void editTask(String contentStr2) {
 		// TODO Auto-generated method stub
@@ -114,10 +118,11 @@ public class Logic {
 			}
 		}
 	}
-	public void getOriginalTasks(Vector<String> returnTasks) {
+	public void getOriginalTasks() {
 		//Initialize the vector for tasks
-		for(int i=0; i<returnTasks.size(); i++){
-			Task temp = new Task(getTask(returnTasks.get(i)),getDueDate(returnTasks.get(i)));
+		Vector<String> returnTask = storage.returnTasks();
+		for(int i = 0; i < returnTask.size(); i++){
+			Task temp = new Task(getTask(returnTask.get(i)),getDueDate(returnTask.get(i)));
 			tasks.add(temp);			
 		}
 	}
@@ -131,7 +136,7 @@ public class Logic {
 	}
 	public String returnOutput() {
 		/** TODO return the feedback to ui to print on screen
-		 * (this should contains the feedback from storage, 
+		 * (this should contains the feedback from storage,
 		 * use \n to make a new line in the string)
 		 **/
 		return output;
