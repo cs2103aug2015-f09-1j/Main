@@ -38,8 +38,9 @@ public class Controller implements Initializable{
         Vector<Task> tasks = logic.returnNewTasks();
         output.getRoot().getChildren().removeAll(output.getRoot().getChildren());
         for(int i=0; i<tasks.size();i++) {
-        	
-            output.getRoot().getChildren().add(new TreeItem<String>(tasks.get(i).getTaskName()));
+            output.getRoot().getChildren().add(new TreeItem<String>("task name: " + 
+            tasks.get(i).getTaskName()+ "   Due Date: " + tasks.get(i).getDueDate()));
+            
         }
         userinput.setText("");
     }

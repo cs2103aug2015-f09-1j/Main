@@ -30,20 +30,33 @@ public class Storage{
 	}
 	
 	public Storage(String str) {
+		File temp = new File(str);
+		if(!temp.exists()){
+			try {
+				temp.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		if(!(temp.length()==0)){
+			JSONParser jarvarsParser = new JSONParser();
+			try {
+				newTask = (JSONArray)jarvarsParser.parse(new FileReader(str.toString()));
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+		}else{
+			newTask = new JSONArray();
+		}
 		
-		JSONParser jarvarsParser = new JSONParser();
-		try {
-			newTask = (JSONArray)jarvarsParser.parse(new FileReader(str));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
 		filename = str;
 	}
 	
@@ -83,11 +96,6 @@ public class Storage{
 		}
 	}
 	
-	public void display(){
-		for(int i=0; i<newTask.size(); i++){
-			System.out.println(newTask.get(i).toString());
-		}
-	}
 	
 	
 }

@@ -28,7 +28,7 @@ public class Logic {
 	Vector <Task> tasks = new Vector <Task>();
 	Logic(){
 		System.out.println("Logic is ready.");
-		storage = new Storage();
+		storage = new Storage("mytext.txt");
 		getOriginalTasks();
 	}
 	private void digestInput(String str){
