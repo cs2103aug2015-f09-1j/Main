@@ -2,7 +2,20 @@
 import java.util.Vector;
 
 public class Logic {
-	
+	private static final String MSG_INVALID_INPUT = "invalid input";
+	private static final String MSG_ADD_SUCCESS = "task \"%1$s\" successfully added";
+	private static final String MSG_ADD_FAIL_ALRTHERE = "task \"%1$s\" is already added, no changes";
+	private static final String MSG_DELETE_SUCCESS = "task \"%1$s\" successfully deleted";
+	private static final String MSG_TASK_NOTEXIST = "task \"%1$s\" no exist";
+	private static final String MSG_EDIT_SUCCESS = "task \"%1$s\" successfully edited";
+	private static final String MSG_HELP = 		
+				"\n#####Commands for JARVAS:#####\n"
+			+ "Add - Add task -due dd/mm/yyyy/hh/mm\n"
+			+ "Delete - Delete task\n"
+			+ "Edit - Edit task -due dd/mm/yyyy/hh/mm\n"
+			+ "Display - Show the total tasks\n"
+			+ "Exit - Quit the problem\n";
+			
 	enum RequiredField {
 		TASKDUEDATE,TASKLOCATION
 	};
@@ -17,25 +30,26 @@ public class Logic {
 		System.out.println("Logic is ready.");
 		storage = new Storage();
 		getOriginalTasks();
-
 	}
-	public void getInput(String str){
+	private void digestInput(String str){
 		commandStr = getFirstWord(str);	
 		contentStr = removeFirstWord(str);
 		commandType = Parser.determineCommandType(commandStr);
 	}
-	public void execute(){
+	public String execute(String input){
 		//Execute the command
+		digestInput(input);
+		String output=null;
 		switch(commandType){
 			case ADD: 
 				// Add to vector
-				addTask(contentStr);
+				output = addTask(contentStr);
 				break;
 			case DELETE:
-				deleteTask(contentStr);
+				output = deleteTask(contentStr);
 				break;
 			case EDIT:
-				editTask(contentStr);
+				output = editTask(contentStr);
 				break;
 			case DISPLAY: 
 				displayTask();
@@ -46,49 +60,48 @@ public class Logic {
 			case EXIT:
 				System.exit(0);
 			default:
-				System.out.println("Invalid Input\n");
+				output = MSG_INVALID_INPUT;
 		}
 		storage.convertToJSONObject(returnNewTasks());
 		storage.saveToStorage();
+		return output;
 	}
 	
 	// Methods for Execution of Instructions
-	private void addTask(String contentStr){
+	private String addTask(String contentStr){
 		Task temp = new Task(getTask(contentStr).trim(),getDueDate(contentStr));
 		tasks.add(temp);
+		return String.format(MSG_ADD_SUCCESS,temp.getTaskName());
 	}
-	private void displayHelp(){
-		System.out.println("\n#####Commands for JARVAS:#####");
-		System.out.println("Add - Add task -due dd/mm/yyyy/hh/mm");
-		System.out.println("Delete - Delete task");
-		System.out.println("Edit - Edit task -due dd/mm/yyyy/hh/mm");
-		System.out.println("Display - Show the total tasks.");
-		System.out.println("Exit - Quit the problem");
+	private String displayHelp(){
+		return MSG_HELP;
 	}
 	public Vector<Task> displayTask(){
 		//storage.display();
 		return tasks;
 	}
-	private void editTask(String contentStr2) {
+	private String editTask(String contentStr2) {
 		// TODO Auto-generated method stub
 		String taskDateToBeEdit = getSplittedString(contentStr2, RequiredField.TASKDUEDATE);
 		String taskNameToBeEdit = getTask(contentStr2);
 		int indexOfTask = getIndexofTask(taskNameToBeEdit);
 		if(indexOfTask == -1){
-			System.out.println("no such task");
+			return String.format(MSG_TASK_NOTEXIST, taskNameToBeEdit);
 		} else {
 			tasks.get(indexOfTask).setDueDate(taskDateToBeEdit);
-			System.out.println("Task " + taskNameToBeEdit + " has been updated successfully.");
+			return String.format(MSG_EDIT_SUCCESS, taskNameToBeEdit);
+			//System.out.println("Task " + taskNameToBeEdit + " has been updated successfully.");
 		}
 		
 	}
-	private void deleteTask(String contentStr2) {
+	private String deleteTask(String contentStr2) {
 		// TODO Auto-generated method stub
 		for(int i=0; i<tasks.size();i++){
 			if(tasks.get(i).getTaskName().equals(contentStr2)){
 				tasks.remove(i);
 			}
 		}
+		return String.format(MSG_DELETE_SUCCESS, contentStr2);
 	}
 	
 	

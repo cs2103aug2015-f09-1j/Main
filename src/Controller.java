@@ -6,6 +6,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import java.util.Vector;
+
+import org.omg.CORBA.SystemException;
+
+import java.security.PublicKey;
 import java.util.ResourceBundle;
 
 
@@ -20,7 +24,6 @@ public class Controller implements Initializable{
         Vector<Task> tasks = logic.displayTask();
         output.setRoot(new TreeItem<String>("Tasks"));
         for(int i=0; i<tasks.size();i++) {
-        	
             output.getRoot().getChildren().add(new TreeItem<String>(tasks.get(i).getTaskName()));
         }
     }
@@ -28,8 +31,9 @@ public class Controller implements Initializable{
     @FXML
     public void getInput(ActionEvent event) throws Exception {
         Logic logic = new Logic();
-        logic.getInput(userinput.getText());
-        logic.execute();
+       // logic.getInput(userinput.getText());
+        String input = userinput.getText();
+        String outcome = logic.execute(input);
         Vector<Task> tasks = logic.displayTask();
         output.getRoot().getChildren().removeAll(output.getRoot().getChildren());
         for(int i=0; i<tasks.size();i++) {
@@ -37,6 +41,10 @@ public class Controller implements Initializable{
             output.getRoot().getChildren().add(new TreeItem<String>(tasks.get(i).getTaskName()));
         }
         userinput.setText("");
+    }
+    
+    private void printMessage(String msg){
+    	System.out.println(msg);
     }
 
 }
