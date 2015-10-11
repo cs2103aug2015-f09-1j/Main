@@ -76,9 +76,13 @@ public class Logic {
 	private String displayHelp(){
 		return MSG_HELP;
 	}
-	public Vector<Task> displayTask(){
+	public String displayTask(){
 		//storage.display();
-		return tasks;
+		String temp = "";
+		for(int i=0;i<tasks.size();i++){
+			temp = temp.concat(tasks.toString()+"\n");
+		}
+		return temp;
 	}
 	private String editTask(String contentStr2) {
 		// TODO Auto-generated method stub
@@ -103,9 +107,6 @@ public class Logic {
 		}
 		return String.format(MSG_DELETE_SUCCESS, contentStr2);
 	}
-	
-	
-	// For supporting the main instructions
 	private int getIndexofTask(String taskNameToBeEdit) {
 		// TODO Auto-generated method stub
 		int i;
@@ -130,17 +131,6 @@ public class Logic {
 		//Return the new vector contains tasks after each operation
 		return tasks;
 	}
-	public void getOutput(String returnOutput) {
-		//Deal with the output from storage
-		output = returnOutput;
-	}
-	public String returnOutput() {
-		/** TODO return the feedback to ui to print on screen
-		 * (this should contains the feedback from storage,
-		 * use \n to make a new line in the string)
-		 **/
-		return output;
-	}
 	private static String getFirstWord(String userCommand) {
 		String commandTypeString = userCommand.trim().split("\\s+")[0];
 		return commandTypeString;
@@ -158,7 +148,7 @@ public class Logic {
 		String dueDateStr = getSplittedString(contentStr2, RequiredField.TASKDUEDATE);
 		return dueDateStr;
 	}
-	
+
 	private int[] convertDueDateStrtoIntarr(String dueDateStr) {
 		String[] dueDateStrArr= dueDateStr.split("/");
 		int[] dueDateIntArr=new int[dueDateStrArr.length];

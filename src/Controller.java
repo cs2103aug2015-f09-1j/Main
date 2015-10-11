@@ -21,7 +21,7 @@ public class Controller implements Initializable{
     @FXML
     public void initialize(java.net.URL location, ResourceBundle resources){
         Logic logic = new Logic();
-        Vector<Task> tasks = logic.displayTask();
+        Vector<Task> tasks = logic.returnNewTasks();
         output.setRoot(new TreeItem<String>("Tasks"));
         for(int i=0; i<tasks.size();i++) {
             output.getRoot().getChildren().add(new TreeItem<String>(tasks.get(i).getTaskName()));
@@ -34,7 +34,8 @@ public class Controller implements Initializable{
        // logic.getInput(userinput.getText());
         String input = userinput.getText();
         String outcome = logic.execute(input);
-        Vector<Task> tasks = logic.displayTask();
+        printMessage(outcome);
+        Vector<Task> tasks = logic.returnNewTasks();
         output.getRoot().getChildren().removeAll(output.getRoot().getChildren());
         for(int i=0; i<tasks.size();i++) {
         	

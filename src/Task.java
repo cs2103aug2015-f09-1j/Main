@@ -5,6 +5,10 @@ import java.util.Date;
 public class Task {
 	
 	public static final String EMPTY_SPACE = " ";
+
+	private static final String LABEL_TASK_NAME = "task name = ";
+
+	private static final String LABEL_TASK_DUEDATE = "task due date = ";
 	
 	private String taskName;
 	private String dueDate;
@@ -47,5 +51,11 @@ public class Task {
 	public String printTasks(){
 		return taskName + EMPTY_SPACE + dueDate.toString();
 	}
-	
+	public String toString(){
+		String temp = "";
+		temp=temp.concat(String.format(LABEL_TASK_NAME, taskName));
+		temp = temp.concat("    "+ String.format(LABEL_TASK_DUEDATE, dueDate));
+		return temp;
+		
+	}
 }
