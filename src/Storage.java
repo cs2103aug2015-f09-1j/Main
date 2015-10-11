@@ -13,24 +13,13 @@ public class Storage{
 	public static final String TASK_NOT_UPLOADED = "Tasks not updated";
 	public static final String ERROR_FILE_UNREFRESH = "File not refrshed";
 	public static final String EMPTY_STRING = "";
+	private static Storage stg;
 	
 	public JSONArray newTask;
 	
 	String filename = "Jarvas_Storage.txt";
 	Storage(){
-		// No filename indicated by user
-		File storage = new File(filename);
-		newTask = new JSONArray();
-		try{
-			// Creating new files
-			storage.createNewFile();
-		}catch(IOException e){
-			System.out.println(ERROR_NEW_FILE);
-		}
-	}
-	
-	public Storage(String str) {
-		File temp = new File(str);
+		File temp = new File(filename);
 		if(!temp.exists()){
 			try {
 				temp.createNewFile();
@@ -40,24 +29,18 @@ public class Storage{
 			}
 		}
 		if(!(temp.length()==0)){
-			JSONParser jarvarsParser = new JSONParser();
-			try {
-				newTask = (JSONArray)jarvarsParser.parse(new FileReader(str.toString()));
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}	
+			fileRead();
 		}else{
 			newTask = new JSONArray();
 		}
-		
-		filename = str;
+	}
+	
+	
+	public static Storage getInstance(){
+		if(stg == null){
+			stg = new Storage();
+		}
+		return stg;
 	}
 	
 	public void saveToStorage(){
@@ -71,12 +54,28 @@ public class Storage{
 		}
 	}
 	
+	private void fileRead(){
+		JSONParser jarvarsParser = new JSONParser();
+		try {
+			newTask = (JSONArray)jarvarsParser.parse(new FileReader(filename));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
+	
 	public Vector<Task> convertToVector(){
 		Vector<Task> vecTask = new Vector<Task>();
 		for(int i=0; i<newTask.size(); i++){
 			JSONObject task = (JSONObject)newTask.get(i);
-			String name = task.get("name").toString();
-			String age = task.get("age").toString();
+			String name = task.get("Task").toString();
+			String age = task.get("Date").toString();
 			Task aTask = new Task(name, age);
 			vecTask.add(aTask);
 		}

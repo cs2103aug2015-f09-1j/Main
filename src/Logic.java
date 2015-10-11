@@ -27,8 +27,7 @@ public class Logic {
 	Parser.CommandType commandType;
 	Vector <Task> tasks = new Vector <Task>();
 	Logic(){
-		System.out.println("Logic is ready.");
-		storage = new Storage("mytext.txt");
+		storage = Storage.getInstance();
 		getOriginalTasks();
 	}
 	private void digestInput(String str){
