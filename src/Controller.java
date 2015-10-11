@@ -1,4 +1,4 @@
-package sample;
+
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,10 +17,11 @@ public class Controller implements Initializable{
     @FXML
     public void initialize(java.net.URL location, ResourceBundle resources){
         Logic logic = new Logic();
-        Vector<String> tasks = logic.displayTask();
+        Vector<Task> tasks = logic.displayTask();
         output.setRoot(new TreeItem<String>("Tasks"));
-        for(String str: tasks) {
-            output.getRoot().getChildren().add(new TreeItem<String>(str));
+        for(int i=0; i<tasks.size();i++) {
+        	
+            output.getRoot().getChildren().add(new TreeItem<String>(tasks.get(i).getTaskName()));
         }
     }
 
@@ -29,11 +30,11 @@ public class Controller implements Initializable{
         Logic logic = new Logic();
         logic.getInput(userinput.getText());
         logic.execute();
-        Vector<String> tasks = logic.displayTask();
+        Vector<Task> tasks = logic.displayTask();
         output.getRoot().getChildren().removeAll(output.getRoot().getChildren());
-        for(String str: tasks) {
-            System.out.println(str);
-            output.getRoot().getChildren().add(new TreeItem<String>(str));
+        for(int i=0; i<tasks.size();i++) {
+        	
+            output.getRoot().getChildren().add(new TreeItem<String>(tasks.get(i).getTaskName()));
         }
         userinput.setText("");
     }

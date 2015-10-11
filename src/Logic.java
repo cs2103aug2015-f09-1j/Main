@@ -65,8 +65,9 @@ public class Logic {
 		System.out.println("Display - Show the total tasks.");
 		System.out.println("Exit - Quit the problem");
 	}
-	public void displayTask(){
-		storage.display();
+	public Vector<Task> displayTask(){
+		//storage.display();
+		return tasks;
 	}
 	private void editTask(String contentStr2) {
 		// TODO Auto-generated method stub
