@@ -1,27 +1,25 @@
-package sample;
 
 
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class Task {
 	
 	public static final String EMPTY_SPACE = " ";
 	
 	private String taskName;
-	private GregorianCalendar dueDate;
+	private String dueDate;
 	
 	public Task(){
 		taskName = new String();
-		dueDate = new GregorianCalendar();
+		dueDate = new String();
 	}
 	
 	public Task(String taskName){
 		setTaskName(taskName);
-		dueDate = new GregorianCalendar();
+		dueDate = new String();
 	}
 	
-	public Task(String taskName,GregorianCalendar dueDate){
+	public Task(String taskName,String dueDate){
 		setTaskName(taskName);
 		setDueDate(dueDate);
 	}
@@ -37,12 +35,12 @@ public class Task {
 	}
 
 
-	public GregorianCalendar getDueDate() {
+	public String getDueDate() {
 		return dueDate;
 	}
 
 
-	public void setDueDate(GregorianCalendar dueDate) {
+	public void setDueDate(String dueDate) {
 		this.dueDate = dueDate;
 	}
 

@@ -1,9 +1,12 @@
-package sample;
-
 import java.io.*;
 import java.util.Vector;
 
-public class Storage {
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+public class Storage{
 	public static final String NEW_FILE_NAME = "mytextfile.txt";
 	public static final String ERROR_NEW_FILE = "ERROR! In creating new file";
 	public static final String TASK_UPLOADED = "Tasks has been updated";
@@ -11,70 +14,80 @@ public class Storage {
 	public static final String ERROR_FILE_UNREFRESH = "File not refrshed";
 	public static final String EMPTY_STRING = "";
 	
-	Vector <String> tasks = new Vector <String>();
-	int size = tasks.size();
-	String filename = EMPTY_STRING;
+	public JSONArray newTask;
+	
+	String filename = "Jarvas_Storage.txt";
 	Storage(){
-		System.out.println("Storage is ready.");
 		// No filename indicated by user
+		File storage = new File(filename);
+		newTask = new JSONArray();
 		try{
 			// Creating new files
-			FileWriter fw = new FileWriter(NEW_FILE_NAME);
-			PrintWriter pw = new PrintWriter(fw);
-			filename = NEW_FILE_NAME;
-
+			storage.createNewFile();
 		}catch(IOException e){
 			System.out.println(ERROR_NEW_FILE);
 		}
 	}
+	
 	public Storage(String str) {
-		System.out.println("Storage is ready.");
-		try{
-			// Creating new files
-			BufferedReader in = new BufferedReader(new FileReader(str));
-			String line;
-			while((line = in.readLine()) != null){
-				tasks.add(line);
-			}
-			filename = str;
-			in.close();
-		}catch(IOException e){
-			System.out.println(ERROR_NEW_FILE);
-		}
-	}
-	public void refreshFile(){
-		//Save the new Vector into the file
-		 try{
-			 // Creating new files
-			 FileWriter fw = new FileWriter(filename);
-			 PrintWriter pw = new PrintWriter(fw);
-			 for(String str : tasks){
-			    pw.println(str);
-			 }
-			 pw.close();
-		 }
-		 catch(IOException e){
-			   System.out.println(ERROR_FILE_UNREFRESH);
-		 }
 		
+		JSONParser jarvarsParser = new JSONParser();
+		try {
+			newTask = (JSONArray)jarvarsParser.parse(new FileReader(str));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		filename = str;
 	}
-	public Vector<String> returnTasks() {
-		// Return the vector contains tasks
-		return tasks;
-	}
-	public void getNewTasks(Vector<Task> returnNewTasks) {
-		//Get the new tasks for storing into the file
-		tasks.clear();
-		for(int i=0; i<returnNewTasks.size(); i++){
-			tasks.add(returnNewTasks.get(i).getTaskName() + " " + returnNewTasks.get(i).getDueDate() );
+	
+	public void saveToStorage(){
+		try{
+				FileWriter file = new FileWriter(filename);
+				file.write(newTask.toJSONString());
+				file.close();
+				System.out.println("File saved");
+		}catch(IOException e){
+			e.printStackTrace();
 		}
 	}
-	public String returnOutput() {
-		//Return the feedback to logic
-		if(size != tasks.size()){
-			size = tasks.size();
-			return TASK_UPLOADED;
+	
+	public Vector<Task> convertToVector(){
+		Vector<Task> vecTask = new Vector<Task>();
+		for(int i=0; i<newTask.size(); i++){
+			JSONObject task = (JSONObject)newTask.get(i);
+			String name = task.get("name").toString();
+			String age = task.get("age").toString();
+			Task aTask = new Task(name, age);
+			vecTask.add(aTask);
 		}
-		return "";
+		return vecTask;
 	}
+	
+	public void convertToJSONArray(JSONObject object){
+		newTask.add(object);
+	}
+	public void convertToJSONObject(Vector<Task> tasks){
+		newTask.clear();
+		for(int i=0; i<tasks.size(); i++){
+			JSONObject entry = new JSONObject();
+			entry.put("Task", tasks.get(i).getTaskName());
+			entry.put("Date", tasks.get(i).getDueDate());
+			convertToJSONArray(entry);
+		}
+	}
+	
+	public void display(){
+		for(int i=0; i<newTask.size(); i++){
+			System.out.println(newTask.get(i).toString());
+		}
+	}
+	
+	
 }

@@ -1,6 +1,4 @@
-package sample;
 
-import java.util.GregorianCalendar;
 import java.util.Vector;
 
 public class Logic {
@@ -17,7 +15,7 @@ public class Logic {
 	Vector <Task> tasks = new Vector <Task>();
 	Logic(){
 		System.out.println("Logic is ready.");
-		storage = new Storage("mytextfile.txt");
+		storage = new Storage();
 		getOriginalTasks();
 
 	}
@@ -31,23 +29,14 @@ public class Logic {
 		switch(commandType){
 			case ADD: 
 				// Add to vector
-				Task temp = new Task(getTask(contentStr).trim(),getDueDate(contentStr));
-				tasks.add(temp);
+				addTask(contentStr);
 				break;
 			case DELETE:
 				deleteTask(contentStr);
-				
 				break;
 			case EDIT:
 				editTask(contentStr);
 				break;
-			/*case SORT:
-			case SEARCH:
-				// get content from storage
-				
-				// display output
-				
-				break;*/
 			case DISPLAY: 
 				displayTask();
 				break;
@@ -59,10 +48,15 @@ public class Logic {
 			default:
 				System.out.println("Invalid Input\n");
 		}
-		storage.getNewTasks(returnNewTasks());
-		storage.refreshFile();
+		storage.convertToJSONObject(returnNewTasks());
+		storage.saveToStorage();
 	}
 	
+	// Methods for Execution of Instructions
+	private void addTask(String contentStr){
+		Task temp = new Task(getTask(contentStr).trim(),getDueDate(contentStr));
+		tasks.add(temp);
+	}
 	private void displayHelp(){
 		System.out.println("\n#####Commands for JARVAS:#####");
 		System.out.println("Add - Add task -due dd/mm/yyyy/hh/mm");
@@ -71,10 +65,8 @@ public class Logic {
 		System.out.println("Display - Show the total tasks.");
 		System.out.println("Exit - Quit the problem");
 	}
-	
-	public Vector<String> displayTask(){
-		
-		return storage.returnTasks();
+	public void displayTask(){
+		storage.display();
 	}
 	private void editTask(String contentStr2) {
 		// TODO Auto-generated method stub
@@ -84,17 +76,22 @@ public class Logic {
 		if(indexOfTask == -1){
 			System.out.println("no such task");
 		} else {
-			int[] dueDateIntArr = convertDueDateStrtoIntarr(taskDateToBeEdit);
-			tasks.get(indexOfTask).setDueDate(new GregorianCalendar(
-					dueDateIntArr[0],
-					dueDateIntArr[1], 
-					dueDateIntArr[2], 
-					dueDateIntArr[3], 
-					dueDateIntArr[4]));
+			tasks.get(indexOfTask).setDueDate(taskDateToBeEdit);
 			System.out.println("Task " + taskNameToBeEdit + " has been updated successfully.");
 		}
 		
 	}
+	private void deleteTask(String contentStr2) {
+		// TODO Auto-generated method stub
+		for(int i=0; i<tasks.size();i++){
+			if(tasks.get(i).getTaskName().equals(contentStr2)){
+				tasks.remove(i);
+			}
+		}
+	}
+	
+	
+	// For supporting the main instructions
 	private int getIndexofTask(String taskNameToBeEdit) {
 		// TODO Auto-generated method stub
 		int i;
@@ -110,21 +107,10 @@ public class Logic {
 		}
 		
 	}
-	private void deleteTask(String contentStr2) {
-		// TODO Auto-generated method stub
-		for(int i=0; i<tasks.size();i++){
-			if(tasks.get(i).getTaskName().equals(contentStr2)){
-				tasks.remove(i);
-			}
-		}
-	}
 	public void getOriginalTasks() {
 		//Initialize the vector for tasks
-		Vector<String> returnTask = storage.returnTasks();
-		for(int i = 0; i < returnTask.size(); i++){
-			Task temp = new Task(getTask(returnTask.get(i)),getDueDate(returnTask.get(i)));
-			tasks.add(temp);			
-		}
+		Vector<Task> returnTask = storage.convertToVector();
+		tasks = (Vector)returnTask.clone();
 	}
 	public Vector<Task> returnNewTasks() {
 		//Return the new vector contains tasks after each operation
@@ -153,17 +139,10 @@ public class Logic {
 		String taskName = str.trim().substring(0, str.indexOf('-'));
 		return taskName;
 	}
-	private GregorianCalendar getDueDate(String contentStr2) {
+	private String getDueDate(String contentStr2) {
 		// TODO Auto-generated method stub
 		String dueDateStr = getSplittedString(contentStr2, RequiredField.TASKDUEDATE);
-		int[] dueDateIntArr = convertDueDateStrtoIntarr(dueDateStr);
-		GregorianCalendar temp = new GregorianCalendar(
-				dueDateIntArr[0],
-				dueDateIntArr[1],
-				dueDateIntArr[2],
-				dueDateIntArr[3],
-				dueDateIntArr[4]);
-		return temp;
+		return dueDateStr;
 	}
 	
 	private int[] convertDueDateStrtoIntarr(String dueDateStr) {
