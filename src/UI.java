@@ -1,7 +1,4 @@
 
-
-
-
 import java.util.Scanner;
 
 /**
