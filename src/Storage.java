@@ -55,9 +55,9 @@ public class Storage{
 	}
 	
 	private void fileRead(){
-		JSONParser jarvarsParser = new JSONParser();
+		JSONParser jarvasParser = new JSONParser();
 		try {
-			newTask = (JSONArray)jarvarsParser.parse(new FileReader(filename));
+			newTask = (JSONArray)jarvasParser.parse(new FileReader(filename));
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
