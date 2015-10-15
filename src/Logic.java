@@ -93,9 +93,10 @@ public class Logic {
 		String taskNameToBeEdit = getTask(contentStr2);
 		int indexOfTask = getIndexofTask(taskNameToBeEdit);
 		if(indexOfTask == -1){
-			logger.log(Level.SEVERE, "Task does not exist");
+			logger.log(Level.WARNING, "Task does not exist");
 			return String.format(MSG_TASK_NOTEXIST, taskNameToBeEdit);
 		} else {
+			logger.log(Level.INFO, "Task edit successful");
 			tasks.get(indexOfTask).setDueDate(taskDateToBeEdit);
 			return String.format(MSG_EDIT_SUCCESS, taskNameToBeEdit);
 			//System.out.println("Task " + taskNameToBeEdit + " has been updated successfully.");
