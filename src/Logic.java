@@ -108,6 +108,7 @@ public class Logic {
 		for(int i=0; i<tasks.size();i++){
 			if(tasks.get(i).getTaskName().equals(contentStr2)){
 				tasks.remove(i);
+				logger.log(Level.INFO, "Task ACTUALLY deleted");
 			}
 		}
 		return String.format(MSG_DELETE_SUCCESS, contentStr2);
