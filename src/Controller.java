@@ -5,6 +5,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.omg.CORBA.SystemException;
 
@@ -13,13 +15,14 @@ import java.util.ResourceBundle;
 
 
 public class Controller implements Initializable{
-
+	private static final Logger logger = Logger.getLogger(Controller.class.getName());
     @FXML public TreeView<String> output;
     @FXML public TextField userinput;
 
     @FXML
     public void initialize(java.net.URL location, ResourceBundle resources){
         Logic logic = new Logic();
+        logger.log(Level.INFO, "controller class is initialised");
         Vector<Task> tasks = logic.returnNewTasks();
         output.setRoot(new TreeItem<String>("Tasks"));
         for(int i=0; i<tasks.size();i++) {
@@ -35,6 +38,7 @@ public class Controller implements Initializable{
         String outcome = logic.execute(input);
         printMessage(outcome);
         Vector<Task> tasks = logic.returnNewTasks();
+        assert tasks!=null :"tasks get by UI is null";
         output.getRoot().getChildren().removeAll(output.getRoot().getChildren());
         for(int i=0; i<tasks.size();i++) {
             output.getRoot().getChildren().add(new TreeItem<String>("task name: " + 
