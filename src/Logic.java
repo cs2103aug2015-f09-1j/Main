@@ -1,12 +1,14 @@
 
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Logic {
 	private static final String MSG_INVALID_INPUT = "invalid input";
 	private static final String MSG_ADD_SUCCESS = "task \"%1$s\" successfully added";
 	private static final String MSG_ADD_FAIL_ALRTHERE = "task \"%1$s\" is already added, no changes";
 	private static final String MSG_DELETE_SUCCESS = "task \"%1$s\" successfully deleted";
-	private static final String MSG_TASK_NOTEXIST = "task \"%1$s\" no exist";
+	private static final String MSG_TASK_NOTEXIST = "task \"%1$s\" does not exist";
 	private static final String MSG_EDIT_SUCCESS = "task \"%1$s\" successfully edited";
 	private static final String MSG_HELP = 		
 				"\n#####Commands for JARVAS:#####\n"
@@ -19,6 +21,8 @@ public class Logic {
 	enum RequiredField {
 		TASKDUEDATE,TASKLOCATION
 	};
+	
+	private static final Logger logger = Logger.getLogger(Logic.class.getName());
 
 	String commandStr;
 	String contentStr;
@@ -89,6 +93,7 @@ public class Logic {
 		String taskNameToBeEdit = getTask(contentStr2);
 		int indexOfTask = getIndexofTask(taskNameToBeEdit);
 		if(indexOfTask == -1){
+			logger.log(Level.SEVERE, "Task does not exist");
 			return String.format(MSG_TASK_NOTEXIST, taskNameToBeEdit);
 		} else {
 			tasks.get(indexOfTask).setDueDate(taskDateToBeEdit);
