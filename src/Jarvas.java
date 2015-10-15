@@ -7,14 +7,14 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Jarvas extends Application {
-
+	private static final String FXMLFILENAME = "sample.fxml";
     @Override
     public void start(Stage primaryStage){
         Parent root = null;
 		try {
-			root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+			root = FXMLLoader.load(getClass().getResource(FXMLFILENAME));
 		} catch (IOException e) {
-			System.err.println("invalid input" + e.getMessage());
+			System.err.println("invalid fxml input file " + e.getMessage());
 		}
 		
         primaryStage.setTitle("Jarvas");

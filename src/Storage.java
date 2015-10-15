@@ -1,10 +1,14 @@
 import java.io.*;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+//import src.Controller;
 
 public class Storage{
 	public static final String NEW_FILE_NAME = "mytextfile.txt";
@@ -16,16 +20,17 @@ public class Storage{
 	private static Storage stg;
 	
 	public JSONArray newTask;
-	
+	private static final Logger logger = Logger.getLogger(Controller.class.getName());
 	String filename = "Jarvas_Storage.txt";
 	Storage(){
 		File temp = new File(filename);
 		if(!temp.exists()){
+			logger.log(Level.INFO, filename + " not exist");
 			try {
 				temp.createNewFile();
+				logger.log(Level.INFO,filename + " created");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.err.println("invalid input file " + e.getMessage());
 			}
 		}
 		if(!(temp.length()==0)){
@@ -46,30 +51,34 @@ public class Storage{
 	public void saveToStorage(){
 		try{
 				FileWriter file = new FileWriter(filename);
+				assert(file != null): filename + " is null";
 				file.write(newTask.toJSONString());
 				file.close();
 				System.out.println("File saved");
 		}catch(IOException e){
-			e.printStackTrace();
+			System.err.println("invalid input " + e.getMessage());
 		}
 	}
-	
+	/**
+	 * This function read the content of file 
+	 */
 	private void fileRead(){
+		logger.log(Level.INFO, filename + " is being read");
 		JSONParser jarvasParser = new JSONParser();
 		try {
 			newTask = (JSONArray)jarvasParser.parse(new FileReader(filename));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println("invalid file name" + e.getMessage());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println("invalid input " + e.getMessage());
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println("invalid parse " + e.getMessage());
 		}	
 	}
-	
+	/**
+	 * This function convert content of JSONArray into vector
+	 * @return converted content in vector
+	 */
 	public Vector<Task> convertToVector(){
 		Vector<Task> vecTask = new Vector<Task>();
 		for(int i=0; i<newTask.size(); i++){
@@ -81,10 +90,19 @@ public class Storage{
 		}
 		return vecTask;
 	}
-	
+	/**
+	 * This function add an JSONObject into JSONArray 
+	 * @param object
+	 * 			is JSONObject that going to be added
+	 */
 	public void convertToJSONArray(JSONObject object){
 		newTask.add(object);
 	}
+	/**
+	 * This function convert tasks in vector into JSON
+	 * @param tasks
+	 * 			is the task to be converted
+	 */
 	public void convertToJSONObject(Vector<Task> tasks){
 		newTask.clear();
 		for(int i=0; i<tasks.size(); i++){

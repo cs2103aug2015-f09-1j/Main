@@ -1,5 +1,6 @@
-
-import java.util.Date;
+/**
+ * Task class is a helper class
+ */
 
 public class Task {
 	
@@ -50,6 +51,10 @@ public class Task {
 	public String printTasks(){
 		return taskName + EMPTY_SPACE + dueDate.toString();
 	}
+	
+	/**
+	 * This function return tasks in term of string
+	 */
 	public String toString(){
 		String temp = "";
 		temp=temp.concat(String.format(LABEL_TASK_NAME, taskName));
