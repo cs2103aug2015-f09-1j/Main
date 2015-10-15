@@ -1,4 +1,6 @@
-
+import java.util.logging.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  * 
  */
@@ -20,6 +22,8 @@ public class Parser {
 	enum CommandType {
 		ADD, EDIT, DELETE, SORT, SEARCH, INVALID, EXIT, CLEAR, HELP, DISPLAY
 	};
+	
+	private static final Logger logger = Logger.getLogger(Logic.class.getName());
 	
 	protected static CommandType determineCommandType(String commandTypeString) {
 		if (commandTypeString == null){
@@ -54,6 +58,7 @@ public class Parser {
 		 	return CommandType.EXIT;
 		} 
 		else {
+			logger.log(Level.WARNING, "Invalid command entered by user");
 			return CommandType.INVALID;
 		}
 	}
