@@ -1,5 +1,7 @@
 
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,8 +11,14 @@ import javafx.stage.Stage;
 public class Jarvas extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+    public void start(Stage primaryStage){
+        Parent root = null;
+		try {
+			root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         primaryStage.setTitle("Jarvas");
         primaryStage.setScene(new Scene(root, 400, 600));
         primaryStage.show();
