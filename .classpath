@@ -3,6 +3,10 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="C:/Users/ONGJI_000/Desktop/eclipse-java-mars-R-win32-x86_64/json-simple-1.1.1.jar"/>
+=======
+	<classpathentry kind="lib" path="/Users/Li/Downloads/json-simple-1.1.1.jar"/>
+>>>>>>> d0ba55de72b0ccd28a94b525415ed8afffd30a83
 	<classpathentry kind="output" path="bin"/>
 </classpath>

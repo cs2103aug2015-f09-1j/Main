@@ -13,7 +13,6 @@ public class Jarvas extends Application {
     @Override
     public void start(Stage primaryStage){
         Parent root = null;
-        
 		try {
 			root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 		} catch (IOException e) {
