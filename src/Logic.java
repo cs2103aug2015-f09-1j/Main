@@ -306,4 +306,20 @@ public class Logic {
 		return dueDateStr;
 	}
 
+	/**
+	 * @return
+	 */
+	public Vector<TaskWithoutDate> returnNewTasksWithoutDate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * @return
+	 */
+	public Vector<Event> returnNewEvents() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
