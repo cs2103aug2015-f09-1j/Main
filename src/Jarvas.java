@@ -11,13 +11,9 @@ public class Jarvas extends Application {
 	private static final String FXMLFILENAME = "sample.fxml";
 	private static final Logger logger = Logger.getLogger(Logic.class.getName());
     @Override
-    public void start(Stage primaryStage){
+    public void start(Stage primaryStage) throws IOException{
         Parent root = null;
-		try {
-			root = FXMLLoader.load(getClass().getResource(FXMLFILENAME));
-		} catch (IOException e) {
-			System.err.println("invalid fxml input file " + e.getMessage());
-		}
+		root = FXMLLoader.load(getClass().getResource(FXMLFILENAME));
 		
         primaryStage.setTitle("Jarvas");
         primaryStage.setScene(new Scene(root, 400, 420));

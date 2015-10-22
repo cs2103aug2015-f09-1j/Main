@@ -85,7 +85,7 @@ public class Storage{
 	 */
 	public Vector<TaskToDo> convertToVector(){
 		Vector<TaskToDo> vecTask = new Vector<TaskToDo>();
-		for(int i=0; i<newTask.size(); i++){
+		for(int i=0; newTask != null && i<newTask.size(); i++){
 			JSONObject task = (JSONObject)newTask.get(i);
 			String name = task.get("Task").toString();
 			String age = task.get("Date").toString();
