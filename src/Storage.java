@@ -131,6 +131,27 @@ public class Storage{
 			convertToJSONArray(entry, newEvent);
 		}
 	}
+
+
+	/**
+	 * 
+	 * 
+	 * THIS IS STUB .... FOR TESTING 
+	 * @return
+	 * @throws java.text.ParseException 
+	 */
+	public Vector<TaskEvent> convertToEvent() throws java.text.ParseException {
+		Vector<TaskEvent> vecEvent = new Vector<TaskEvent>();
+		for(int i=0; i<newEvent.size(); i++){
+			JSONObject task = (JSONObject)newEvent.get(i);
+			String name = task.get("Task").toString();
+			String startDate = task.get("StartDate").toString();
+			String EndDate = task.get("EndDate").toString();
+			TaskEvent aTask = new TaskEvent(name, startDate, EndDate);
+			vecEvent.add(aTask);
+		}
+		return vecEvent;
+	}
 	
 	
 	
