@@ -74,7 +74,7 @@ public class Logic {
 				output = addTask(contentStr);
 				break;
 			case ADD_EVENT:
-				output = addevent(contentStr);
+				output = addEvent(contentStr);
 				break;
 			case DELETE:
 				output = deleteTask(contentStr);
@@ -106,7 +106,7 @@ public class Logic {
 	 * @param contentStr2
 	 * @return
 	 */
-	private String addevent(String contentStr2) {
+	public String addEvent(String contentStr2) {
 		String startDate = getStartDate(contentStr2);
 		String endDate = getEndDate(contentStr2);
 		TaskEvent temp;
