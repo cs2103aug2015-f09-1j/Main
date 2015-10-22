@@ -1,4 +1,8 @@
 import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,6 +24,7 @@ public class Storage{
 	
 	public JSONArray newTask;
 	public JSONArray newEvent;
+	public JSONObject totalTask;
 	
 	private static final Logger logger = Logger.getLogger(Controller.class.getName());
 	String filename = "Jarvas_Storage.txt";
@@ -36,12 +41,26 @@ public class Storage{
 		}
 		if(!(temp.length()==0)){
 			fileRead();
+			seperateJSONArray();
 		}else{
 			newTask = new JSONArray();
+			newEvent = new JSONArray();
+			totalTask = new JSONObject();
 		}
 	}
 	
-	
+
+
+
+	/**
+	 * 
+	 */
+	private void seperateJSONArray() {
+		// TODO Auto-generated method stub
+		newTask = (JSONArray)totalTask.get("Tasks");
+		newEvent = (JSONArray)totalTask.get("Events");
+	}
+
 	public static Storage getInstance(){
 		if(stg == null){
 			stg = new Storage();
@@ -53,9 +72,8 @@ public class Storage{
 		try{
 				FileWriter file = new FileWriter(filename);
 				assert(file != null): filename + " is null";
-				file.write(newTask.toJSONString());
-				file.write("\n");
-				file.write(newEvent.toJSONString());
+				combineJSONArray(newTask,newEvent);
+				file.write(totalTask.toJSONString());
 				file.close();
 				System.out.println("File saved");
 		}catch(IOException e){
@@ -69,8 +87,7 @@ public class Storage{
 		logger.log(Level.INFO, filename + " is being read");
 		JSONParser jarvasParser = new JSONParser();
 		try {
-			newTask = (JSONArray)jarvasParser.parse(new FileReader(filename));
-			newEvent = (JSONArray)jarvasParser.parse(new FileReader(filename));
+			 totalTask = (JSONObject)jarvasParser.parse(new FileReader(filename));
 		} catch (FileNotFoundException e) {
 			System.err.println("invalid file name" + e.getMessage());
 		} catch (IOException e) {
@@ -79,20 +96,36 @@ public class Storage{
 			System.err.println("invalid parse " + e.getMessage());
 		}	
 	}
+	
+	
 	/**
 	 * This function convert content of JSONArray into vector
 	 * @return converted content in vector
 	 */
-	public Vector<TaskToDo> convertToVector(){
+	public Vector<TaskToDo> convertToTask(){
 		Vector<TaskToDo> vecTask = new Vector<TaskToDo>();
 		for(int i=0; newTask != null && i<newTask.size(); i++){
 			JSONObject task = (JSONObject)newTask.get(i);
 			String name = task.get("Task").toString();
-			String age = task.get("Date").toString();
-			TaskToDo aTask = new TaskToDo(name, age);
+			String date = task.get("Date").toString();
+			TaskToDo aTask = new TaskToDo(name, date);
 			vecTask.add(aTask);
 		}
 		return vecTask;
+	}
+	
+	public Vector<TaskEvent> convertToEvent() throws java.text.ParseException{
+		Vector<TaskEvent> vecEvent = new Vector<TaskEvent>();
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		for(int i=0; newEvent != null && i<newEvent.size(); i++){
+			JSONObject event = (JSONObject)newEvent.get(i);
+			String name = event.get("Event").toString();
+			String startDate = formatter.format(event.get("Start Date"));
+			String endDate = formatter.format(event.get("End Date"));
+			TaskEvent aEvent = new TaskEvent(name, startDate, endDate);
+			vecEvent.add(aEvent);
+		}
+		return vecEvent;
 	}
 	/**
 	 * This function add an JSONObject into JSONArray 
@@ -102,6 +135,16 @@ public class Storage{
 	public void convertToJSONArray(JSONObject newObject, JSONArray newArray){
 		newArray.add(newObject);
 	}
+	
+	private void combineJSONArray(JSONArray newTask, JSONArray newEvent){
+		Map<String, JSONArray> mapTask = new HashMap<String, JSONArray>();
+		mapTask.put("Tasks", newTask);
+		mapTask.put("Events", newEvent);
+		totalTask.putAll(mapTask);
+
+	}
+	
+	
 	/**
 	 * This function convert tasks in vector into JSON
 	 * @param tasks
@@ -110,10 +153,12 @@ public class Storage{
 	public void convertTaskToJSONObject(Vector<TaskToDo> tasks){
 		newTask = new JSONArray();
 		for(int i=0; i<tasks.size(); i++){
-			JSONObject entry = new JSONObject();
+			Map<String, String> entry = new HashMap<String, String>();
 			entry.put("Task", tasks.get(i).getName());
 			entry.put("Date", tasks.get(i).getDueDate());
-			convertToJSONArray(entry, newTask);
+			JSONObject jsonEntry = new JSONObject();
+			jsonEntry.putAll(entry);
+			convertToJSONArray(jsonEntry, newTask);
 		}
 	}
 	/**
@@ -124,33 +169,16 @@ public class Storage{
 	public void convertEventToJSONObject(Vector<TaskEvent> events){
 		newEvent = new JSONArray();
 		for(int i=0; i<events.size(); i++){
-			JSONObject entry = new JSONObject();
-			entry.put("Event", events.get(i).getName());
-			entry.put("Start Date", events.get(i).getStartDate().toString());
-			entry.put("End Date", events.get(i).getEndDate().toString());
-			convertToJSONArray(entry, newEvent);
+			Map<String, String> entryline = new HashMap<String, String>();
+			entryline.put("Event", events.get(i).getName());
+			Map<String, Date> entry = new HashMap<String, Date>();
+			entry.put("Start Date", events.get(i).getStartDate());
+			entry.put("End Date", events.get(i).getEndDate());
+			JSONObject jsonEntry = new JSONObject();
+			jsonEntry.putAll(entryline);
+			jsonEntry.putAll(entry);
+			convertToJSONArray(jsonEntry, newEvent);
 		}
-	}
-
-
-	/**
-	 * 
-	 * 
-	 * THIS IS STUB .... FOR TESTING 
-	 * @return
-	 * @throws java.text.ParseException 
-	 */
-	public Vector<TaskEvent> convertToEvent() throws java.text.ParseException {
-		Vector<TaskEvent> vecEvent = new Vector<TaskEvent>();
-		for(int i=0; i<newEvent.size(); i++){
-			JSONObject task = (JSONObject)newEvent.get(i);
-			String name = task.get("Task").toString();
-			String startDate = task.get("StartDate").toString();
-			String EndDate = task.get("EndDate").toString();
-			TaskEvent aTask = new TaskEvent(name, startDate, EndDate);
-			vecEvent.add(aTask);
-		}
-		return vecEvent;
 	}
 	
 	

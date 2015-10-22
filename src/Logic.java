@@ -18,7 +18,7 @@ public class Logic {
 	private static final String MSG_ADD_FAIL_ALRTHERE = "task \"%1$s\" is already added, no changes";
 	private static final String MSG_DELETE_SUCCESS = "task \"%1$s\" successfully deleted";
 	private static final String MSG_TASK_NOTEXIST = "task \"%1$s\" does not exist";
-	private static final String MSG_TASK_CLEAR= "tasks is clear";
+	private static final String MSG_TASK_CLEAR = "tasks is clear";
 	private static final String MSG_EDIT_SUCCESS = "task \"%1$s\" successfully edited";
 	private static final String MSG_HELP = 		
 				"\n#####Commands for JARVAS:#####\n"
@@ -93,7 +93,6 @@ public class Logic {
 				break;
 			case EXIT:
 				System.exit(0);
-				break;
 			case CLEAR:
 				output = clearTask();
 			default:
@@ -106,21 +105,17 @@ public class Logic {
 		return output;
 	}
 	
-	/**
-	 * @return
-	 */
 	public String clearTask() {
 		tasks.clear();
 		events.clear();
 		return MSG_TASK_CLEAR;
 	}
-
+	
 	/**
 	 * @param contentStr2
 	 * @return
 	 */
- String addEvent(String contentStr2) {
-
+	private String addEvent(String contentStr2) {
 		String startDate = getStartDate(contentStr2);
 		String endDate = getEndDate(contentStr2);
 		TaskEvent temp;
@@ -279,7 +274,7 @@ public class Logic {
 	 * This fucntion initialise the vector for tasks
 	 */
 	public void getOriginalTasks() {
-		Vector<TaskToDo> returnTask = storage.convertToVector();
+		Vector<TaskToDo> returnTask = storage.convertToTask();
 		Vector<TaskEvent> returnEvent = null;
 		try {
 			returnEvent = storage.convertToEvent();
