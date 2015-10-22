@@ -12,6 +12,8 @@ public class Logic {
 	private static final String MSG_INVALID_INPUT = "invalid input";
 	private static final String MSG_INVALID_DATEINPUT = "invalid date input";
 	private static final String MSG_ADD_SUCCESS = "task \"%1$s\" successfully added";
+	private static final String MSG_SEARCH_SUCCESS = "task \"%1$s\" found";
+	private static final String MSG_SEARCH_FAIL = "task \"%1$s\" not found";
 	private static final String MSG_ADDEVENT_SUCCESS = "event \"%1$s\" successfully added";
 	private static final String MSG_ADD_FAIL_ALRTHERE = "task \"%1$s\" is already added, no changes";
 	private static final String MSG_DELETE_SUCCESS = "task \"%1$s\" successfully deleted";
@@ -37,7 +39,7 @@ public class Logic {
 	Storage storage;
 	Parser.CommandType commandType;
 	Vector <TaskToDo> tasks = new Vector <TaskToDo>();
-	Vector <TaskEvent> tasksEvent = new Vector<TaskEvent>();
+	Vector <TaskEvent> events = new Vector<TaskEvent>();
 	Logic(){
 		storage = Storage.getInstance();
 		getOriginalTasks();
@@ -82,6 +84,8 @@ public class Logic {
 			case DISPLAY: 
 				displayTask();
 				break;
+			case SEARCH:
+				output = searchTask(contentStr);
 			case HELP:
 				displayHelp();
 				break;
@@ -91,7 +95,8 @@ public class Logic {
 				logger.log(Level.WARNING, "user invalid input");
 				output = MSG_INVALID_INPUT;
 		}
-		storage.convertToJSONObject(returnNewTasks());
+		storage.convertTaskToJSONObject(returnNewTasks());
+		storage.convertEventToJSONObject(returnNewEvents());
 		storage.saveToStorage();
 		return output;
 	}
@@ -111,7 +116,7 @@ public class Logic {
 			logger.log(Level.WARNING, "invalid date format for event");
 			return MSG_INVALID_DATEINPUT;
 		}
-		tasksEvent.add(temp);
+		events.add(temp);
 		return String.format(MSG_ADDEVENT_SUCCESS, temp.getName());
 	}
 
@@ -147,7 +152,28 @@ public class Logic {
 	}
 	
 	/**
-	 * This fucntion handle display help menu
+	 * This function search input by user from Task and Event 
+	 * @param contentStr
+	 * 				is the content to be used for the search
+	 * @return add success msg
+	 */
+	private String searchTask(String contentStr){
+		// Search Task 
+		for(int i=0; i<tasks.size(); i++){
+			if(getTask(contentStr).trim().equals(tasks.get(i).getName())){
+				return String.format(MSG_SEARCH_SUCCESS,tasks.get(i).getName());
+			}
+		}
+		// Search Event
+		for(int i=0; i<events.size(); i++){
+			if(getTask(contentStr).trim().equals(events.get(i).getName())){
+				return String.format(MSG_SEARCH_SUCCESS,events.get(i).getName());
+			}
+		}
+		return String.format(MSG_SEARCH_FAIL,getTask(contentStr).trim());
+	}
+	/**
+	 * This function handle display help menu
 	 * 
 	 * @return help msg
 	 */
@@ -250,6 +276,16 @@ public class Logic {
 		//Return the new vector contains tasks after each operation
 		return tasks;
 	}
+	
+	/**
+	 * This function return the new vector contains tasks after each operation
+	 * @return  new tasks vector
+	 */
+	public Vector<TaskEvent> returnNewEvents() {
+		//Return the new vector contains tasks after each operation
+		return events;
+	}
+	
 	
 	/**
 	 * This function get the first word of input key in by user
@@ -355,18 +391,4 @@ public class Logic {
 		String dueDateStr = arr[i].trim().replace(str, "");
 		return dueDateStr;
 	}
-
-	/**
-	 * @return
-	 */
-
-
-	/**
-	 * @return
-	 */
-	public Vector<TaskEvent> returnNewEvents() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

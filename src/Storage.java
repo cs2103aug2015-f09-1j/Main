@@ -19,6 +19,8 @@ public class Storage{
 	private static Storage stg;
 	
 	public JSONArray newTask;
+	public JSONArray newEvent;
+	
 	private static final Logger logger = Logger.getLogger(Controller.class.getName());
 	String filename = "Jarvas_Storage.txt";
 	Storage(){
@@ -52,6 +54,8 @@ public class Storage{
 				FileWriter file = new FileWriter(filename);
 				assert(file != null): filename + " is null";
 				file.write(newTask.toJSONString());
+				file.write("\n");
+				file.write(newEvent.toJSONString());
 				file.close();
 				System.out.println("File saved");
 		}catch(IOException e){
@@ -66,6 +70,7 @@ public class Storage{
 		JSONParser jarvasParser = new JSONParser();
 		try {
 			newTask = (JSONArray)jarvasParser.parse(new FileReader(filename));
+			newEvent = (JSONArray)jarvasParser.parse(new FileReader(filename));
 		} catch (FileNotFoundException e) {
 			System.err.println("invalid file name" + e.getMessage());
 		} catch (IOException e) {
@@ -94,21 +99,36 @@ public class Storage{
 	 * @param object
 	 * 			is JSONObject that going to be added
 	 */
-	public void convertToJSONArray(JSONObject object){
-		newTask.add(object);
+	public void convertToJSONArray(JSONObject newObject, JSONArray newArray){
+		newArray.add(newObject);
 	}
 	/**
 	 * This function convert tasks in vector into JSON
 	 * @param tasks
 	 * 			is the task to be converted
 	 */
-	public void convertToJSONObject(Vector<TaskToDo> tasks){
-		newTask.clear();
+	public void convertTaskToJSONObject(Vector<TaskToDo> tasks){
+		newTask = new JSONArray();
 		for(int i=0; i<tasks.size(); i++){
 			JSONObject entry = new JSONObject();
 			entry.put("Task", tasks.get(i).getName());
 			entry.put("Date", tasks.get(i).getDueDate());
-			convertToJSONArray(entry);
+			convertToJSONArray(entry, newTask);
+		}
+	}
+	/**
+	 * This function convert events in vector into JSON
+	 * @param events
+	 * 			is the event to be converted
+	 */
+	public void convertEventToJSONObject(Vector<TaskEvent> events){
+		newEvent = new JSONArray();
+		for(int i=0; i<events.size(); i++){
+			JSONObject entry = new JSONObject();
+			entry.put("Event", events.get(i).getName());
+			entry.put("Start Date", events.get(i).getStartDate().toString());
+			entry.put("End Date", events.get(i).getEndDate().toString());
+			convertToJSONArray(entry, newEvent);
 		}
 	}
 	
