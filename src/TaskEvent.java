@@ -1,6 +1,15 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class TaskEvent implements Task{
+	private static final Logger logger = Logger.getLogger(TaskEvent.class.getName());
+	private static final String WORD_FROM = " from ";
+	private static final String WORD_TO = " to ";
+	private SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy HH:mm");
+	
 	String eventName;
 	DateOfEvent dateOfEvent;
 	public TaskEvent() {
@@ -11,8 +20,12 @@ public class TaskEvent implements Task{
 		dateOfEvent.setEndDate(endDate);
 		dateOfEvent.setStartDate(startDate);
 	}
-	public TaskEvent(String startDate , String endDate){
-		
+	public TaskEvent(String startDate , String endDate) throws ParseException{
+
+
+			dateOfEvent.setStartDate(sdf.parse(startDate));
+			dateOfEvent.setEndDate(sdf.parse(endDate));
+
 	}
 
 
@@ -41,6 +54,7 @@ public class TaskEvent implements Task{
 
 	@Override
 	public String print() {
+		String temp = eventName + WORD_FROM + sdf.format(getStartDate()) + WORD_TO + sdf.format(getEndDate()); 
 		return null;
 	}
 
