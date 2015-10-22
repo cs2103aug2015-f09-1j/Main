@@ -35,7 +35,7 @@ public class Logic {
 
 	String commandStr;
 	String contentStr;
-	String output = "";
+	String output;
 	Storage storage;
 	Parser.CommandType commandType;
 	Vector <TaskToDo> tasks = new Vector <TaskToDo>();
@@ -43,6 +43,7 @@ public class Logic {
 	Logic(){
 		storage = Storage.getInstance();
 		getOriginalTasks();
+		output = "";
 	}
 	
 	/**
