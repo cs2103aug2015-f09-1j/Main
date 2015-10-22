@@ -66,6 +66,8 @@ public class Logic {
 			case ADD: 
 				output = addTask(contentStr);
 				break;
+			case ADD_EVENT:
+				break;
 			case DELETE:
 				output = deleteTask(contentStr);
 				break;

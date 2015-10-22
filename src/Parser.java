@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 public class Parser {
 	
 	public static final String COMMAND_ADD = "add";
+	public static final String COMMAND_ADD_EVENT = "addevent";
 	public static final String COMMAND_DELETE = "delete";
 	public static final String COMMAND_CLEAR = "clear";
 	public static final String COMMAND_DISPLAY = "display";
@@ -20,7 +21,7 @@ public class Parser {
 	public static final String ERROR_COMMAND_EMPTY = "command type string cannot be empty!";
 	
 	enum CommandType {
-		ADD, EDIT, DELETE, SORT, SEARCH, INVALID, EXIT, CLEAR, HELP, DISPLAY
+		ADD, ADD_EVENT, EDIT, DELETE, SORT, SEARCH, INVALID, EXIT, CLEAR, HELP, DISPLAY
 	};
 	
 	private static final Logger logger = Logger.getLogger(Logic.class.getName());
@@ -53,6 +54,9 @@ public class Parser {
 		} 
 		else if (commandTypeString.equalsIgnoreCase(COMMAND_HELP)) {
 		 	return CommandType.HELP;
+		} 
+		else if (commandTypeString.equalsIgnoreCase(COMMAND_ADD_EVENT)) {
+		 	return CommandType.ADD_EVENT;
 		} 
 		else if (commandTypeString.equalsIgnoreCase(COMMAND_EXIT)) {
 		 	return CommandType.EXIT;
