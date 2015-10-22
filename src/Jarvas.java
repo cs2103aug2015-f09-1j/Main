@@ -20,7 +20,7 @@ public class Jarvas extends Application {
 		}
 		
         primaryStage.setTitle("Jarvas");
-        primaryStage.setScene(new Scene(root, 400, 600));
+        primaryStage.setScene(new Scene(root, 400, 420));
         primaryStage.show();
 		logger.log(Level.INFO, "GUI is ready.");
     }

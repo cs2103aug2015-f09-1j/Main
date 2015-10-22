@@ -78,13 +78,13 @@ public class Storage{
 	 * This function convert content of JSONArray into vector
 	 * @return converted content in vector
 	 */
-	public Vector<Task> convertToVector(){
-		Vector<Task> vecTask = new Vector<Task>();
+	public Vector<TaskToDo> convertToVector(){
+		Vector<TaskToDo> vecTask = new Vector<TaskToDo>();
 		for(int i=0; i<newTask.size(); i++){
 			JSONObject task = (JSONObject)newTask.get(i);
 			String name = task.get("Task").toString();
 			String age = task.get("Date").toString();
-			Task aTask = new Task(name, age);
+			TaskToDo aTask = new TaskToDo(name, age);
 			vecTask.add(aTask);
 		}
 		return vecTask;
@@ -102,11 +102,11 @@ public class Storage{
 	 * @param tasks
 	 * 			is the task to be converted
 	 */
-	public void convertToJSONObject(Vector<Task> tasks){
+	public void convertToJSONObject(Vector<TaskToDo> tasks){
 		newTask.clear();
 		for(int i=0; i<tasks.size(); i++){
 			JSONObject entry = new JSONObject();
-			entry.put("Task", tasks.get(i).getTaskName());
+			entry.put("Task", tasks.get(i).getName());
 			entry.put("Date", tasks.get(i).getDueDate());
 			convertToJSONArray(entry);
 		}

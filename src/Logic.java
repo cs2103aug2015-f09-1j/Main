@@ -33,7 +33,7 @@ public class Logic {
 	String output = "";
 	Storage storage;
 	Parser.CommandType commandType;
-	Vector <Task> tasks = new Vector <Task>();
+	Vector <TaskToDo> tasks = new Vector <TaskToDo>();
 	Logic(){
 		storage = Storage.getInstance();
 		getOriginalTasks();
@@ -96,10 +96,10 @@ public class Logic {
 	 * @return add success msg
 	 */
 	private String addTask(String contentStr){
-		Task temp = new Task(getTask(contentStr).trim(),getDueDate(contentStr));
+		TaskToDo temp = new TaskToDo(getTask(contentStr).trim(),getDueDate(contentStr));
 		tasks.add(temp);
 		logger.log(Level.INFO, "add task");
-		return String.format(MSG_ADD_SUCCESS,temp.getTaskName());
+		return String.format(MSG_ADD_SUCCESS,temp.getName());
 	}
 	
 	/**
@@ -157,7 +157,7 @@ public class Logic {
 	private String deleteTask(String contentStr2) {
 		// TODO Auto-generated method stub
 		for(int i=0; i<tasks.size();i++){
-			if(tasks.get(i).getTaskName().equals(contentStr2)){
+			if(tasks.get(i).getName().equals(contentStr2)){
 				tasks.remove(i);
 				logger.log(Level.INFO, "Task ACTUALLY deleted");
 			}
@@ -176,7 +176,7 @@ public class Logic {
 		
 		int i;
 		for(i=0; i<tasks.size();i++){
-			if(tasks.get(i).getTaskName().equals(taskNameToBeEdit.trim())){
+			if(tasks.get(i).getName().equals(taskNameToBeEdit.trim())){
 				break;
 			}
 		}
@@ -194,7 +194,7 @@ public class Logic {
 	 * This fucntion initialise the vector for tasks
 	 */
 	public void getOriginalTasks() {
-		Vector<Task> returnTask = storage.convertToVector();
+		Vector<TaskToDo> returnTask = storage.convertToVector();
 		tasks = (Vector)returnTask.clone();
 	}
 	
@@ -202,7 +202,7 @@ public class Logic {
 	 * This function return the new vector contains tasks after each operation
 	 * @return  new tasks vector
 	 */
-	public Vector<Task> returnNewTasks() {
+	public Vector<TaskToDo> returnNewTasks() {
 		//Return the new vector contains tasks after each operation
 		return tasks;
 	}
@@ -309,15 +309,12 @@ public class Logic {
 	/**
 	 * @return
 	 */
-	public Vector<TaskWithoutDate> returnNewTasksWithoutDate() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	/**
 	 * @return
 	 */
-	public Vector<Event> returnNewEvents() {
+	public Vector<TaskEvent> returnNewEvents() {
 		// TODO Auto-generated method stub
 		return null;
 	}
