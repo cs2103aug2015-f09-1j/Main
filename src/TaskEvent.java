@@ -55,7 +55,7 @@ public class TaskEvent implements Task{
 	@Override
 	public String print() {
 		String temp = eventName + WORD_FROM + sdf.format(getStartDate()) + WORD_TO + sdf.format(getEndDate()); 
-		return null;
+		return temp;
 	}
 
 }

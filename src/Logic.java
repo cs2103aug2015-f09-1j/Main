@@ -63,7 +63,7 @@ public class Logic {
 		digestInput(input);
 		String output=null;
 		switch(commandType){
-			case ADD: 
+			case ADDTASK: 
 				output = addTask(contentStr);
 				break;
 			case ADD_EVENT:
