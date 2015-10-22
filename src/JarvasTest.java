@@ -13,7 +13,7 @@ public class JarvasTest {
 	
 	@Test
 	public void testDetermineCommandType(){
-		assertEquals(Parser.CommandType.ADD,Parser.determineCommandType("add"));
+		assertEquals(Parser.CommandType.ADDTASK,Parser.determineCommandType("add"));
 
 	}
 	

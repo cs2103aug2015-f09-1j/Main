@@ -16,13 +16,14 @@ public class TaskEvent implements Task{
 		dateOfEvent.setEndDate(null);
 		dateOfEvent.setStartDate(null);
 	}
-	public TaskEvent(Date startDate , Date endDate){
+	public TaskEvent(String eventName , Date startDate , Date endDate){
+		this.eventName= eventName;
 		dateOfEvent.setEndDate(endDate);
 		dateOfEvent.setStartDate(startDate);
 	}
-	public TaskEvent(String startDate , String endDate) throws ParseException{
+	public TaskEvent(String eventName , String startDate , String endDate) throws ParseException{
 
-
+			this.eventName= eventName;
 			dateOfEvent.setStartDate(sdf.parse(startDate));
 			dateOfEvent.setEndDate(sdf.parse(endDate));
 

@@ -1,4 +1,5 @@
 
+import java.text.ParseException;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -9,7 +10,9 @@ import java.util.logging.Logger;
  */
 public class Logic {
 	private static final String MSG_INVALID_INPUT = "invalid input";
+	private static final String MSG_INVALID_DATEINPUT = "invalid date input";
 	private static final String MSG_ADD_SUCCESS = "task \"%1$s\" successfully added";
+	private static final String MSG_ADDEVENT_SUCCESS = "event \"%1$s\" successfully added";
 	private static final String MSG_ADD_FAIL_ALRTHERE = "task \"%1$s\" is already added, no changes";
 	private static final String MSG_DELETE_SUCCESS = "task \"%1$s\" successfully deleted";
 	private static final String MSG_TASK_NOTEXIST = "task \"%1$s\" does not exist";
@@ -23,7 +26,7 @@ public class Logic {
 			+ "Exit - Quit the problem\n";
 			
 	enum RequiredField {
-		TASKDUEDATE,TASKLOCATION
+		TASKDUEDATE,TASKLOCATION,EVENT_STARTDATE,EVENT_ENDDATE
 	};
 	
 	private static final Logger logger = Logger.getLogger(Logic.class.getName());
@@ -34,6 +37,7 @@ public class Logic {
 	Storage storage;
 	Parser.CommandType commandType;
 	Vector <TaskToDo> tasks = new Vector <TaskToDo>();
+	Vector <TaskEvent> tasksEvent = new Vector<TaskEvent>();
 	Logic(){
 		storage = Storage.getInstance();
 		getOriginalTasks();
@@ -67,6 +71,7 @@ public class Logic {
 				output = addTask(contentStr);
 				break;
 			case ADD_EVENT:
+				output = addevent(contentStr);
 				break;
 			case DELETE:
 				output = deleteTask(contentStr);
@@ -91,6 +96,43 @@ public class Logic {
 		return output;
 	}
 	
+	/**
+	 * @param contentStr2
+	 * @return
+	 */
+	private String addevent(String contentStr2) {
+		String startDate = getStartDate(contentStr2);
+		String endDate = getEndDate(contentStr2);
+		TaskEvent temp;
+		try {
+			temp = new TaskEvent(getTask(contentStr2), startDate, endDate);
+		} catch (ParseException e) {
+			System.err.println("invalid date format" + e.getMessage());
+			logger.log(Level.WARNING, "invalid date format for event");
+			return MSG_INVALID_DATEINPUT;
+		}
+		tasksEvent.add(temp);
+		return String.format(MSG_ADDEVENT_SUCCESS, temp.getName());
+	}
+
+	/**
+	 * @param contentStr2
+	 * @return
+	 */
+	private String getEndDate(String contentStr2) {
+		String endDate = getSplittedString(contentStr2, RequiredField.EVENT_ENDDATE);
+		return endDate;
+	}
+
+	/**
+	 * @param contentStr2
+	 * @return
+	 */
+	private String getStartDate(String contentStr2) {
+			String startDate = getSplittedString(contentStr2, RequiredField.EVENT_STARTDATE);
+			return startDate;
+	}
+
 	/**
 	 * This function add task input by user into storage
 	 * @param contentStr
@@ -278,6 +320,12 @@ public class Logic {
 		switch (requiredField) {
 		case TASKDUEDATE:
 			returnStr = getContent(strArr,"due ");
+			break;
+		case EVENT_STARTDATE:
+			returnStr = getContent(strArr, "from ");
+			break;
+		case EVENT_ENDDATE:
+			returnStr = getContent(strArr, "to ");
 			break;
 		case TASKLOCATION:
 			returnStr = getContent(strArr, "at"	);
