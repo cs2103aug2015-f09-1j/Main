@@ -17,12 +17,18 @@ public class TaskEventTest {
 
 	@Test
 	public void testTaskEvent() {
+		
+		//This is the test for TaskEvent:: TaskEvent() in TaskEvent.java
 		TaskEvent event1 = new TaskEvent();
 		assertEquals(event1.getName(), null);
-		event1.setName("have tutorial");
-		assertEquals(event1.getName(), "have tutorial");
 		assertEquals(event1.getStartDate(), null);
 		assertEquals(event1.getEndDate(), null);
+		
+		//This is the test for TaskEvent::setName()
+		event1.setName("have tutorial");
+		assertEquals(event1.getName(), "have tutorial");
+
+		//This is the test for TaskEvent:: TaskEvent(String eventName , String startDate , String endDate)
 		try {
 			TaskEvent event2 = new TaskEvent("hello world", "21/10/2015 10:00", "23/10/2015 10:00");
 			assertEquals(event2.getName(), "hello world");
@@ -32,6 +38,8 @@ public class TaskEventTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		//This is the test for TaskEvent:: TaskEvent(String eventName , Date startDate , Date endDate)
 		TaskEvent event3 = new TaskEvent("catch cats", new Date(2015080300), new Date(2015120500));
 		assertEquals(event3.getName(), "catch cats");
 		assertEquals(event3.getStartDate().toString(), "Sat Jan 24 15:44:40 CST 1970");
