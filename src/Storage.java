@@ -20,15 +20,21 @@ public class Storage{
 	public static final String TASK_NOT_UPLOADED = "Tasks not updated";
 	public static final String ERROR_FILE_UNREFRESH = "File not refrshed";
 	public static final String EMPTY_STRING = "";
-	private static Storage stg;
+	
 	
 	public JSONArray newTask;
 	public JSONArray newEvent;
 	public JSONObject totalTask;
+	private int indexEvent;
+	private int indexTask;
 	
 	private static final Logger logger = Logger.getLogger(Controller.class.getName());
-	String filename = "Jarvas_Storage.txt";
+	static String filename = "Jarvas_Storage.txt";
 	Storage(){
+		this(filename);
+	}
+	Storage(String inputFileName){
+		filename = inputFileName;
 		File temp = new File(filename);
 		if(!temp.exists()){
 			logger.log(Level.INFO, filename + " not exist");
@@ -38,6 +44,8 @@ public class Storage{
 			} catch (IOException e) {
 				System.err.println("invalid input file " + e.getMessage());
 			}
+		} else {
+			logger.log(Level.INFO, "file exist");
 		}
 		if(!(temp.length()==0)){
 			fileRead();
@@ -49,33 +57,21 @@ public class Storage{
 		}
 	}
 	
-
-
-
-	/**
-	 * 
-	 */
 	private void seperateJSONArray() {
 		// TODO Auto-generated method stub
 		newTask = (JSONArray)totalTask.get("Tasks");
 		newEvent = (JSONArray)totalTask.get("Events");
 	}
 
-	public static Storage getInstance(){
-		if(stg == null){
-			stg = new Storage();
-		}
-		return stg;
-	}
-	
 	public void saveToStorage(){
 		try{
 				FileWriter file = new FileWriter(filename);
 				assert(file != null): filename + " is null";
-				combineJSONArray(newTask,newEvent);
+				combineJSONArray();
 				file.write(totalTask.toJSONString());
 				file.close();
 				System.out.println("File saved");
+				logger.log(Level.INFO, "jsonobjects is saved into text file");
 		}catch(IOException e){
 			System.err.println("invalid input " + e.getMessage());
 		}
@@ -120,8 +116,8 @@ public class Storage{
 		for(int i=0; newEvent != null && i<newEvent.size(); i++){
 			JSONObject event = (JSONObject)newEvent.get(i);
 			String name = event.get("Event").toString();
-			String startDate = formatter.format(event.get("Start Date"));
-			String endDate = formatter.format(event.get("End Date"));
+			String startDate = event.get("Start Date").toString();
+			String endDate = event.get("End Date").toString();
 			TaskEvent aEvent = new TaskEvent(name, startDate, endDate);
 			vecEvent.add(aEvent);
 		}
@@ -136,12 +132,11 @@ public class Storage{
 		newArray.add(newObject);
 	}
 	
-	private void combineJSONArray(JSONArray newTask, JSONArray newEvent){
+	private void combineJSONArray(){
 		Map<String, JSONArray> mapTask = new HashMap<String, JSONArray>();
 		mapTask.put("Tasks", newTask);
 		mapTask.put("Events", newEvent);
 		totalTask.putAll(mapTask);
-
 	}
 	
 	
@@ -171,9 +166,9 @@ public class Storage{
 		for(int i=0; i<events.size(); i++){
 			Map<String, String> entryline = new HashMap<String, String>();
 			entryline.put("Event", events.get(i).getName());
-			Map<String, Date> entry = new HashMap<String, Date>();
-			entry.put("Start Date", events.get(i).getStartDate());
-			entry.put("End Date", events.get(i).getEndDate());
+			Map<String, String> entry = new HashMap<String, String>();
+			entry.put("Start Date", events.get(i).getStringStartDate());
+			entry.put("End Date", events.get(i).getStringEndDate());
 			JSONObject jsonEntry = new JSONObject();
 			jsonEntry.putAll(entryline);
 			jsonEntry.putAll(entry);

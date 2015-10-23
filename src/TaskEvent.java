@@ -36,6 +36,13 @@ public class TaskEvent implements Task{
 	public Date getStartDate() {
 		return dateOfEvent.getStartDate();
 	}
+	
+	public String getStringStartDate(){
+		return sdf.format(getStartDate());
+	}
+	public String getStringEndDate(){
+		return sdf.format(getEndDate());
+	}
 
 
 	public Date getEndDate() {

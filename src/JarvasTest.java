@@ -40,9 +40,11 @@ public class JarvasTest {
 	@Test
 	public void testAddEvent(){
 		// equivalence partitioning with valid date format dd/mm/yyyy HH/MM
-		assertEquals("event \"ola\" successfully added", logic.addEvent("ola -from 12/12/1991 12:12 -to 12/12/1991 12:13"));
+		assertEquals("event \"ola\" successfully added", 
+				logic.addEvent("ola -from 12/12/1991 12:12 -to 12/12/1991 12:13"));
 		//equivalence partitioning with invalid date format
-		assertEquals("invalid format of date", logic.addEvent("ola -from 12/12/1991 12 -to 12/12/1991 12:13"));
+		assertEquals("invalid format of date", 
+				logic.addEvent("ola -from 12/12/1991 12 -to 12/12/1991 12:13"));
 	}
 
 	

@@ -28,12 +28,16 @@ public class TaskEventTest {
 		event1.setName("have tutorial");
 		assertEquals(event1.getName(), "have tutorial");
 
-		//This is the test for TaskEvent:: TaskEvent(String eventName , String startDate , String endDate)
+		//This is the test for TaskEvent:: TaskEvent
+		//(String eventName , String startDate , String endDate)
 		try {
-			TaskEvent event2 = new TaskEvent("hello world", "21/10/2015 10:00", "23/10/2015 10:00");
+			TaskEvent event2 = new TaskEvent("hello world",
+					"21/10/2015 10:00", "23/10/2015 10:00");
 			assertEquals(event2.getName(), "hello world");
-			assertEquals(event2.getStartDate().toString(), "Wed Oct 21 10:00:00 CST 2015");
-			assertEquals(event2.getEndDate().toString(), "Fri Oct 23 10:00:00 CST 2015");
+			assertEquals(event2.getStartDate().toString(), 
+					"Wed Oct 21 10:00:00 CST 2015");
+			assertEquals(event2.getEndDate().toString(), 
+					"Fri Oct 23 10:00:00 CST 2015");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

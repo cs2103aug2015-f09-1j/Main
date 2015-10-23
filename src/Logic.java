@@ -42,7 +42,7 @@ public class Logic {
 	Vector <TaskToDo> tasks = new Vector <TaskToDo>();
 	Vector <TaskEvent> events = new Vector<TaskEvent>();
 	Logic(){
-		storage = Storage.getInstance();
+		storage = new Storage();
 		getOriginalTasks();
 		output = "";
 	}
@@ -115,7 +115,7 @@ public class Logic {
 	 * @param contentStr2
 	 * @return
 	 */
-	private String addEvent(String contentStr2) {
+	String addEvent(String contentStr2) {
 		String startDate = getStartDate(contentStr2);
 		String endDate = getEndDate(contentStr2);
 		TaskEvent temp;
@@ -280,6 +280,7 @@ public class Logic {
 			returnEvent = storage.convertToEvent();
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
+			logger.log(Level.WARNING, "fail to load event vector in logic class");
 			e.printStackTrace();
 		}
 		tasks = (Vector)returnTask.clone();
