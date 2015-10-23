@@ -1,3 +1,4 @@
+package main.jarvas;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,8 +30,8 @@ public class Storage{
 	private int indexTask;
 	
 	private static final Logger logger = Logger.getLogger(Controller.class.getName());
-	static String filename = "Jarvas_Storage.txt";
-	Storage(){
+	public static String filename = "Jarvas_Storage.txt";
+	public Storage(){
 		this(filename);
 	}
 	Storage(String inputFileName){

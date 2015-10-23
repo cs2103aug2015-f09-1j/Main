@@ -1,3 +1,4 @@
+package main.jarvas;
 
 import java.text.ParseException;
 import java.util.Vector;
@@ -41,7 +42,7 @@ public class Logic {
 	Parser.CommandType commandType;
 	Vector <TaskToDo> tasks = new Vector <TaskToDo>();
 	Vector <TaskEvent> events = new Vector<TaskEvent>();
-	Logic(){
+	public Logic(){
 		storage = new Storage();
 		getOriginalTasks();
 		output = "";
@@ -115,7 +116,7 @@ public class Logic {
 	 * @param contentStr2
 	 * @return
 	 */
-	String addEvent(String contentStr2) {
+	public String addEvent(String contentStr2) {
 		String startDate = getStartDate(contentStr2);
 		String endDate = getEndDate(contentStr2);
 		TaskEvent temp;

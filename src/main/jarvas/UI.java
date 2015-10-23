@@ -1,3 +1,4 @@
+package main.jarvas;
 
 import java.util.Scanner;
 

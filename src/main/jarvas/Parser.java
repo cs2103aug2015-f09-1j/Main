@@ -1,3 +1,4 @@
+package main.jarvas;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,7 +23,7 @@ public class Parser {
 	public static final String COMMAND_HELP = "help";
 	public static final String ERROR_COMMAND_EMPTY = "command type string cannot be empty!";
 	
-	enum CommandType {
+	public enum CommandType {
 		ADDTASK, ADD_EVENT, EDIT, DELETE, SORT, SEARCH, INVALID, EXIT, CLEAR, HELP, DISPLAY , FROM , TO
 	};
 	
