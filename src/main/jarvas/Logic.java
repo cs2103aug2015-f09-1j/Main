@@ -100,9 +100,7 @@ public class Logic {
 				logger.log(Level.WARNING, "user invalid input");
 				output = MSG_INVALID_INPUT;
 		}
-		storage.convertTaskToJSONObject(returnNewTasks());
-		storage.convertEventToJSONObject(returnNewEvents());
-		storage.saveToStorage();
+		storage.processTasks(tasks,events);
 		return output;
 	}
 	

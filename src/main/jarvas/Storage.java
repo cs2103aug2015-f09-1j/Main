@@ -64,7 +64,7 @@ public class Storage{
 		newEvent = (JSONArray)totalTask.get("Events");
 	}
 
-	public void saveToStorage(){
+	private void saveToStorage(){
 		try{
 				FileWriter file = new FileWriter(filename);
 				assert(file != null): filename + " is null";
@@ -146,7 +146,7 @@ public class Storage{
 	 * @param tasks
 	 * 			is the task to be converted
 	 */
-	public void convertTaskToJSONObject(Vector<TaskToDo> tasks){
+	private void convertTaskToJSONObject(Vector<TaskToDo> tasks){
 		newTask = new JSONArray();
 		for(int i=0; i<tasks.size(); i++){
 			Map<String, String> entry = new HashMap<String, String>();
@@ -162,7 +162,7 @@ public class Storage{
 	 * @param events
 	 * 			is the event to be converted
 	 */
-	public void convertEventToJSONObject(Vector<TaskEvent> events){
+	private void convertEventToJSONObject(Vector<TaskEvent> events){
 		newEvent = new JSONArray();
 		for(int i=0; i<events.size(); i++){
 			Map<String, String> entryline = new HashMap<String, String>();
@@ -175,6 +175,17 @@ public class Storage{
 			jsonEntry.putAll(entry);
 			convertToJSONArray(jsonEntry, newEvent);
 		}
+	}
+	/**
+	 * @param events 
+	 * @param tasks 
+	 * 
+	 */
+	public void processTasks(Vector<TaskToDo> tasks, Vector<TaskEvent> events) {
+		convertTaskToJSONObject(tasks);
+		convertEventToJSONObject(events);
+		saveToStorage();
+		
 	}
 	
 	
