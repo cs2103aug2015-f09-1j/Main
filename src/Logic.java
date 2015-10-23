@@ -168,7 +168,7 @@ public class Logic {
 	 * @return add success msg
 	 */
 	private String searchTask(String contentStr){
-		// Search Task 
+		// Search Task
 		for(int i=0; i<tasks.size(); i++){
 			if(getTask(contentStr).trim().equals(tasks.get(i).getName())){
 				return String.format(MSG_SEARCH_SUCCESS,tasks.get(i).getName());

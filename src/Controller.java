@@ -36,15 +36,21 @@ public class Controller implements Initializable{
         Vector<TaskToDo> tasks = logic.returnNewTasks();
         outputTaskRoot = new TreeItem<String>("Tasks");
         for(int i=0; i<tasks.size();i++) {
-        	outputTaskRoot.getChildren().add(new TreeItem<String>("Task name: " + 
-            tasks.get(i).getName()+ "   Due Date: " + tasks.get(i).getDueDate()));
+        	TreeItem<String> aTask = new TreeItem<String>((i+1) + ". Task name: " + tasks.get(i).getName());
+        	outputTaskRoot.getChildren().add(aTask);
+        	aTask.getChildren().add(new TreeItem<String>("Due Date: " + tasks.get(i).getDueDate()));
         }
 
         Vector<TaskEvent> events = logic.returnNewEvents();
         outputEventRoot = new TreeItem<String>("Events");
         for(int i=0; events != null && i<events.size();i++) {
-        	outputEventRoot.getChildren().add(new TreeItem<String>("Event name: " + 
-        			events.get(i).getName()+ "   Start Date: " + events.get(i).getStartDate()+ "   End Date: " + events.get(i).getEndDate()));
+        	TreeItem<String> aEvent = new TreeItem<String>((i+1) + ". Event name: " + events.get(i).getName());
+        	outputEventRoot.getChildren().add(aEvent);
+        	aEvent.getChildren().add(new TreeItem<String>("Start Date: " + events.get(i).getStartDate()));
+        	aEvent.getChildren().add(new TreeItem<String>("End Date: " + events.get(i).getEndDate()));
+        	
+        	//new TreeItem<String>("Event name: " + 
+			//events.get(i).getName()+ "   Start Date: " + events.get(i).getStartDate()+ "   End Date: " + events.get(i).getEndDate())
         }
         
         TreeItem<String> root = new TreeItem<String>();
@@ -67,16 +73,19 @@ public class Controller implements Initializable{
         Vector<TaskToDo> tasks = logic.returnNewTasks();
         outputTaskRoot.getChildren().removeAll(outputTaskRoot.getChildren());
         for(int i=0; i<tasks.size();i++) {
-        	outputTaskRoot.getChildren().add(new TreeItem<String>("task name: " + 
-            tasks.get(i).getName()+ "   Due Date: " + tasks.get(i).getDueDate()));
+        	TreeItem<String> aTask = new TreeItem<String>((i+1) + ". Task name: " + tasks.get(i).getName());
+        	outputTaskRoot.getChildren().add(aTask);
+        	aTask.getChildren().add(new TreeItem<String>("Due Date: " + tasks.get(i).getDueDate()));
         }
         
         Vector<TaskEvent> events = logic.returnNewEvents();
         outputEventRoot.getChildren().removeAll(outputEventRoot.getChildren());
         for(int i=0; events != null && i<events.size();i++) {
-        	outputEventRoot.getChildren().add(new TreeItem<String>("Event name: " + 
-        			events.get(i).getName()+ "   Start Date: " + events.get(i).getStartDate()+ "   End Date: " + events.get(i).getEndDate()));
-        }
+        	TreeItem<String> aEvent = new TreeItem<String>((i+1) + ". Event name: " + events.get(i).getName());
+        	outputEventRoot.getChildren().add(aEvent);
+        	aEvent.getChildren().add(new TreeItem<String>("Start Date: " + events.get(i).getStartDate()));
+        	aEvent.getChildren().add(new TreeItem<String>("End Date: " + events.get(i).getEndDate()));
+        	}
         
         
         
