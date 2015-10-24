@@ -72,11 +72,8 @@ public class Logic {
 		digestInput(input);
 		String output=null;
 		switch(commandType){
-			case ADDTASK: 
-				output = addTask(contentStr);
-				break;
-			case ADD_EVENT:
-				output = addEvent(contentStr);
+			case ADD: 
+				output = addTodo(contentStr);
 				break;
 			case DELETE:
 				output = deleteTask(contentStr);
@@ -96,6 +93,8 @@ public class Logic {
 				System.exit(0);
 			case CLEAR:
 				output = clearTask();
+			case SAVE:
+				output = saveFile(contentStr);
 			default:
 				logger.log(Level.WARNING, "user invalid input");
 				output = MSG_INVALID_INPUT;
@@ -114,7 +113,7 @@ public class Logic {
 	 * @param contentStr2
 	 * @return
 	 */
-	public String addEvent(String contentStr2) {
+	private String addEvent(String contentStr2) {
 		String startDate = getStartDate(contentStr2);
 		String endDate = getEndDate(contentStr2);
 		TaskEvent temp;
@@ -128,7 +127,15 @@ public class Logic {
 		events.add(temp);
 		return String.format(MSG_ADDEVENT_SUCCESS, temp.getName());
 	}
-
+	
+	public String saveFile(String contentStr2){
+		
+		
+		
+		
+		return contentStr2;
+	}
+	
 	/**
 	 * @param contentStr2
 	 * @return
@@ -146,7 +153,25 @@ public class Logic {
 			String startDate = getSplittedString(contentStr2, RequiredField.EVENT_STARTDATE);
 			return startDate;
 	}
-
+	public String addTodo(String contentStr){
+		if(checkTodo(contentStr)){
+			return addEvent(contentStr);
+		}
+		else{
+			return addTask(contentStr);
+		}
+	}
+	
+	private boolean checkTodo(String contentStr){
+		String tempTodo = contentStr.replace(getTask(contentStr), "");
+		tempTodo = contentStr.replace("-", "");
+		if(tempTodo.contains("from")){
+			return true;
+		}
+		else{
+			return false;
+		}		
+	}
 	/**
 	 * This function add task input by user into storage
 	 * @param contentStr
