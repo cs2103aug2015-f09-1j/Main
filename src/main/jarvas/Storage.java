@@ -58,6 +58,19 @@ public class Storage{
 		}
 	}
 	
+	public boolean saveToLocation(String newFileName){
+		filename = newFileName;
+		File newTemp = new File(filename);
+		if(!newTemp.exists()){
+			logger.log(Level.INFO, filename + " not exist");
+			return false;
+		} else {
+			logger.log(Level.INFO, "file created");
+			saveToStorage();
+			return true;
+		}
+	}
+	
 	private void seperateJSONArray() {
 		// TODO Auto-generated method stub
 		newTask = (JSONArray)totalTask.get("Tasks");
@@ -71,7 +84,6 @@ public class Storage{
 				combineJSONArray();
 				file.write(totalTask.toJSONString());
 				file.close();
-				System.out.println("File saved");
 				logger.log(Level.INFO, "jsonobjects is saved into text file");
 		}catch(IOException e){
 			System.err.println("invalid input " + e.getMessage());

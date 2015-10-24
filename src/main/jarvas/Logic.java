@@ -21,9 +21,12 @@ public class Logic {
 	private static final String MSG_TASK_NOTEXIST = "task \"%1$s\" does not exist";
 	private static final String MSG_TASK_CLEAR = "tasks is clear";
 	private static final String MSG_EDIT_SUCCESS = "task \"%1$s\" successfully edited";
+	private static final String MSG_SAVE_SUCCESS = "File \"%1$s\" successfully saved";
+	private static final String MSG_SAVE_FAILURE = "File \"%1$s\" is not saved";
 	private static final String MSG_HELP = 		
 				"\n#####Commands for JARVAS:#####\n"
-			+ "Add - Add task -due dd/mm/yyyy/hh/mm\n"
+			+ "Add Task - Add -due dd/mm/yyyy/hh:mm"
+			+ "Add Event - Add -from dd/mm/yyyy hh:mm -to dd/mm/yyyy hh:mm"
 			+ "Delete - Delete task\n"
 			+ "Edit - Edit task -due dd/mm/yyyy/hh/mm\n"
 			+ "Display - Show the total tasks\n"
@@ -129,11 +132,12 @@ public class Logic {
 	}
 	
 	public String saveFile(String contentStr2){
-		
-		
-		
-		
-		return contentStr2;
+		if(storage.saveToLocation(contentStr2)){
+			return String.format(MSG_SAVE_SUCCESS, contentStr2);
+		}
+		else{
+			return String.format(MSG_SAVE_FAILURE, contentStr2);
+		}
 	}
 	
 	/**
