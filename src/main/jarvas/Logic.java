@@ -29,7 +29,7 @@ public class Logic {
 			+ "Add Task - Add -due dd/mm/yyyy/hh:mm"
 			+ "Add Event - Add -from dd/mm/yyyy hh:mm -to dd/mm/yyyy hh:mm"
 			+ "Delete - Delete task\n"
-			+ "Edit - Edit task -due dd/mm/yyyy/hh/mm\n"
+			+ "Edit - task/event <index> <name/due/from/to> <content to edit> (Omit the <>)"
 			+ "Display - Show the total tasks\n"
 			+ "Exit - Quit the problem\n";
 			
