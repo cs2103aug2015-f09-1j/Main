@@ -18,6 +18,7 @@ public class Logic {
 	private static final String MSG_ADDEVENT_SUCCESS = "event \"%1$s\" successfully added";
 	private static final String MSG_ADD_FAIL_ALRTHERE = "task \"%1$s\" is already added, no changes";
 	private static final String MSG_DELETE_SUCCESS = "task \"%1$s\" successfully deleted";
+	private static final String MSG_DELETE_FAIL = "task \"%1$s\" failed to delete";
 	private static final String MSG_TASK_NOTEXIST = "task \"%1$s\" does not exist";
 	private static final String MSG_TASK_CLEAR = "tasks is clear";
 	private static final String MSG_EDIT_SUCCESS = "task \"%1$s\" successfully edited";
@@ -42,6 +43,8 @@ public class Logic {
 	String contentStr;
 	String output;
 	Storage storage;
+	int indexEvent;
+	int indexTask;
 	Parser.CommandType commandType;
 	Vector <TaskToDo> tasks = new Vector <TaskToDo>();
 	Vector <TaskEvent> events = new Vector<TaskEvent>();
@@ -82,7 +85,15 @@ public class Logic {
 				output = deleteTask(contentStr);
 				break;
 			case EDIT:
-				output = editTask(contentStr);
+				try {
+					output = edit(contentStr);
+				} catch (NumberFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			case DISPLAY: 
 				displayTask();
@@ -121,7 +132,8 @@ public class Logic {
 		String endDate = getEndDate(contentStr2);
 		TaskEvent temp;
 		try {
-			temp = new TaskEvent(getTask(contentStr2), startDate, endDate);
+			temp = new TaskEvent(getTask(contentStr2), startDate, endDate, ++indexEvent);
+			
 		} catch (ParseException e) {
 			System.err.println("invalid date format" + e.getMessage());
 			logger.log(Level.WARNING, "invalid date format for event");
@@ -183,8 +195,9 @@ public class Logic {
 	 * @return add success msg
 	 */
 	private String addTask(String contentStr){
-		TaskToDo temp = new TaskToDo(getTask(contentStr).trim(),getDueDate(contentStr));
+		TaskToDo temp = new TaskToDo(getTask(contentStr).trim(),getDueDate(contentStr), ++indexTask);
 		tasks.add(temp);
+		System.out.println(temp.getIndex());
 		logger.log(Level.INFO, "add task");
 		return String.format(MSG_ADD_SUCCESS,temp.getName());
 	}
@@ -239,21 +252,58 @@ public class Logic {
 	 * @param contentStr2
 	 * 				content of task task to be edited
 	 * @return msg of edit task's info
+	 * @throws ParseException 
+	 * @throws NumberFormatException 
 	 */
-	private String editTask(String contentStr2) {
+	private String edit(String contentStr2) throws NumberFormatException, ParseException {
+		String[] contentStr3 = contentStr.split("\\s+");
+		System.out.println(contentStr3[0]);
+		System.out.println(contentStr3[1]);
+		System.out.println(contentStr3[2]);
+		System.out.println(contentStr3[3]);
 		logger.log(Level.INFO, "edit task function");
-		String taskDateToBeEdit = getSplittedString(contentStr2, RequiredField.TASKDUEDATE);
-		String taskNameToBeEdit = getTask(contentStr2);
-		int indexOfTask = getIndexofTask(taskNameToBeEdit);
-		if(indexOfTask == -1){
-			logger.log(Level.WARNING, "Task does not exist");
-			return String.format(MSG_TASK_NOTEXIST, taskNameToBeEdit);
-		} else {
-			logger.log(Level.INFO, "Task edit successful");
-			tasks.get(indexOfTask).setDueDate(taskDateToBeEdit);
-			return String.format(MSG_EDIT_SUCCESS, taskNameToBeEdit);
+		if(contentStr3[0].equals("task")){
+			if(contentStr3[2].equals("name")){
+				System.out.println("pass1");
+				tasks.get(Integer.parseInt(contentStr3[1])-1).setName(contentStr3[3]);
+				System.out.println("pass 2");
+				logger.log(Level.INFO, "Task edit successful");
+				return String.format(MSG_EDIT_SUCCESS, contentStr3[3]);
+			}
+			else if(contentStr3[2].equals("due")){
+				tasks.get(Integer.parseInt(contentStr3[1])-1).setDueDate(contentStr3[3]);
+				logger.log(Level.INFO, "Task edit successful");
+				return String.format(MSG_EDIT_SUCCESS, contentStr3[3]);
+			}
+			else{
+				logger.log(Level.WARNING, "Task does not exist");
+				return String.format(MSG_TASK_NOTEXIST, contentStr3[1]);				
+			}
 		}
-		
+		else if(contentStr3[0].equals("event")){
+			if(contentStr3[2].equals("name")){
+				events.get(Integer.parseInt(contentStr3[1])-1).setName(contentStr3[3]);
+				logger.log(Level.INFO, "Event edit successful");
+				return String.format(MSG_EDIT_SUCCESS, contentStr3[3]);
+			}
+			else if(contentStr3[2].equals("from")){
+				events.get(Integer.parseInt(contentStr3[1])-1).setStart(contentStr3[3]);
+				logger.log(Level.INFO, "Event edit successful");
+				return String.format(MSG_EDIT_SUCCESS, contentStr3[3]);
+			}
+			else if(contentStr3[2].equals("to")){
+				events.get(Integer.parseInt(contentStr3[1])-1).setEnd(contentStr3[3]);
+				logger.log(Level.INFO, "Event edit successful");
+				return String.format(MSG_EDIT_SUCCESS, contentStr3[3]);
+			}
+			else{
+				logger.log(Level.WARNING, "Event does not exist");
+				return String.format(MSG_TASK_NOTEXIST, contentStr3[1]);				
+			}			
+		}
+		else{
+			return String.format(MSG_TASK_NOTEXIST, contentStr3[1]);
+		}
 	}
 	
 	/**
@@ -264,13 +314,21 @@ public class Logic {
 	 */
 	private String deleteTask(String contentStr2) {
 		// TODO Auto-generated method stub
-		for(int i=0; i<tasks.size();i++){
-			if(tasks.get(i).getName().equals(contentStr2)){
-				tasks.remove(i);
-				logger.log(Level.INFO, "Task ACTUALLY deleted");
-			}
+		String[] input = contentStr2.split("\\s+");
+		int indexToDelete = Integer.parseInt(input[1]);
+		if(input[0].equals("task")){
+			tasks.remove(indexToDelete-1);
+			logger.log(Level.INFO, "Task deleted");
+			return String.format(MSG_DELETE_SUCCESS, contentStr2);		
 		}
-		return String.format(MSG_DELETE_SUCCESS, contentStr2);
+		else if(input[0].equals("event")){
+			events.remove(indexToDelete-1);
+			logger.log(Level.INFO, "Task Event deleted");		
+			return String.format(MSG_DELETE_SUCCESS, contentStr2);
+		}
+		else{
+			return String.format(MSG_DELETE_FAIL, contentStr2);	
+		}
 	}
 	
 	/**
@@ -303,9 +361,11 @@ public class Logic {
 	 */
 	public void getOriginalTasks() {
 		Vector<TaskToDo> returnTask = storage.convertToTask();
+		indexTask = returnTask.size();
 		Vector<TaskEvent> returnEvent = null;
 		try {
 			returnEvent = storage.convertToEvent();
+			indexEvent = returnEvent.size();
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			logger.log(Level.WARNING, "fail to load event vector in logic class");

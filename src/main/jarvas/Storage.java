@@ -117,7 +117,8 @@ public class Storage{
 			JSONObject task = (JSONObject)newTask.get(i);
 			String name = task.get("Task").toString();
 			String date = task.get("Date").toString();
-			TaskToDo aTask = new TaskToDo(name, date);
+			int index = i+1;
+			TaskToDo aTask = new TaskToDo(name, date, index);
 			vecTask.add(aTask);
 		}
 		return vecTask;
@@ -131,7 +132,7 @@ public class Storage{
 			String name = event.get("Event").toString();
 			String startDate = event.get("Start Date").toString();
 			String endDate = event.get("End Date").toString();
-			TaskEvent aEvent = new TaskEvent(name, startDate, endDate);
+			TaskEvent aEvent = new TaskEvent(name, startDate, endDate, i+1);
 			vecEvent.add(aEvent);
 		}
 		return vecEvent;
