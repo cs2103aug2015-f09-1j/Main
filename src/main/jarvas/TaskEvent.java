@@ -11,6 +11,7 @@ public class TaskEvent implements Task{
 	private static final String WORD_TO = " to ";
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 	
+	int index;
 	String eventName;
 	DateOfEvent dateOfEvent;
 	public TaskEvent() {
@@ -18,22 +19,27 @@ public class TaskEvent implements Task{
 		dateOfEvent.setEndDate(null);
 		dateOfEvent.setStartDate(null);
 	}
-	public TaskEvent(String eventName , Date startDate , Date endDate){
+	public TaskEvent(String eventName , Date startDate , Date endDate, int index){
 		dateOfEvent = new DateOfEvent();
 		this.eventName= eventName;
+		this.index = index;
 		dateOfEvent.setEndDate(endDate);
 		dateOfEvent.setStartDate(startDate);
 	}
-	public TaskEvent(String eventName , String startDate , String endDate) throws ParseException{
+	public TaskEvent(String eventName , String startDate , String endDate, int index) throws ParseException{
 
 			dateOfEvent = new DateOfEvent();
+			this.index = index;
 			this.eventName= eventName;
 			dateOfEvent.setStartDate(sdf.parse(startDate));
 			dateOfEvent.setEndDate(sdf.parse(endDate));
 
 	}
 
-
+	public int getIndex(){
+		return index;
+	}
+	
 	public Date getStartDate() {
 		return dateOfEvent.getStartDate();
 	}
@@ -62,6 +68,16 @@ public class TaskEvent implements Task{
 		this.eventName = taskName;
 		
 	}
+	
+	public void setStart(String startDate) throws ParseException {
+		dateOfEvent.setStartDate(sdf.parse(startDate));
+	}	
+	
+	public void setEnd(String endDate) throws ParseException {
+		dateOfEvent.setEndDate(sdf.parse(endDate));
+
+	}
+	
 
 
 	@Override

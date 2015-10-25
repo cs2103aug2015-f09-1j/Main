@@ -13,20 +13,28 @@ public class TaskToDo implements Task{
 	
 	private String taskName;
 	private String dueDate;
+	private int index;
 	
 	public TaskToDo(){
 		taskName = new String();
 		dueDate = new String();
+		index = 0;
 	}
 	
-	public TaskToDo(String taskName){
+	public TaskToDo(String taskName, int index){
 		setName(taskName);
+		this.index = index;
 		dueDate = null;
 	}
 	
-	public TaskToDo(String taskName,String dueDate){
+	public TaskToDo(String taskName, String dueDate,  int index){
 		setName(taskName);
+		this.index = index;
 		setDueDate(dueDate);
+	}
+	
+	public int getIndex(){
+		return index;
 	}
 	
 	@Override
