@@ -40,23 +40,6 @@ public class TaskEvent implements Task{
 		return index;
 	}
 	
-	public Date getStartDate() {
-		return dateOfEvent.getStartDate();
-	}
-	
-	public String getStringStartDate(){
-		return sdf.format(getStartDate());
-	}
-	public String getStringEndDate(){
-		return sdf.format(getEndDate());
-	}
-
-
-	public Date getEndDate() {
-		return dateOfEvent.getEndDate();
-	}
-
-
 	@Override
 	public String getName() {
 		return eventName;
@@ -75,11 +58,19 @@ public class TaskEvent implements Task{
 	
 	public void setEnd(String endDate) throws ParseException {
 		dateOfEvent.setEndDate(sdf.parse(endDate));
-
 	}
-	
-
-
+	public Date getStartDate() {
+		return dateOfEvent.getStartDate();
+	}
+	public String getStringStartDate(){
+		return sdf.format(getStartDate());
+	}
+	public String getStringEndDate(){
+		return sdf.format(getEndDate());
+	}
+	public Date getEndDate() {
+		return dateOfEvent.getEndDate();
+	}
 	@Override
 	public String print() {
 		String temp = eventName + WORD_FROM + sdf.format(getStartDate()) + WORD_TO + sdf.format(getEndDate()); 

@@ -38,7 +38,7 @@ public class Controller implements Initializable{
         for(int i=0; i<tasks.size();i++) {
         	TreeItem<String> aTask = new TreeItem<String>((i+1) + ". Task name: " + tasks.get(i).getName());
         	outputTaskRoot.getChildren().add(aTask);
-        	aTask.getChildren().add(new TreeItem<String>("Due Date: " + tasks.get(i).getDueDate()));
+        	aTask.getChildren().add(new TreeItem<String>("Due Date: " + tasks.get(i).getStringStartDate()));
         }
 
         Vector<TaskEvent> events = logic.returnNewEvents();
@@ -75,7 +75,7 @@ public class Controller implements Initializable{
         for(int i=0; i<tasks.size();i++) {
         	TreeItem<String> aTask = new TreeItem<String>((i+1) + ". Task name: " + tasks.get(i).getName());
         	outputTaskRoot.getChildren().add(aTask);
-        	aTask.getChildren().add(new TreeItem<String>("Due Date: " + tasks.get(i).getDueDate()));
+        	aTask.getChildren().add(new TreeItem<String>("Due Date: " + tasks.get(i).getStringStartDate()));
         }
         
         Vector<TaskEvent> events = logic.returnNewEvents();

@@ -271,7 +271,7 @@ public class Logic {
 				return String.format(MSG_EDIT_SUCCESS, contentStr3[3]);
 			}
 			else if(contentStr3[2].equals("due")){
-				tasks.get(Integer.parseInt(contentStr3[1])-1).setDueDate(contentStr3[3]);
+				tasks.get(Integer.parseInt(contentStr3[1])-1).setStart(contentStr3[3]);
 				logger.log(Level.INFO, "Task edit successful");
 				return String.format(MSG_EDIT_SUCCESS, contentStr3[3]);
 			}

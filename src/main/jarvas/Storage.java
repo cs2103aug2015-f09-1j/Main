@@ -164,7 +164,7 @@ public class Storage{
 		for(int i=0; i<tasks.size(); i++){
 			Map<String, String> entry = new HashMap<String, String>();
 			entry.put("Task", tasks.get(i).getName());
-			entry.put("Date", tasks.get(i).getDueDate());
+			entry.put("Date", tasks.get(i).getStringStartDate());
 			JSONObject jsonEntry = new JSONObject();
 			jsonEntry.putAll(entry);
 			convertToJSONArray(jsonEntry, newTask);
