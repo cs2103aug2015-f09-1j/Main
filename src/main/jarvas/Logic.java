@@ -200,6 +200,7 @@ public class Logic {
 	}
 	
 	private boolean checkTodo(String contentStr){
+		
 		String tempTodo = contentStr.replace(getTask(contentStr), "");
 		tempTodo = contentStr.replace("-", "");
 		if(tempTodo.contains("from")){
@@ -207,7 +208,7 @@ public class Logic {
 		}
 		else{
 			return false;
-		}		
+		}
 	}
 	/**
 	 * This function add task input by user into storage
@@ -440,8 +441,12 @@ public class Logic {
 	 * @return task name
 	 */
 	private static String getTask(String str){
-		String taskName = str.trim().substring(0, str.indexOf('-'));
-		return taskName;
+		if(str.contains("-")){
+			String taskName = str.trim().substring(0, str.indexOf('-'));	
+			return taskName;
+		}
+		else
+			return str;
 	}
 	
 	/**
@@ -474,7 +479,8 @@ public class Logic {
 	 * @return	desire part of string
 	 */
 	private static String getSplittedString(String str,RequiredField requiredField){
-		String removedTaskName = str.replace(getTask(str), "");
+		try{
+			String removedTaskName = str.replace(getTask(str), "");
 		String[] strArr = removedTaskName.split("-");
 		String returnStr = null;
 		switch (requiredField) {
@@ -494,6 +500,9 @@ public class Logic {
 			break;
 		}
 		return returnStr;
+		}catch(Exception e){
+			return "";
+		}
 	}
 	
 	/**
