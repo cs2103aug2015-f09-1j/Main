@@ -27,12 +27,17 @@ public class TaskToDo implements Task{
 		index = 0;
 	}
 	
-	public TaskToDo(String taskName, int index){
+	public TaskToDo(String taskName, int index, boolean status){
 		setName(taskName);
 		this.index = index;
 		dateOfEvent = new DateOfEvent();
-		dateOfEvent.setStartDate(null);
-		done = false;
+		try {
+			dateOfEvent.setStartDate(sdf.parse("11/11/1111 11:11"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		done = status;
 	}
 	
 	public TaskToDo(String taskName, String dueDate,  int index, boolean status){
@@ -42,16 +47,6 @@ public class TaskToDo implements Task{
 		if(!dueDate.equals("")){
 			try {
 				dateOfEvent.setStartDate(sdf.parse(dueDate));
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			done = status;
-		}
-		// FLOATING TASK INPUT !!!! EDIT HERE
-		else{
-			try {
-				dateOfEvent.setStartDate(sdf.parse("11/11/1111 11:11"));
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -217,7 +217,13 @@ public class Logic {
 	 * @return add success msg
 	 */
 	private String addTask(String contentStr){
-		TaskToDo temp = new TaskToDo(getTask(contentStr).trim(),getDueDate(contentStr), ++indexTask, false);
+		TaskToDo temp;
+		if(getDueDate(contentStr).equals("")){
+			temp = new TaskToDo(getTask(contentStr).trim(), ++indexTask, false);	
+		}
+		else{
+			temp = new TaskToDo(getTask(contentStr).trim(),getDueDate(contentStr), ++indexTask, false);
+		}
 		tasks.add(temp);
 		System.out.println(temp.getIndex());
 		logger.log(Level.INFO, "add task");
@@ -481,23 +487,23 @@ public class Logic {
 	private static String getSplittedString(String str,RequiredField requiredField){
 		try{
 			String removedTaskName = str.replace(getTask(str), "");
-		String[] strArr = removedTaskName.split("-");
-		String returnStr = null;
-		switch (requiredField) {
-		case TASKDUEDATE:
-			returnStr = getContent(strArr,"due ");
-			break;
-		case EVENT_STARTDATE:
-			returnStr = getContent(strArr, "from ");
-			break;
-		case EVENT_ENDDATE:
-			returnStr = getContent(strArr, "to ");
-			break;
-		case TASKLOCATION:
-			returnStr = getContent(strArr, "at"	);
-		default:
-			logger.log(Level.INFO, "invalid RequiredField");
-			break;
+			String[] strArr = removedTaskName.split("-");
+			String returnStr = null;
+			switch (requiredField) {
+			case TASKDUEDATE:
+				returnStr = getContent(strArr,"due ");
+				break;
+			case EVENT_STARTDATE:
+				returnStr = getContent(strArr, "from ");
+				break;
+			case EVENT_ENDDATE:
+				returnStr = getContent(strArr, "to ");
+				break;
+			case TASKLOCATION:
+				returnStr = getContent(strArr, "at"	);
+			default:
+				logger.log(Level.INFO, "invalid RequiredField");
+				break;
 		}
 		return returnStr;
 		}catch(Exception e){
