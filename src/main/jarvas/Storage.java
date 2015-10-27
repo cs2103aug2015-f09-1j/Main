@@ -117,8 +117,9 @@ public class Storage{
 			JSONObject task = (JSONObject)newTask.get(i);
 			String name = task.get("Task").toString();
 			String date = task.get("Date").toString();
-			int index = i+1;
-			TaskToDo aTask = new TaskToDo(name, date, index);
+			String index = task.get("Index").toString();
+			boolean done = Boolean.valueOf(task.get("Done").toString());
+			TaskToDo aTask = new TaskToDo(name, date, Integer.parseInt(index), done);
 			vecTask.add(aTask);
 		}
 		return vecTask;
@@ -130,9 +131,11 @@ public class Storage{
 		for(int i=0; newEvent != null && i<newEvent.size(); i++){
 			JSONObject event = (JSONObject)newEvent.get(i);
 			String name = event.get("Event").toString();
+			String index = event.get("Index").toString();
 			String startDate = event.get("Start Date").toString();
 			String endDate = event.get("End Date").toString();
-			TaskEvent aEvent = new TaskEvent(name, startDate, endDate, i+1);
+			boolean done = Boolean.valueOf(event.get("Done").toString());
+			TaskEvent aEvent = new TaskEvent(name, startDate, endDate, Integer.parseInt(index), done);
 			vecEvent.add(aEvent);
 		}
 		return vecEvent;
@@ -163,8 +166,10 @@ public class Storage{
 		newTask = new JSONArray();
 		for(int i=0; i<tasks.size(); i++){
 			Map<String, String> entry = new HashMap<String, String>();
+			entry.put("Index", String.valueOf(tasks.get(i).getIndex()));
 			entry.put("Task", tasks.get(i).getName());
 			entry.put("Date", tasks.get(i).getStringStartDate());
+			entry.put("Done", String.valueOf(tasks.get(i).getDone()));
 			JSONObject jsonEntry = new JSONObject();
 			jsonEntry.putAll(entry);
 			convertToJSONArray(jsonEntry, newTask);
@@ -181,8 +186,10 @@ public class Storage{
 			Map<String, String> entryline = new HashMap<String, String>();
 			entryline.put("Event", events.get(i).getName());
 			Map<String, String> entry = new HashMap<String, String>();
+			entry.put("Index", String.valueOf(events.get(i).getIndex()));
 			entry.put("Start Date", events.get(i).getStringStartDate());
 			entry.put("End Date", events.get(i).getStringEndDate());
+			entry.put("Done", String.valueOf(events.get(i).getDone()));
 			JSONObject jsonEntry = new JSONObject();
 			jsonEntry.putAll(entryline);
 			jsonEntry.putAll(entry);

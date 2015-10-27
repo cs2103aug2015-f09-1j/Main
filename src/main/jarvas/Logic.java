@@ -24,6 +24,8 @@ public class Logic {
 	private static final String MSG_EDIT_SUCCESS = "task \"%1$s\" successfully edited";
 	private static final String MSG_SAVE_SUCCESS = "File \"%1$s\" successfully saved";
 	private static final String MSG_SAVE_FAILURE = "File \"%1$s\" is not saved";
+	private static final String MSG_DONE_SUCCESS = " \"%1$s\" is marked";
+	private static final String MSG_DONE_FAIL = " \"%1$s\" not marked";
 	private static final String MSG_HELP = 		
 				"\n#####Commands for JARVAS:#####\n"
 			+ "Add Task - Add -due dd/mm/yyyy/hh:mm"
@@ -107,8 +109,13 @@ public class Logic {
 				System.exit(0);
 			case CLEAR:
 				output = clearTask();
+				break;
+			case MARK:
+				output = doneTask(contentStr);
+				break;
 			case SAVE:
 				output = saveFile(contentStr);
+				break;
 			default:
 				logger.log(Level.WARNING, "user invalid input");
 				output = MSG_INVALID_INPUT;
@@ -123,6 +130,20 @@ public class Logic {
 		return MSG_TASK_CLEAR;
 	}
 	
+	private String doneTask(String contentStr2){
+		String[] contentStr3 = contentStr.split("\\s+");
+		if(contentStr3[0].equals("task")){
+			tasks.get(Integer.parseInt(contentStr3[1])-1).setDone(contentStr3[2]);
+			return String.format(MSG_DONE_SUCCESS,  contentStr3[0]+ " " + contentStr3[1]);
+		}
+		else if(contentStr3[0].equals("event")){
+			events.get(Integer.parseInt(contentStr3[1])-1).setDone(contentStr3[2]);
+			return String.format(MSG_DONE_SUCCESS, contentStr3[0]+ " " + contentStr3[1]);
+		}
+		else{
+			return String.format(MSG_DONE_FAIL, contentStr2);
+		}
+	}
 	/**
 	 * @param contentStr2
 	 * @return
@@ -132,7 +153,7 @@ public class Logic {
 		String endDate = getEndDate(contentStr2);
 		TaskEvent temp;
 		try {
-			temp = new TaskEvent(getTask(contentStr2), startDate, endDate, ++indexEvent);
+			temp = new TaskEvent(getTask(contentStr2), startDate, endDate, ++indexEvent, false);
 			
 		} catch (ParseException e) {
 			System.err.println("invalid date format" + e.getMessage());
@@ -195,7 +216,7 @@ public class Logic {
 	 * @return add success msg
 	 */
 	private String addTask(String contentStr){
-		TaskToDo temp = new TaskToDo(getTask(contentStr).trim(),getDueDate(contentStr), ++indexTask);
+		TaskToDo temp = new TaskToDo(getTask(contentStr).trim(),getDueDate(contentStr), ++indexTask, false);
 		tasks.add(temp);
 		System.out.println(temp.getIndex());
 		logger.log(Level.INFO, "add task");
@@ -257,10 +278,6 @@ public class Logic {
 	 */
 	private String edit(String contentStr2) throws NumberFormatException, ParseException {
 		String[] contentStr3 = contentStr.split("\\s+");
-		System.out.println(contentStr3[0]);
-		System.out.println(contentStr3[1]);
-		System.out.println(contentStr3[2]);
-		System.out.println(contentStr3[3]);
 		logger.log(Level.INFO, "edit task function");
 		if(contentStr3[0].equals("task")){
 			if(contentStr3[2].equals("name")){

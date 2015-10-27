@@ -14,31 +14,47 @@ public class TaskEvent implements Task{
 	int index;
 	String eventName;
 	DateOfEvent dateOfEvent;
+	private boolean done;
+
 	public TaskEvent() {
 		dateOfEvent = new DateOfEvent();
 		dateOfEvent.setEndDate(null);
 		dateOfEvent.setStartDate(null);
 	}
-	public TaskEvent(String eventName , Date startDate , Date endDate, int index){
+	public TaskEvent(String eventName , Date startDate , Date endDate, int index, boolean status){
 		dateOfEvent = new DateOfEvent();
 		this.eventName= eventName;
 		this.index = index;
 		dateOfEvent.setEndDate(endDate);
 		dateOfEvent.setStartDate(startDate);
+		done = status;
 	}
-	public TaskEvent(String eventName , String startDate , String endDate, int index) throws ParseException{
+	public TaskEvent(String eventName , String startDate , String endDate, int index, boolean status) throws ParseException{
 
 			dateOfEvent = new DateOfEvent();
 			this.index = index;
 			this.eventName= eventName;
 			dateOfEvent.setStartDate(sdf.parse(startDate));
 			dateOfEvent.setEndDate(sdf.parse(endDate));
-
+			done = status;
 	}
 
 	public int getIndex(){
 		return index;
 	}
+	
+	public void setDone(String status){
+		if(status.equals("done")){
+			done = true;
+		}
+		else{
+			done = false;
+		}
+	}
+	public boolean getDone(){
+		return done;
+	}
+	
 	
 	@Override
 	public String getName() {

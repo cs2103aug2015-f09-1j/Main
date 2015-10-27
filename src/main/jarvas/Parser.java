@@ -20,11 +20,12 @@ public class Parser {
 	public static final String COMMAND_EDIT = "edit";
 	public static final String COMMAND_EXIT = "exit";
 	public static final String COMMAND_HELP = "help";
+	public static final String COMMAND_MARK = "mark";
 	public static final String COMMAND_SAVE = "save";
 	public static final String ERROR_COMMAND_EMPTY = "command type string cannot be empty!";
 	
 	public enum CommandType {
-		ADD, EDIT, DELETE, SORT, SEARCH, INVALID, EXIT, CLEAR, HELP, DISPLAY , FROM , TO , SAVE
+		ADD, EDIT, DELETE, SORT, SEARCH, INVALID, EXIT, CLEAR, HELP, DISPLAY , FROM , TO , SAVE, MARK
 	};
 	
 	private static final Logger logger = Logger.getLogger(Logic.class.getName());
@@ -60,6 +61,9 @@ public class Parser {
 		} 
 		else if (commandTypeString.equalsIgnoreCase(COMMAND_SAVE)) {
 		 	return CommandType.SAVE;
+		} 
+		else if (commandTypeString.equalsIgnoreCase(COMMAND_MARK)) {
+		 	return CommandType.MARK;
 		} 
 		else if (commandTypeString.equalsIgnoreCase(COMMAND_EXIT)) {
 		 	return CommandType.EXIT;

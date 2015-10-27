@@ -18,6 +18,7 @@ public class TaskToDo implements Task{
 	private String taskName;
 	private int index;
 	DateOfEvent dateOfEvent;
+	private boolean done;
 	
 	public TaskToDo(){
 		taskName = new String();
@@ -31,9 +32,10 @@ public class TaskToDo implements Task{
 		this.index = index;
 		dateOfEvent = new DateOfEvent();
 		dateOfEvent.setStartDate(null);
+		done = false;
 	}
 	
-	public TaskToDo(String taskName, String dueDate,  int index){
+	public TaskToDo(String taskName, String dueDate,  int index, boolean status){
 		setName(taskName);
 		this.index = index;
 		dateOfEvent = new DateOfEvent();
@@ -43,12 +45,25 @@ public class TaskToDo implements Task{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		done = status;
 	}
 	
 	public int getIndex(){
 		return index;
 	}
 	
+	public void setDone(String status){
+		if(status.equals("done")){
+			done = true;
+		}
+		else{
+			done = false;
+		}
+	}
+	
+	public boolean getDone(){
+		return done;
+	}
 	@Override
 	public String getName() {
 		return taskName;
