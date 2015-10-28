@@ -26,16 +26,15 @@ public class Logic {
 	private static final String MSG_SAVE_FAILURE = "File \"%1$s\" is not saved";
 	private static final String MSG_DONE_SUCCESS = " \"%1$s\" is marked";
 	private static final String MSG_DONE_FAIL = " \"%1$s\" not marked";
-	private static final String MSG_HELP = 		
-				"\n#####Commands for JARVAS:#####\n"
-			+ "Add Task - Add -due dd/mm/yyyy/hh:mm"
-			+ "Add Event - Add -from dd/mm/yyyy hh:mm -to dd/mm/yyyy hh:mm"
-			+ "Delete - Delete task\n"
-			+ "Edit - task/event <index> <name/due/from/to> <content to edit> (Omit the <>)\n"
-			+ "Display - Show the total tasks\n"
-			+ "Clear - clear\n"
-			+ "Done - mark task/event <index> <done/undone>/n"
-			+ "Exit - Quit the problem\n";
+	private static final String MSG_HELP =
+			"Add Task - Add -due dd/mm/yyyy/hh:mm\n"
+			+ " Add Event - Add -from dd/mm/yyyy hh:mm -to dd/mm/yyyy hh:mm\n"
+			+ " Delete - Delete task\n"
+			+ " Edit - task/event <index> <name/due/from/to> <content to edit>\n"
+			+ " Display - Show the total tasks\n"
+			+ " Clear - clear\n"
+			+ " Done - mark task/event <index> <done/undone>\n"
+			+ " Exit - Quit the problem\n";
 			
 	enum RequiredField {
 		TASKDUEDATE,TASKLOCATION,EVENT_STARTDATE,EVENT_ENDDATE
@@ -105,7 +104,7 @@ public class Logic {
 			case SEARCH:
 				output = searchTask(contentStr);
 			case HELP:
-				displayHelp();
+				output = displayHelp();
 				break;
 			case EXIT:
 				System.exit(0);

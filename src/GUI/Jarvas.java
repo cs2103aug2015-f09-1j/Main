@@ -69,6 +69,7 @@ public class Jarvas extends Application{
         }
         allTasks = new ListView<>(alltasks);
         log = new Text();
+        log.setFont(new Font("log", 10));
         input = new TextField();
         inputHandler newCommand = new inputHandler();
         input.setOnAction(newCommand);
@@ -111,7 +112,6 @@ public class Jarvas extends Application{
             	setText(item);
             	break;
             default:
-            	System.out.println(item);
             	if(item.charAt(0) == 'Y'){
                 	setTextFill(Color.RED);
                 	setText(item.substring(1));
@@ -131,7 +131,8 @@ public class Jarvas extends Application{
             // logic.getInput(userinput.getText());
             String Input = input.getText();
             String outcome = logic.execute(Input);
-            log.setText(outcome);
+            System.out.println(outcome);
+            log.setText(" " + outcome);
             Vector<TaskToDo> tasks = logic.returnNewTasks();
             Vector<TaskEvent> events = logic.returnNewEvents();
             alltasks = FXCollections.observableArrayList();
