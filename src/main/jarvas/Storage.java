@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,9 +28,10 @@ public class Storage{
 	
 	public JSONArray newTask;
 	public JSONArray newEvent;
-	public JSONArray tempTask;
-	public JSONArray tempEvent;
 	public JSONObject totalTask;
+	private boolean undoStatus = false;
+	private Stack<JSONArray> tempTask;
+	private Stack<JSONArray> tempEvent;
 	private int indexEvent;
 	private int indexTask;
 	public static Storage instance = null;
@@ -41,6 +43,8 @@ public class Storage{
 	}
 	Storage(String inputFileName){
 		filename = inputFileName;
+		tempTask = new Stack<JSONArray>();
+		tempEvent = new Stack<JSONArray>();
 		File temp = new File(filename);
 		if(!temp.exists()){
 			logger.log(Level.INFO, filename + " not exist");
@@ -59,8 +63,8 @@ public class Storage{
 		}else{
 			newTask = new JSONArray();
 			newEvent = new JSONArray();
-			tempTask = new JSONArray();
-			tempEvent = new JSONArray();
+			tempTask = new Stack<JSONArray>();
+			tempEvent = new Stack<JSONArray>();
 			totalTask = new JSONObject();
 			
 		}
@@ -128,8 +132,9 @@ public class Storage{
 	}
 	
 	public void undoStorage(){
-		newTask = tempTask;
-		newEvent = tempEvent;
+		newTask = tempTask.pop();
+		newEvent = tempEvent.pop();
+		undoStatus = true;
 	}
 	
 	private void updateTempFile(){
@@ -231,12 +236,19 @@ public class Storage{
 	 * 
 	 */
 	public void processTasks(Vector<TaskToDo> tasks, Vector<TaskEvent> events) {
-		tempTask = newTask;
-		tempEvent = newEvent;
+		pushToHistory();
 		convertTaskToJSONObject(tasks);
 		convertEventToJSONObject(events);
 		saveToStorage();
 		
+	}
+	
+	private void pushToHistory(){
+		if(undoStatus==false){
+			tempTask.push(newTask);	
+			tempEvent.push(newEvent);
+		}
+		undoStatus=false;
 	}
 	
 	
