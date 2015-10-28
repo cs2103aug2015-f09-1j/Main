@@ -34,6 +34,7 @@ public class Logic {
 			+ "Edit - task/event <index> <name/due/from/to> <content to edit> (Omit the <>)\n"
 			+ "Display - Show the total tasks\n"
 			+ "Clear - clear\n"
+			+ "Done - mark task/event <index> <done/undone>/n"
 			+ "Exit - Quit the problem\n";
 			
 	enum RequiredField {
