@@ -27,9 +27,12 @@ public class Storage{
 	
 	public JSONArray newTask;
 	public JSONArray newEvent;
+	public JSONArray tempTask;
+	public JSONArray tempEvent;
 	public JSONObject totalTask;
 	private int indexEvent;
 	private int indexTask;
+	public static Storage instance = null;
 	
 	private static final Logger logger = Logger.getLogger(Jarvas.class.getName());
 	public static String filename = "Jarvas_Storage.txt";
@@ -56,8 +59,22 @@ public class Storage{
 		}else{
 			newTask = new JSONArray();
 			newEvent = new JSONArray();
+			tempTask = new JSONArray();
+			tempEvent = new JSONArray();
 			totalTask = new JSONObject();
+			
 		}
+	}
+	
+	public static Storage getInstance(){
+		if(instance == null){
+			instance = new Storage();
+		}
+		return instance;
+	}
+	public void doStuff(){
+		fileRead();
+		seperateJSONArray();
 	}
 	
 	public boolean saveToLocation(String newFileName){
@@ -75,12 +92,14 @@ public class Storage{
 	
 	private void seperateJSONArray() {
 		// TODO Auto-generated method stub
+
 		newTask = (JSONArray)totalTask.get("Tasks");
 		newEvent = (JSONArray)totalTask.get("Events");
 	}
 
 	private void saveToStorage(){
 		try{
+				
 				FileWriter file = new FileWriter(filename);
 				assert(file != null): filename + " is null";
 				combineJSONArray();
@@ -108,6 +127,14 @@ public class Storage{
 		}	
 	}
 	
+	public void undoStorage(){
+		newTask = tempTask;
+		newEvent = tempEvent;
+	}
+	
+	private void updateTempFile(){
+
+	}
 	
 	/**
 	 * This function convert content of JSONArray into vector
@@ -204,6 +231,8 @@ public class Storage{
 	 * 
 	 */
 	public void processTasks(Vector<TaskToDo> tasks, Vector<TaskEvent> events) {
+		tempTask = newTask;
+		tempEvent = newEvent;
 		convertTaskToJSONObject(tasks);
 		convertEventToJSONObject(events);
 		saveToStorage();

@@ -21,6 +21,7 @@ public class Logic {
 	private static final String MSG_DELETE_FAIL = "task \"%1$s\" failed to delete";
 	private static final String MSG_TASK_NOTEXIST = "task \"%1$s\" does not exist";
 	private static final String MSG_TASK_CLEAR = "tasks is clear";
+	private static final String MSG_TASK_UNDO = "Undo success";
 	private static final String MSG_EDIT_SUCCESS = "task \"%1$s\" successfully edited";
 	private static final String MSG_SAVE_SUCCESS = "File \"%1$s\" successfully saved";
 	private static final String MSG_SAVE_FAILURE = "File \"%1$s\" is not saved";
@@ -52,7 +53,8 @@ public class Logic {
 	Vector <TaskToDo> tasks = new Vector <TaskToDo>();
 	Vector <TaskEvent> events = new Vector<TaskEvent>();
 	public Logic(){
-		storage = new Storage();
+		storage = Storage.getInstance();
+		storage.doStuff();
 		getOriginalTasks();
 		output = "";
 	}
@@ -117,6 +119,10 @@ public class Logic {
 			case SAVE:
 				output = saveFile(contentStr);
 				break;
+			case UNDO:
+				output = undo();
+				getOriginalTasks();
+				break;
 			default:
 				logger.log(Level.WARNING, "user invalid input");
 				output = MSG_INVALID_INPUT;
@@ -129,6 +135,11 @@ public class Logic {
 		tasks.clear();
 		events.clear();
 		return MSG_TASK_CLEAR;
+	}
+	
+	private String undo(){
+		storage.undoStorage();
+		return MSG_TASK_UNDO;
 	}
 	
 	private String doneTask(String contentStr2){
