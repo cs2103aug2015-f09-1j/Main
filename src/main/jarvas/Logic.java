@@ -31,8 +31,9 @@ public class Logic {
 			+ "Add Task - Add -due dd/mm/yyyy/hh:mm"
 			+ "Add Event - Add -from dd/mm/yyyy hh:mm -to dd/mm/yyyy hh:mm"
 			+ "Delete - Delete task\n"
-			+ "Edit - task/event <index> <name/due/from/to> <content to edit> (Omit the <>)"
+			+ "Edit - task/event <index> <name/due/from/to> <content to edit> (Omit the <>)\n"
 			+ "Display - Show the total tasks\n"
+			+ "Clear - clear\n"
 			+ "Exit - Quit the problem\n";
 			
 	enum RequiredField {

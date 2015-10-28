@@ -12,6 +12,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import GUI.Jarvas;
+
 //import src.Controller;
 
 public class Storage{
@@ -29,7 +31,7 @@ public class Storage{
 	private int indexEvent;
 	private int indexTask;
 	
-	private static final Logger logger = Logger.getLogger(Controller.class.getName());
+	private static final Logger logger = Logger.getLogger(Jarvas.class.getName());
 	public static String filename = "Jarvas_Storage.txt";
 	public Storage(){
 		this(filename);
