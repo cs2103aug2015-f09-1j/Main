@@ -44,15 +44,28 @@ public class Jarvas extends Application{
         alltasks = FXCollections.observableArrayList();
         alltasks.add("Tasks");
         for(int i=0; i<tasks.size();i++) {
-        	alltasks.add((i+1) + ". Task name: " + tasks.get(i).getName());
-        	alltasks.add("    Due Date: " + tasks.get(i).getStringStartDate());
+        	if(tasks.get(i).getDone()){
+            	alltasks.add("Y" + (i+1) + ". Task name: " + tasks.get(i).getName());
+            	alltasks.add("Y" + "    Due Date: " + tasks.get(i).getStringStartDate());
+        	}
+        	else{
+            	alltasks.add("N" + (i+1) + ". Task name: " + tasks.get(i).getName());
+            	alltasks.add("N" + "    Due Date: " + tasks.get(i).getStringStartDate());
+        	}
         }
         Vector<TaskEvent> events = logic.returnNewEvents();
         alltasks.add("Events");
         for(int i=0; events != null && i<events.size();i++) {
-        	alltasks.add((i+1) + ". Event name: " + events.get(i).getName());
-        	alltasks.add("    Start Date: " + events.get(i).getStartDate());
-        	alltasks.add("    End Date: " + events.get(i).getEndDate());
+        	if(events.get(i).getDone()){
+            	alltasks.add("Y" + (i+1) + ". Event name: " + events.get(i).getName());
+            	alltasks.add("Y" + "    Start Date: " + events.get(i).getStartDate());
+            	alltasks.add("Y" + "    End Date: " + events.get(i).getEndDate());
+        	}
+        	else{
+            	alltasks.add("N" + (i+1) + ". Event name: " + events.get(i).getName());
+            	alltasks.add("N" + "    Start Date: " + events.get(i).getStartDate());
+            	alltasks.add("N" + "    End Date: " + events.get(i).getEndDate());
+        	}
         }
         allTasks = new ListView<>(alltasks);
         log = new Text();
@@ -98,27 +111,15 @@ public class Jarvas extends Application{
             	setText(item);
             	break;
             default:
-            	setTextFill(Color.rgb(0, 0, 0));
-            	setText(item);
-            }
-        }
-    }
-	
-	static class ColorEventCell extends ListCell<String> {
-        @Override
-        public void updateItem(String item, boolean empty) {
-            super.updateItem(item, empty);
-            if(item == null){
-            	return;
-            }
-            switch(item){
-            case "Events":
-            	setTextFill(Color.rgb(71, 184, 251));
-            	setText(item);
-            	break;
-            default:
-            	setTextFill(Color.rgb(0, 0, 0));
-            	setText(item);
+            	System.out.println(item);
+            	if(item.charAt(0) == 'Y'){
+                	setTextFill(Color.RED);
+                	setText(item.substring(1));
+            	}
+            	else{
+                	setTextFill(Color.BLACK);
+                	setText(item.substring(1));
+            	}
             }
         }
     }
@@ -136,19 +137,40 @@ public class Jarvas extends Application{
             alltasks = FXCollections.observableArrayList();
             alltasks.add("Tasks");
             for(int i=0; i<tasks.size();i++) {
-            	alltasks.add((i+1) + ". Task name: " + tasks.get(i).getName());
-            	alltasks.add("    Due Date: " + tasks.get(i).getStringStartDate());
+            	if(tasks.get(i).getDone()){
+                	alltasks.add("Y" + (i+1) + ". Task name: " + tasks.get(i).getName());
+                	alltasks.add("Y" + "    Due Date: " + tasks.get(i).getStringStartDate());
+            	}
+            	else{
+                	alltasks.add("N" + (i+1) + ". Task name: " + tasks.get(i).getName());
+                	alltasks.add("N" + "    Due Date: " + tasks.get(i).getStringStartDate());
+            	}
             }
             alltasks.add("Events");
             for(int i=0; events != null && i<events.size();i++) {
-            	alltasks.add((i+1) + ". Event name: " + events.get(i).getName());
-            	alltasks.add("    Start Date: " + events.get(i).getStartDate());
-            	alltasks.add("    End Date: " + events.get(i).getEndDate());
+            	if(events.get(i).getDone()){
+                	alltasks.add("Y" + (i+1) + ". Event name: " + events.get(i).getName());
+                	alltasks.add("Y" + "    Start Date: " + events.get(i).getStartDate());
+                	alltasks.add("Y" + "    End Date: " + events.get(i).getEndDate());
+            	}
+            	else{
+                	alltasks.add("N" + (i+1) + ". Event name: " + events.get(i).getName());
+                	alltasks.add("N" + "    Start Date: " + events.get(i).getStartDate());
+                	alltasks.add("N" + "    End Date: " + events.get(i).getEndDate());
+            	}
             }
             input.setText("");
             allTasks = new ListView<>(alltasks);
             vbox.getChildren().clear();
             vbox.getChildren().add(allTasks);
+    		allTasks.setCellFactory(new Callback<ListView<String>, 
+    	            ListCell<String>>() {
+    	                @Override 
+    	                public ListCell<String> call(ListView<String> list) {
+    	                    return new ColorTaskCell();
+    	                }
+    	            }
+    	        );
             
         }
     }
