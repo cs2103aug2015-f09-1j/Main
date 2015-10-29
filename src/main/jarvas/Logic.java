@@ -29,11 +29,9 @@ public class Logic {
 	private static final String MSG_DONE_FAIL = " \"%1$s\" not marked";
 	private static final String MSG_HELP =
 			  "Add Task : add <name> -due  dd/mm/yyyy hh:mm\n"
-			+ " Add Event: add <name> -from dd/mm/yyyy hh:mm\n"
-			+ "                       -to   dd/mm/yyyy hh:mm\n"
+			+ " Add Event: add <name> -from dd/mm/yyyy hh:mm -to dd/mm/yyyy hh:mm\n"
 			+ " Delete   : delete <task/event> <index>\n"
-			+ " Edit     : edit <task/event> <index>\n"
-			+ "            <name/due/from/to> <new attribute>\n"
+			+ " Edit     : edit <task/event> <index> <name/due/from/to> <new attribute>\n"
 			+ " Display  : display\n"
 			+ " Clear    : clear\n"
 			+ " Mark     : mark task/event <index> <done/undone>\n"

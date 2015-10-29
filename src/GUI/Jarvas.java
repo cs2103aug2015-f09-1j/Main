@@ -97,7 +97,7 @@ public class Jarvas extends Application{
 	                }
 	            }
 	        );
-        Scene scene = new Scene(pane, 400, 500,Color.rgb(238,236,218));
+        Scene scene = new Scene(pane, 500, 500,Color.rgb(238,236,218));
         primaryStage.setTitle("Jarvas");
         primaryStage.setScene(scene);
         primaryStage.show();
