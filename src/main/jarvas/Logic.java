@@ -91,15 +91,7 @@ public class Logic {
 				output = deleteTask(contentStr);
 				break;
 			case EDIT:
-				try {
-					output = edit(contentStr);
-				} catch (NumberFormatException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				output = edit(contentStr);
 				break;
 			case DISPLAY: 
 				displayTask();
@@ -231,7 +223,6 @@ public class Logic {
 			temp = new TaskToDo(getTask(contentStr).trim(),getDueDate(contentStr), ++indexTask, false);
 		}
 		tasks.add(temp);
-		System.out.println(temp.getIndex());
 		logger.log(Level.INFO, "add task");
 		return String.format(MSG_ADD_SUCCESS,temp.getName());
 	}
@@ -289,7 +280,7 @@ public class Logic {
 	 * @throws ParseException 
 	 * @throws NumberFormatException 
 	 */
-	private String edit(String contentStr2) throws NumberFormatException, ParseException {
+	private String edit(String contentStr2) {
 		String[] contentStr3 = contentStr.split("\\s+");
 		logger.log(Level.INFO, "edit task function");
 		if(contentStr3[0].equals("task")){
@@ -385,20 +376,14 @@ public class Logic {
 		
 	}
 	/**
-	 * This fucntion initialise the vector for tasks
+	 * This function initialize the vector for tasks
 	 */
 	public void getOriginalTasks() {
 		Vector<TaskToDo> returnTask = storage.convertToTask();
 		indexTask = returnTask.size();
 		Vector<TaskEvent> returnEvent = null;
-		try {
-			returnEvent = storage.convertToEvent();
-			indexEvent = returnEvent.size();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			logger.log(Level.WARNING, "fail to load event vector in logic class");
-			e.printStackTrace();
-		}
+		returnEvent = storage.convertToEvent();
+		indexEvent = returnEvent.size();
 		tasks = (Vector)returnTask.clone();
 		events = (Vector)returnEvent.clone();
 	}
@@ -516,7 +501,7 @@ public class Logic {
 	}
 	
 	/**
-	 * This fucntion get a string within array and remove the similar part of string
+	 * This function get a string within array and remove the similar part of string
 	 * @param arr
 	 * 			is the array of string
 	 * @param str

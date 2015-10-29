@@ -90,8 +90,6 @@ public class JParser {
 		Date convertedDate = null;
 	    for(DateGroup group:groups)  {
 		    Date dates = group.getDates().get(0);    
-		    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mma");
-		    System.out.println(format.format(dates));
 		    int line = group.getLine();
 		    int column = group.getPosition();
 		    String matchingValue = group.getText();

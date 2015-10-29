@@ -159,7 +159,7 @@ public class Storage{
 		return vecTask;
 	}
 	
-	public Vector<TaskEvent> convertToEvent() throws java.text.ParseException{
+	public Vector<TaskEvent> convertToEvent(){
 		Vector<TaskEvent> vecEvent = new Vector<TaskEvent>();
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		for(int i=0; newEvent != null && i<newEvent.size(); i++){
