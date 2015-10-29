@@ -301,14 +301,12 @@ public class Logic {
 		logger.log(Level.INFO, "edit task function");
 		if(contentStr3[0].equals("task")){
 			if(contentStr3[2].equals("name")){
-				System.out.println("pass1");
 				tasks.get(Integer.parseInt(contentStr3[1])-1).setName(contentStr3[3]);
-				System.out.println("pass 2");
 				logger.log(Level.INFO, "Task edit successful");
 				return String.format(MSG_EDIT_SUCCESS, contentStr3[3]);
 			}
 			else if(contentStr3[2].equals("due")){
-				tasks.get(Integer.parseInt(contentStr3[1])-1).setStart(contentStr3[3]);
+				tasks.get(Integer.parseInt(contentStr3[1])-1).setStart(contentStr3[3] + " " + contentStr3[4]);
 				logger.log(Level.INFO, "Task edit successful");
 				return String.format(MSG_EDIT_SUCCESS, contentStr3[3]);
 			}
@@ -324,12 +322,12 @@ public class Logic {
 				return String.format(MSG_EDIT_SUCCESS, contentStr3[3]);
 			}
 			else if(contentStr3[2].equals("from")){
-				events.get(Integer.parseInt(contentStr3[1])-1).setStart(contentStr3[3]);
+				events.get(Integer.parseInt(contentStr3[1])-1).setStart(contentStr3[3] + " " + contentStr3[4]);
 				logger.log(Level.INFO, "Event edit successful");
 				return String.format(MSG_EDIT_SUCCESS, contentStr3[3]);
 			}
 			else if(contentStr3[2].equals("to")){
-				events.get(Integer.parseInt(contentStr3[1])-1).setEnd(contentStr3[3]);
+				events.get(Integer.parseInt(contentStr3[1])-1).setEnd(contentStr3[3] + " " + contentStr3[4]);
 				logger.log(Level.INFO, "Event edit successful");
 				return String.format(MSG_EDIT_SUCCESS, contentStr3[3]);
 			}
