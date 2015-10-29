@@ -29,7 +29,6 @@ public class TaskToDo implements Task{
 		setName(taskName);
 		this.index = index;
 		dateOfEvent = new DateOfEvent();
-		dateOfEvent.setStartDate(JParser.dateConverter("today"));
 		done = status;
 	}
 	
@@ -76,7 +75,12 @@ public class TaskToDo implements Task{
 	}
 
 	public String getStringStartDate(){
-		return sdf.format(getStartDate());
+		if(getStartDate()!=null){
+			return sdf.format(getStartDate());	
+		}
+		else{
+			return "";
+		}
 	}
 	
 	@Override
