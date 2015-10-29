@@ -28,15 +28,17 @@ public class Logic {
 	private static final String MSG_DONE_SUCCESS = " \"%1$s\" is marked";
 	private static final String MSG_DONE_FAIL = " \"%1$s\" not marked";
 	private static final String MSG_HELP =
-			"Add Task: add <task name> -due dd/mm/yyyy hh:mm\n"
-			+ " Add Event: add <event name> -from dd/mm/yyyy hh:mm -to dd/mm/yyyy hh:mm\n"
-			+ " Delete: delete <task/event> <index of item to be deleted>\n"
-			+ " Edit task/event attribute: edit <task/event> <index> <name/due/from/to> <new attribute>\n"
-			+ " Display all tasks/events: display\n"
-			+ " Clear all tasks/events: clear\n"
-			+ " Mark task/event as done: mark task/event <index> <done/undone>\n"
-			+ " Undo most recent action: undo"
-			+ " Exit the application: exit\n";
+			  "Add Task : add <name> -due  dd/mm/yyyy hh:mm\n"
+			+ " Add Event: add <name> -from dd/mm/yyyy hh:mm\n"
+			+ "                       -to   dd/mm/yyyy hh:mm\n"
+			+ " Delete   : delete <task/event> <index>\n"
+			+ " Edit     : edit <task/event> <index>\n"
+			+ "            <name/due/from/to> <new attribute>\n"
+			+ " Display  : display\n"
+			+ " Clear    : clear\n"
+			+ " Mark     : mark task/event <index> <done/undone>\n"
+			+ " Undo     : undo\n"
+			+ " Exit     : exit";
 			
 	enum RequiredField {
 		TASKDUEDATE,TASKLOCATION,EVENT_STARTDATE,EVENT_ENDDATE
@@ -153,7 +155,7 @@ public class Logic {
 	 * @param contentStr2
 	 * @return
 	 */
-	private String addEvent(String contentStr2) {
+	public String addEvent(String contentStr2) {
 		String startDate = getStartDate(contentStr2);
 		String endDate = getEndDate(contentStr2);
 		TaskEvent temp;

@@ -5,6 +5,15 @@
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="C:/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/Users/Li/Documents/workspace/main/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/Users/Li/Documents/workspace/main/lib/antlr-runtime-3.2.jar"/>
+	<classpathentry kind="lib" path="/Users/Li/Documents/workspace/main/lib/backport-util-concurrent-3.1.jar"/>
+	<classpathentry kind="lib" path="/Users/Li/Documents/workspace/main/lib/commons-codec-1.5.jar"/>
+	<classpathentry kind="lib" path="/Users/Li/Documents/workspace/main/lib/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="/Users/Li/Documents/workspace/main/lib/commons-logging-api-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/Users/Li/Documents/workspace/main/lib/ical4j-1.0.jar"/>
+	<classpathentry kind="lib" path="/Users/Li/Documents/workspace/main/lib/natty-0.8.jar"/>
+	<classpathentry kind="lib" path="/Users/Li/Documents/workspace/main/lib/org.antlr.antlr-2.7.7.jar"/>
+	<classpathentry kind="lib" path="/Users/Li/Documents/workspace/main/lib/stringtemplate-3.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

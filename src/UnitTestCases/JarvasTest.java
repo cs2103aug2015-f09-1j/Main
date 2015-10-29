@@ -7,7 +7,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.jarvas.Jarvas;
 import main.jarvas.Logic;
 import main.jarvas.Parser;
 import main.jarvas.Parser.CommandType;
@@ -16,7 +15,7 @@ import main.jarvas.Parser.CommandType;
 //jarvas test skeleton
 public class JarvasTest {
 
-	Jarvas jarvas = new Jarvas();
+	GUI.Jarvas jarvas = new GUI.Jarvas();
 	Logic logic = new Logic();
 
 	

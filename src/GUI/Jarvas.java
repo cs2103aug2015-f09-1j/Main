@@ -30,6 +30,8 @@ public class Jarvas extends Application{
 	private ListView<String> allTasks;
 	private Text log;
 	private TextField input;
+	private Text space1;
+	private Text space2;
 	private VBox pane;
 	private VBox vbox;
 	/* (non-Javadoc)
@@ -67,17 +69,24 @@ public class Jarvas extends Application{
             	alltasks.add("N" + "    End Date: " + events.get(i).getEndDate());
         	}
         }
+    	alltasks.add("N");
         allTasks = new ListView<>(alltasks);
         log = new Text();
-        log.setFont(new Font("log", 10));
         input = new TextField();
+        space1 = new Text();
+        space2 = new Text();
+        log.setFont(new Font(0));
+        space1.setFont(new Font(10));
+        space2.setFont(new Font(10));
         inputHandler newCommand = new inputHandler();
         input.setOnAction(newCommand);
         pane = new VBox();
 		vbox = new VBox();
         VBox.setVgrow(allTasks, Priority.ALWAYS);
 		pane.getChildren().add(input);
+		pane.getChildren().add(space1);
 		pane.getChildren().add(log);
+		pane.getChildren().add(space2);
 		pane.getChildren().add(vbox);
 		vbox.getChildren().add(allTasks);
 		allTasks.setCellFactory(new Callback<ListView<String>, 
@@ -88,8 +97,7 @@ public class Jarvas extends Application{
 	                }
 	            }
 	        );
-
-        Scene scene = new Scene(pane, 400, 600,Color.rgb(238,236,218));
+        Scene scene = new Scene(pane, 400, 500,Color.rgb(238,236,218));
         primaryStage.setTitle("Jarvas");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -104,20 +112,20 @@ public class Jarvas extends Application{
             }
             switch(item){
             case "Tasks":
-            	setTextFill(Color.rgb(71, 184, 251));
-            	setText(item);
-            	break;
             case "Events":
             	setTextFill(Color.rgb(71, 184, 251));
+            	setFont(new Font("Courier", 20));
             	setText(item);
             	break;
             default:
             	if(item.charAt(0) == 'Y'){
                 	setTextFill(Color.RED);
+                	setFont(new Font("Courier", 14));
                 	setText(item.substring(1));
             	}
             	else{
                 	setTextFill(Color.BLACK);
+                	setFont(new Font("Courier", 14));
                 	setText(item.substring(1));
             	}
             }
@@ -127,12 +135,14 @@ public class Jarvas extends Application{
 
     class inputHandler implements EventHandler<ActionEvent>{
         public void handle(ActionEvent ae){
+        	System.out.println(Font.getFontNames());
         	Logic logic = new Logic();
             // logic.getInput(userinput.getText());
             String Input = input.getText();
             String outcome = logic.execute(Input);
             System.out.println(outcome);
             log.setText(" " + outcome);
+            log.setFont(Font.font("Courier", 12));
             Vector<TaskToDo> tasks = logic.returnNewTasks();
             Vector<TaskEvent> events = logic.returnNewEvents();
             alltasks = FXCollections.observableArrayList();
@@ -160,6 +170,7 @@ public class Jarvas extends Application{
                 	alltasks.add("N" + "    End Date: " + events.get(i).getEndDate());
             	}
             }
+        	alltasks.add("N");
             input.setText("");
             allTasks = new ListView<>(alltasks);
             vbox.getChildren().clear();
@@ -170,9 +181,7 @@ public class Jarvas extends Application{
     	                public ListCell<String> call(ListView<String> list) {
     	                    return new ColorTaskCell();
     	                }
-    	            }
-    	        );
-            
+    	            });
         }
     }
 	
