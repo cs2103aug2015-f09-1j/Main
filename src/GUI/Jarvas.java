@@ -135,12 +135,9 @@ public class Jarvas extends Application{
 
     class inputHandler implements EventHandler<ActionEvent>{
         public void handle(ActionEvent ae){
-        	System.out.println(Font.getFontNames());
         	Logic logic = new Logic();
-            // logic.getInput(userinput.getText());
             String Input = input.getText();
             String outcome = logic.execute(Input);
-            System.out.println(outcome);
             log.setText(" " + outcome);
             log.setFont(Font.font("Courier", 12));
             Vector<TaskToDo> tasks = logic.returnNewTasks();
