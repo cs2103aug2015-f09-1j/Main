@@ -28,14 +28,15 @@ public class Logic {
 	private static final String MSG_DONE_SUCCESS = " \"%1$s\" is marked";
 	private static final String MSG_DONE_FAIL = " \"%1$s\" not marked";
 	private static final String MSG_HELP =
-			"Add Task - Add -due dd/mm/yyyy/hh:mm\n"
-			+ " Add Event - Add -from dd/mm/yyyy hh:mm -to dd/mm/yyyy hh:mm\n"
-			+ " Delete - Delete task\n"
-			+ " Edit - task/event <index> <name/due/from/to> <content to edit>\n"
-			+ " Display - Show the total tasks\n"
-			+ " Clear - clear\n"
-			+ " Done - mark task/event <index> <done/undone>\n"
-			+ " Exit - Quit the problem\n";
+			"Add Task: add <task name> -due dd/mm/yyyy hh:mm\n"
+			+ " Add Event: add <event name> -from dd/mm/yyyy hh:mm -to dd/mm/yyyy hh:mm\n"
+			+ " Delete: delete <task/event> <index of item to be deleted>\n"
+			+ " Edit task/event attribute: edit <task/event> <index> <name/due/from/to> <new attribute>\n"
+			+ " Display all tasks/events: display\n"
+			+ " Clear all tasks/events: clear\n"
+			+ " Mark task/event as done: mark task/event <index> <done/undone>\n"
+			+ " Undo most recent action: undo"
+			+ " Exit the application: exit\n";
 			
 	enum RequiredField {
 		TASKDUEDATE,TASKLOCATION,EVENT_STARTDATE,EVENT_ENDDATE
