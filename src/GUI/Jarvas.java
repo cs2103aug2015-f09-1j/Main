@@ -32,6 +32,7 @@ public class Jarvas extends Application{
 	private TextField input;
 	private Text space1;
 	private Text space2;
+	private Text space3;
 	private VBox pane;
 	private VBox vbox;
 	/* (non-Javadoc)
@@ -75,14 +76,17 @@ public class Jarvas extends Application{
         input = new TextField();
         space1 = new Text();
         space2 = new Text();
+        space3 = new Text();
         log.setFont(new Font(0));
         space1.setFont(new Font(10));
         space2.setFont(new Font(10));
+        space3.setFont(new Font(10));
         inputHandler newCommand = new inputHandler();
         input.setOnAction(newCommand);
         pane = new VBox();
 		vbox = new VBox();
         VBox.setVgrow(allTasks, Priority.ALWAYS);
+		pane.getChildren().add(space3);
 		pane.getChildren().add(input);
 		pane.getChildren().add(space1);
 		pane.getChildren().add(log);
