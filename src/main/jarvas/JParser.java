@@ -33,7 +33,7 @@ public class JParser {
 	public static final String ERROR_COMMAND_EMPTY = "command type string cannot be empty!";
 	
 	public enum CommandType {
-		ADD, EDIT, DELETE, SORT, SEARCH, INVALID, EXIT, CLEAR, HELP, DISPLAY , FROM , TO , SAVE, MARK, UNDO
+		ADD, EDIT, DELETE, SORT, SEARCH, INVALID, EXIT, CLEAR, HELP, DISPLAY , FROM , TO , SAVE, MARK, UNDO, 
 	};
 	
 	private static final Logger logger = Logger.getLogger(Logic.class.getName());

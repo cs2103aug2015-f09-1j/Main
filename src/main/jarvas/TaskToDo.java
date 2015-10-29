@@ -2,7 +2,13 @@ package main.jarvas;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+
+import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
+
+import main.jarvas.TaskToDo.RepeatingFrequency;
 
 /**
  * Task class is a helper class
@@ -18,11 +24,18 @@ public class TaskToDo implements Task{
 	private int index;
 	DateOfEvent dateOfEvent;
 	private boolean done;
+	RepeatingFrequency frequency;
+
+
+	enum RepeatingFrequency {
+		NOTREPEATING,DAILY,WEEKLY,MONTHLY,YEARLY
+	};
 	public TaskToDo(){
 		taskName = new String();
 		dateOfEvent = new DateOfEvent();
 		dateOfEvent.setStartDate(null);
 		index = 0;
+		frequency=RepeatingFrequency.NOTREPEATING;
 	}
 	
 	public TaskToDo(String taskName, int index, boolean status){
@@ -30,6 +43,7 @@ public class TaskToDo implements Task{
 		this.index = index;
 		dateOfEvent = new DateOfEvent();
 		done = status;
+		frequency=RepeatingFrequency.NOTREPEATING;
 	}
 	
 	public TaskToDo(String taskName, String dueDate,  int index, boolean status){
@@ -38,8 +52,80 @@ public class TaskToDo implements Task{
 		dateOfEvent = new DateOfEvent();
 		dateOfEvent.setStartDate(JParser.dateConverter(dueDate));
 		done = status;
+		frequency=RepeatingFrequency.NOTREPEATING;
 	}
-	
+	public TaskToDo(String taskName, String dueDate,  int index, boolean status,RepeatingFrequency frequency){
+		setName(taskName);
+		this.index = index;
+		dateOfEvent = new DateOfEvent();
+		dateOfEvent.setStartDate(JParser.dateConverter(dueDate));
+		done = status;
+		this.frequency=frequency;
+	}
+	/**
+	 * @param name
+	 * @param date
+	 * @param parseInt
+	 * @param done2
+	 * @param frequency2
+	 */
+	public TaskToDo(String taskName, String dueDate, int index, boolean status, String frequency) {
+		// TODO Auto-generated constructor stub
+		setName(taskName);
+		this.index = index;
+		dateOfEvent = new DateOfEvent();
+		dateOfEvent.setStartDate(JParser.dateConverter(dueDate));
+		done = status;
+		this.frequency=convertStrtoFrequency(frequency);
+	}
+
+	/**
+	 * @param frequency2
+	 * @return
+	 */
+	private RepeatingFrequency convertStrtoFrequency(String frequency) {
+		switch (frequency) {
+		case "weekly":
+			return RepeatingFrequency.WEEKLY;
+		case "monthly":
+			return RepeatingFrequency.MONTHLY;
+		case "daily":
+			return RepeatingFrequency.DAILY;
+		case "yearly":
+			return RepeatingFrequency.YEARLY;
+		default:
+			return RepeatingFrequency.NOTREPEATING;
+		}
+	}
+	public String getStrFrequency(){
+		String temp=null;
+		switch (frequency) {
+		case DAILY:
+			temp = "daily";
+			break;
+		case MONTHLY:
+			temp = "monthly";
+			break;
+		case YEARLY:
+			temp = "yearly";
+			break;
+		case WEEKLY:
+			temp = "weekly";
+			break;
+		default:
+			temp="not repeating";
+			break;
+		}
+		return temp;
+	}
+
+	public RepeatingFrequency getFrequency() {
+		return frequency;
+	}
+
+	public void setFrequency(RepeatingFrequency frequency) {
+		this.frequency = frequency;
+	}
 	public int getIndex(){
 		return index;
 	}
@@ -82,7 +168,41 @@ public class TaskToDo implements Task{
 			return "";
 		}
 	}
-	
+	public String nextDate(){
+		setNextDate();
+		return getNextDate();
+	}
+	public String getNextDate(){
+		GregorianCalendar calendar = new GregorianCalendar();
+	    calendar.setTime(getStartDate());
+	    switch (frequency) {
+		case DAILY:
+			calendar.add(Calendar.DAY_OF_YEAR, 1);
+			break;
+		case MONTHLY:
+			calendar.add(Calendar.MONTH, 1);
+			break;
+		case YEARLY:
+			calendar.add(Calendar.YEAR, 1);
+			break;
+		case WEEKLY:
+			calendar.add(Calendar.WEEK_OF_YEAR, 1);
+			break;
+		default:
+			
+			break;
+		}
+	    //dateOfEvent.setStartDate(calendar.getTime());
+		return sdf.format(calendar.getTime());
+	}
+	public void setNextDate(){
+		try {
+			dateOfEvent.setStartDate(sdf.parse(getNextDate()));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	@Override
 	public String print() {
 		String temp = taskName + EMPTY_SPACE + sdf.format(getStartDate()); 

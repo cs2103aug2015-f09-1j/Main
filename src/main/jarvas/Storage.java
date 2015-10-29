@@ -14,6 +14,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import GUI.Jarvas;
+import main.jarvas.TaskToDo.RepeatingFrequency;
 
 //import src.Controller;
 
@@ -153,7 +154,8 @@ public class Storage{
 			String date = task.get("Date").toString();
 			String index = task.get("Index").toString();
 			boolean done = Boolean.valueOf(task.get("Done").toString());
-			TaskToDo aTask = new TaskToDo(name, date, Integer.parseInt(index), done);
+			String frequency = task.get("RepeatFrequency").toString();
+			TaskToDo aTask = new TaskToDo(name, date, Integer.parseInt(index), done,frequency);
 			vecTask.add(aTask);
 		}
 		return vecTask;
@@ -206,6 +208,7 @@ public class Storage{
 			entry.put("Task", tasks.get(i).getName());
 			entry.put("Date", tasks.get(i).getStringStartDate());
 			entry.put("Done", String.valueOf(tasks.get(i).getDone()));
+			entry.put("RepeatFrequency", tasks.get(i).getStrFrequency());
 			JSONObject jsonEntry = new JSONObject();
 			jsonEntry.putAll(entry);
 			convertToJSONArray(jsonEntry, newTask);

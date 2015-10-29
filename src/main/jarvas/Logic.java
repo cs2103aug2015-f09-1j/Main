@@ -5,6 +5,8 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import main.jarvas.TaskToDo.RepeatingFrequency;
+
 /**
  * @author ONGJI_000
  *
@@ -28,7 +30,7 @@ public class Logic {
 	private static final String MSG_DONE_SUCCESS = " \"%1$s\" is marked";
 	private static final String MSG_DONE_FAIL = " \"%1$s\" not marked";
 	private static final String MSG_HELP =
-			  "Add Task : add <name> -due  <date>\n"
+			  "Add Task : add <name> -due  <date> -repeat <daily/weekly/monthly/yearly>\n"
 			+ " Add Event: add <name> -from <date> -to <date>\n"
 			+ " Delete   : delete task/event <index>\n"
 			+ " Edit     : edit task/event <index> name/due/from/to <attribute>\n"
@@ -39,8 +41,9 @@ public class Logic {
 			+ " Exit     : exit";
 			
 	enum RequiredField {
-		TASKDUEDATE,TASKLOCATION,EVENT_STARTDATE,EVENT_ENDDATE
+		TASKDUEDATE,TASKLOCATION,EVENT_STARTDATE,EVENT_ENDDATE,REPEAT
 	};
+	
 	
 	private static final Logger logger = Logger.getLogger(Logic.class.getName());
 
@@ -137,8 +140,12 @@ public class Logic {
 	
 	private String doneTask(String contentStr2){
 		String[] contentStr3 = contentStr.split("\\s+");
+		TaskToDo temp = tasks.get(Integer.parseInt(contentStr3[1])-1);
 		if(contentStr3[0].equals("task")){
 			tasks.get(Integer.parseInt(contentStr3[1])-1).setDone(contentStr3[2]);
+			if(tasks.get(Integer.parseInt(contentStr3[1])-1).getFrequency()!=RepeatingFrequency.NOTREPEATING){
+				tasks.add(new TaskToDo(temp.getName(), temp.nextDate(), ++indexTask, false, temp.getFrequency()));
+			}
 			return String.format(MSG_DONE_SUCCESS,  contentStr3[0]+ " " + contentStr3[1]);
 		}
 		else if(contentStr3[0].equals("event")){
@@ -219,14 +226,66 @@ public class Logic {
 		if(getDueDate(contentStr).equals("")){
 			temp = new TaskToDo(getTask(contentStr).trim(), ++indexTask, false);	
 		}
-		else{
+		else if(getRepeat(contentStr)==RepeatingFrequency.NOTREPEATING){
 			temp = new TaskToDo(getTask(contentStr).trim(),getDueDate(contentStr), ++indexTask, false);
+		}else {
+			temp = new TaskToDo(getTask(contentStr).trim().concat(getRepeatString(getRepeat(contentStr))),
+					getDueDate(contentStr), ++indexTask, false,getRepeat(contentStr));
 		}
+		
 		tasks.add(temp);
 		logger.log(Level.INFO, "add task");
 		return String.format(MSG_ADD_SUCCESS,temp.getName());
 	}
 	
+	/**
+	 * @param repeat
+	 * @return
+	 */
+	private String getRepeatString(RepeatingFrequency repeat) {
+		// TODO Auto-generated method stub
+		String temp=null;
+		switch (repeat) {
+		case DAILY:
+			temp = "(DAILY)";
+			break;
+		case MONTHLY:
+			temp = "(MONTHLY)";
+			break;
+		case YEARLY:
+			temp = "(YEARLY)";
+			break;
+		case WEEKLY:
+			temp = "(WEEKLY)";
+			break;
+		default:
+			temp=" ";
+			break;
+		}
+		return temp;
+	}
+
+	/**
+	 * @param contentStr2
+	 * @return
+	 */
+	private RepeatingFrequency getRepeat(String contentStr2) {
+		// TODO Auto-generated method stub
+		String temp = getSplittedString(contentStr2, RequiredField.REPEAT).trim();
+		switch (temp) {
+		case "weekly":
+			return RepeatingFrequency.WEEKLY;
+		case "monthly":
+			return RepeatingFrequency.MONTHLY;
+		case "daily":
+			return RepeatingFrequency.DAILY;
+		case "yearly":
+			return RepeatingFrequency.YEARLY;
+		default:
+			return RepeatingFrequency.NOTREPEATING;
+		}
+	}
+
 	/**
 	 * This function search input by user from Task and Event 
 	 * @param contentStr
@@ -455,6 +514,7 @@ public class Logic {
 		String dueDateStr = getSplittedString(contentStr2, RequiredField.TASKDUEDATE);
 		return dueDateStr;
 	}
+	
 
 	private int[] convertDueDateStrtoIntarr(String dueDateStr) {
 		String[] dueDateStrArr= dueDateStr.split("/");
@@ -490,6 +550,10 @@ public class Logic {
 				break;
 			case TASKLOCATION:
 				returnStr = getContent(strArr, "at"	);
+				break;
+			case REPEAT:
+				returnStr = getContent(strArr, "repeat");
+				break;
 			default:
 				logger.log(Level.INFO, "invalid RequiredField");
 				break;
