@@ -49,7 +49,7 @@ public class Logic {
 	Storage storage;
 	int indexEvent;
 	int indexTask;
-	Parser.CommandType commandType;
+	JParser.CommandType commandType;
 	Vector <TaskToDo> tasks = new Vector <TaskToDo>();
 	Vector <TaskEvent> events = new Vector<TaskEvent>();
 	public Logic(){
@@ -67,7 +67,7 @@ public class Logic {
 	private void digestInput(String str){
 		commandStr = getFirstWord(str);	
 		contentStr = removeFirstWord(str);
-		commandType = Parser.determineCommandType(commandStr);
+		commandType = JParser.determineCommandType(commandStr);
 	}
 	/**
 	 * This function is called to execute users command
