@@ -151,7 +151,6 @@ public class Storage{
 			JSONObject task = (JSONObject)newTask.get(i);
 			String name = task.get("Task").toString();
 			String date = task.get("Date").toString();
-			date = dateEditor(date);
 			String index = task.get("Index").toString();
 			boolean done = Boolean.valueOf(task.get("Done").toString());
 			TaskToDo aTask = new TaskToDo(name, date, Integer.parseInt(index), done);
@@ -160,12 +159,7 @@ public class Storage{
 		return vecTask;
 	}
 	
-	private String dateEditor(String date){
-		String[] dateAndTime = date.split("\\s+");
-		String[] dayAndDate = dateAndTime[0].split("/");
-		String newDate = dayAndDate[1]+ "/" +dayAndDate[0]+ "/" +dayAndDate[2];
-		return dateAndTime[1] + " " + newDate;
-	}
+
 	
 	public Vector<TaskEvent> convertToEvent() {
 		Vector<TaskEvent> vecEvent = new Vector<TaskEvent>();
@@ -175,9 +169,7 @@ public class Storage{
 			String name = event.get("Event").toString();
 			String index = event.get("Index").toString();
 			String startDate = event.get("Start Date").toString();
-			startDate = dateEditor(startDate);
 			String endDate = event.get("End Date").toString();
-			endDate = dateEditor(endDate);
 			boolean done = Boolean.valueOf(event.get("Done").toString());
 			TaskEvent aEvent = new TaskEvent(name, startDate, endDate, Integer.parseInt(index), done);
 			vecEvent.add(aEvent);

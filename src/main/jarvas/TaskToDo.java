@@ -13,7 +13,7 @@ public class TaskToDo implements Task{
 	public static final String EMPTY_SPACE = " ";
 	private static final String LABEL_TASK_NAME = "task name = ";
 	private static final String LABEL_TASK_DUEDATE = "task due date = ";
-	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+	private SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 	private String taskName;
 	private int index;
 	DateOfEvent dateOfEvent;

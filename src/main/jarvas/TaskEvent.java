@@ -9,7 +9,7 @@ public class TaskEvent implements Task{
 	private static final Logger logger = Logger.getLogger(TaskEvent.class.getName());
 	private static final String WORD_FROM = " from ";
 	private static final String WORD_TO = " to ";
-	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+	private SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 	
 	int index;
 	String eventName;
