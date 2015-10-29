@@ -29,13 +29,12 @@ public class TaskEvent implements Task{
 		dateOfEvent.setStartDate(startDate);
 		done = status;
 	}
-	public TaskEvent(String eventName , String startDate , String endDate, int index, boolean status) throws ParseException{
-
+	public TaskEvent(String eventName , String startDate , String endDate, int index, boolean status){
 			dateOfEvent = new DateOfEvent();
 			this.index = index;
 			this.eventName= eventName;
-			dateOfEvent.setStartDate(sdf.parse(startDate));
-			dateOfEvent.setEndDate(sdf.parse(endDate));
+			dateOfEvent.setStartDate(JParser.dateConverter(startDate));
+			dateOfEvent.setEndDate(JParser.dateConverter(endDate));
 			done = status;
 	}
 
@@ -68,12 +67,12 @@ public class TaskEvent implements Task{
 		
 	}
 	
-	public void setStart(String startDate) throws ParseException {
-		dateOfEvent.setStartDate(sdf.parse(startDate));
+	public void setStart(String startDate){
+		dateOfEvent.setStartDate(JParser.dateConverter(startDate));
 	}	
 	
-	public void setEnd(String endDate) throws ParseException {
-		dateOfEvent.setEndDate(sdf.parse(endDate));
+	public void setEnd(String endDate){
+		dateOfEvent.setEndDate(JParser.dateConverter(endDate));
 	}
 	public Date getStartDate() {
 		return dateOfEvent.getStartDate();

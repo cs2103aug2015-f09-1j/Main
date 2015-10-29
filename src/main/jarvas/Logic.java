@@ -165,14 +165,7 @@ public class Logic {
 		String startDate = getStartDate(contentStr2);
 		String endDate = getEndDate(contentStr2);
 		TaskEvent temp;
-		try {
-			temp = new TaskEvent(getTask(contentStr2), startDate, endDate, ++indexEvent, false);
-			
-		} catch (ParseException e) {
-			System.err.println("invalid date format" + e.getMessage());
-			logger.log(Level.WARNING, "invalid date format for event");
-			return MSG_INVALID_DATEINPUT;
-		}
+		temp = new TaskEvent(getTask(contentStr2), startDate, endDate, ++indexEvent, false);
 		events.add(temp);
 		return String.format(MSG_ADDEVENT_SUCCESS, temp.getName());
 	}

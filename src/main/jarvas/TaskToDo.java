@@ -14,12 +14,10 @@ public class TaskToDo implements Task{
 	private static final String LABEL_TASK_NAME = "task name = ";
 	private static final String LABEL_TASK_DUEDATE = "task due date = ";
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-
 	private String taskName;
 	private int index;
 	DateOfEvent dateOfEvent;
 	private boolean done;
-	
 	public TaskToDo(){
 		taskName = new String();
 		dateOfEvent = new DateOfEvent();
@@ -31,12 +29,7 @@ public class TaskToDo implements Task{
 		setName(taskName);
 		this.index = index;
 		dateOfEvent = new DateOfEvent();
-		try {
-			dateOfEvent.setStartDate(sdf.parse("11/11/1111 11:11"));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		dateOfEvent.setStartDate(JParser.dateConverter("today"));
 		done = status;
 	}
 	
@@ -44,15 +37,8 @@ public class TaskToDo implements Task{
 		setName(taskName);
 		this.index = index;
 		dateOfEvent = new DateOfEvent();
-		if(!dueDate.equals("")){
-			try {
-				dateOfEvent.setStartDate(sdf.parse(dueDate));
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			done = status;
-		}
+		dateOfEvent.setStartDate(JParser.dateConverter(dueDate));
+		done = status;
 	}
 	
 	public int getIndex(){
@@ -81,8 +67,8 @@ public class TaskToDo implements Task{
 		this.taskName = taskName;
 	}
 
-	public void setStart(String startDate) throws ParseException {
-		dateOfEvent.setStartDate(sdf.parse(startDate));
+	public void setStart(String startDate){
+		dateOfEvent.setStartDate(JParser.dateConverter(startDate));
 	}	
 	
 	public Date getStartDate() {

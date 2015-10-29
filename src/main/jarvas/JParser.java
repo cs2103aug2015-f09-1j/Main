@@ -2,6 +2,13 @@ package main.jarvas;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import com.joestelmach.natty.DateGroup;
+import com.joestelmach.natty.Parser;
 /**
  * 
  */
@@ -30,7 +37,7 @@ public class JParser {
 	};
 	
 	private static final Logger logger = Logger.getLogger(Logic.class.getName());
-	
+	static Parser parser = new Parser();
 	protected static CommandType determineCommandType(String commandTypeString) {
 		if (commandTypeString == null){
 			throw new Error();
@@ -78,5 +85,24 @@ public class JParser {
 		}
 	}
 	
+	public static Date dateConverter(String inputDate){
+		List<DateGroup> groups = parser.parse(inputDate);
+		Date convertedDate = null;
+	    for(DateGroup group:groups)  {
+		    Date dates = group.getDates().get(0);    
+		    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mma");
+		    System.out.println(format.format(dates));
+		    int line = group.getLine();
+		    int column = group.getPosition();
+		    String matchingValue = group.getText();
+		    String syntaxTree = group.getSyntaxTree().toStringTree();
+		    Map parseMap = group.getParseLocations();
+		    boolean isRecurreing = group.isRecurring();
+		    Date recursUntil = group.getRecursUntil();
+		    convertedDate = dates;
+		    
+	       }
+		return convertedDate;
+	}
 	
 }
