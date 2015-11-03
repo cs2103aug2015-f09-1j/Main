@@ -6,7 +6,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import main.jarvas.TaskToDo.RepeatingFrequency;
-
+import executor.AddCommand;
+import executor.AddEvent;
+import executor.AddTask;
+import executor.DigestInput;
+import executor.GetSplittedString;
 /**
  * @author ONGJI_000
  *
@@ -17,7 +21,6 @@ public class Logic {
 	private static final String MSG_ADD_SUCCESS = "task \"%1$s\" successfully added";
 	private static final String MSG_SEARCH_SUCCESS = "task \"%1$s\" found";
 	private static final String MSG_SEARCH_FAIL = "task \"%1$s\" not found";
-	private static final String MSG_ADDEVENT_SUCCESS = "event \"%1$s\" successfully added";
 	private static final String MSG_ADD_FAIL_ALRTHERE = "task \"%1$s\" is already added, no changes";
 	private static final String MSG_DELETE_SUCCESS = "task \"%1$s\" successfully deleted";
 	private static final String MSG_DELETE_FAIL = "task \"%1$s\" failed to delete";
@@ -40,7 +43,7 @@ public class Logic {
 			+ " Undo     : undo\n"
 			+ " Exit     : exit";
 			
-	enum RequiredField {
+	public enum RequiredField {
 		TASKDUEDATE,TASKLOCATION,EVENT_STARTDATE,EVENT_ENDDATE,REPEAT
 	};
 	
@@ -64,16 +67,6 @@ public class Logic {
 	}
 	
 	/**
-	 * This function digest the input command into content and command type
-	 * @param str
-	 * 			is user input
-	 */
-	private void digestInput(String str){
-		commandStr = getFirstWord(str);	
-		contentStr = removeFirstWord(str);
-		commandType = JParser.determineCommandType(commandStr);
-	}
-	/**
 	 * This function is called to execute users command
 	 * @param input
 	 * 			is user input
@@ -84,11 +77,15 @@ public class Logic {
 		assert(input!=null):"input in excute function is null";
 		logger.log(Level.INFO, "execute function");
 		
-		digestInput(input);
+		DigestInput di = new DigestInput(input);
+		commandType = di.getCommandType();
+		commandStr = di.getCommandStr();
+		contentStr = di.getContentStr();
 		String output=null;
 		switch(commandType){
 			case ADD: 
-				output = addTodo(contentStr);
+				AddCommand adding = new AddCommand(contentStr, indexTask, indexEvent, tasks, events);
+				output = adding.getOutput();
 				break;
 			case DELETE:
 				output = deleteTask(contentStr);
@@ -156,18 +153,7 @@ public class Logic {
 			return String.format(MSG_DONE_FAIL, contentStr2);
 		}
 	}
-	/**
-	 * @param contentStr2
-	 * @return
-	 */
-	public String addEvent(String contentStr2) {
-		String startDate = getStartDate(contentStr2);
-		String endDate = getEndDate(contentStr2);
-		TaskEvent temp;
-		temp = new TaskEvent(getTask(contentStr2), startDate, endDate, ++indexEvent, false);
-		events.add(temp);
-		return String.format(MSG_ADDEVENT_SUCCESS, temp.getName());
-	}
+	
 	
 	public String saveFile(String contentStr2){
 		if(storage.saveToLocation(contentStr2)){
@@ -178,113 +164,7 @@ public class Logic {
 		}
 	}
 	
-	/**
-	 * @param contentStr2
-	 * @return
-	 */
-	private String getEndDate(String contentStr2) {
-		String endDate = getSplittedString(contentStr2, RequiredField.EVENT_ENDDATE);
-		return endDate;
-	}
-
-	/**
-	 * @param contentStr2
-	 * @return
-	 */
-	private String getStartDate(String contentStr2) {
-			String startDate = getSplittedString(contentStr2, RequiredField.EVENT_STARTDATE);
-			return startDate;
-	}
-	public String addTodo(String contentStr){
-		if(checkTodo(contentStr)){
-			return addEvent(contentStr);
-		}
-		else{
-			return addTask(contentStr);
-		}
-	}
 	
-	private boolean checkTodo(String contentStr){
-		
-		String tempTodo = contentStr.replace(getTask(contentStr), "");
-		tempTodo = contentStr.replace("-", "");
-		if(tempTodo.contains("from")){
-			return true;
-		}
-		else{
-			return false;
-		}
-	}
-	/**
-	 * This function add task input by user into storage
-	 * @param contentStr
-	 * 				is the content of user input to be store
-	 * @return add success msg
-	 */
-	private String addTask(String contentStr){
-		TaskToDo temp;
-		if(getDueDate(contentStr).equals("")){
-			temp = new TaskToDo(getTask(contentStr).trim(), ++indexTask, false);	
-		}
-		else if(getRepeat(contentStr)==RepeatingFrequency.NOTREPEATING){
-			temp = new TaskToDo(getTask(contentStr).trim(),getDueDate(contentStr), ++indexTask, false);
-		}else {
-			temp = new TaskToDo(getTask(contentStr).trim().concat(getRepeatString(getRepeat(contentStr))),
-					getDueDate(contentStr), ++indexTask, false,getRepeat(contentStr));
-		}
-		
-		tasks.add(temp);
-		logger.log(Level.INFO, "add task");
-		return String.format(MSG_ADD_SUCCESS,temp.getName());
-	}
-	
-	/**
-	 * @param repeat
-	 * @return
-	 */
-	private String getRepeatString(RepeatingFrequency repeat) {
-		// TODO Auto-generated method stub
-		String temp=null;
-		switch (repeat) {
-		case DAILY:
-			temp = "(DAILY)";
-			break;
-		case MONTHLY:
-			temp = "(MONTHLY)";
-			break;
-		case YEARLY:
-			temp = "(YEARLY)";
-			break;
-		case WEEKLY:
-			temp = "(WEEKLY)";
-			break;
-		default:
-			temp=" ";
-			break;
-		}
-		return temp;
-	}
-
-	/**
-	 * @param contentStr2
-	 * @return
-	 */
-	private RepeatingFrequency getRepeat(String contentStr2) {
-		// TODO Auto-generated method stub
-		String temp = getSplittedString(contentStr2, RequiredField.REPEAT).trim();
-		switch (temp) {
-		case "weekly":
-			return RepeatingFrequency.WEEKLY;
-		case "monthly":
-			return RepeatingFrequency.MONTHLY;
-		case "daily":
-			return RepeatingFrequency.DAILY;
-		case "yearly":
-			return RepeatingFrequency.YEARLY;
-		default:
-			return RepeatingFrequency.NOTREPEATING;
-		}
-	}
 
 	/**
 	 * This function search input by user from Task and Event 
@@ -295,17 +175,17 @@ public class Logic {
 	private String searchTask(String contentStr){
 		// Search Task
 		for(int i=0; i<tasks.size(); i++){
-			if(getTask(contentStr).trim().equals(tasks.get(i).getName())){
+			if(GetSplittedString.getTask(contentStr).trim().equals(tasks.get(i).getName())){
 				return String.format(MSG_SEARCH_SUCCESS,tasks.get(i).getName());
 			}
 		}
 		// Search Event
 		for(int i=0; i<events.size(); i++){
-			if(getTask(contentStr).trim().equals(events.get(i).getName())){
+			if(GetSplittedString.getTask(contentStr).trim().equals(events.get(i).getName())){
 				return String.format(MSG_SEARCH_SUCCESS,events.get(i).getName());
 			}
 		}
-		return String.format(MSG_SEARCH_FAIL,getTask(contentStr).trim());
+		return String.format(MSG_SEARCH_FAIL,GetSplittedString.getTask(contentStr).trim());
 	}
 	/**
 	 * This function handle display help menu
@@ -466,54 +346,11 @@ public class Logic {
 	}
 	
 	
-	/**
-	 * This function get the first word of input key in by user
-	 * @param userCommand
-	 * 			original input key in by user
-	 * @return the first word of user's input
-	 */
-	private static String getFirstWord(String userCommand) {
-		String commandTypeString = userCommand.trim().split("\\s+")[0];
-		return commandTypeString;
-	}
 	
-	/**
-	 * This function remove the first word of user's input
-	 * @param userCommand
-	 * 			original input key in by user
-	 * @return	the rest of String without first word
-	 */
-	private static String removeFirstWord(String userCommand) {
-		String temp = userCommand.replace(getFirstWord(userCommand), "").trim();
-		return temp;
-	}
 	
-	/**
-	 * This function get the task name from from user's input content
-	 * @param str
-	 * 			User's input
-	 * @return task name
-	 */
-	private static String getTask(String str){
-		if(str.contains("-")){
-			String taskName = str.trim().substring(0, str.indexOf('-'));	
-			return taskName;
-		}
-		else
-			return str;
-	}
 	
-	/**
-	 * This function get the due date of task base on user's input content
-	 * @param contentStr2
-	 * 			user's input content
-	 * @return the due date of task
-	 */
-	private String getDueDate(String contentStr2) {
-		// TODO Auto-generated method stub
-		String dueDateStr = getSplittedString(contentStr2, RequiredField.TASKDUEDATE);
-		return dueDateStr;
-	}
+	
+	
 	
 
 	private int[] convertDueDateStrtoIntarr(String dueDateStr) {
@@ -525,62 +362,7 @@ public class Logic {
 		return dueDateIntArr;
 	}
 	
-	/**
-	 * This function get the desire part of String
-	 * @param str
-	 * 			is the string to be splitted
-	 * @param requiredField
-	 * 			is the part of String that is required in term of RequiredField
-	 * @return	desire part of string
-	 */
-	private static String getSplittedString(String str,RequiredField requiredField){
-		try{
-			String removedTaskName = str.replace(getTask(str), "");
-			String[] strArr = removedTaskName.split("-");
-			String returnStr = null;
-			switch (requiredField) {
-			case TASKDUEDATE:
-				returnStr = getContent(strArr,"due ");
-				break;
-			case EVENT_STARTDATE:
-				returnStr = getContent(strArr, "from ");
-				break;
-			case EVENT_ENDDATE:
-				returnStr = getContent(strArr, "to ");
-				break;
-			case TASKLOCATION:
-				returnStr = getContent(strArr, "at"	);
-				break;
-			case REPEAT:
-				returnStr = getContent(strArr, "repeat");
-				break;
-			default:
-				logger.log(Level.INFO, "invalid RequiredField");
-				break;
-		}
-		return returnStr;
-		}catch(Exception e){
-			return "";
-		}
-	}
 	
-	/**
-	 * This function get a string within array and remove the similar part of string
-	 * @param arr
-	 * 			is the array of string
-	 * @param str
-	 * 			is the desire String
-	 * @return	the String after remove str
-	 */
-	private static String getContent(String[] arr, String str){
-		int i=0;
-		for(String s: arr){
-			if(s.contains(str)){
-				break;
-			}
-			i++;
-		}
-		String dueDateStr = arr[i].trim().replace(str, "");
-		return dueDateStr;
-	}
+	
+	
 }

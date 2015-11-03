@@ -27,7 +27,7 @@ public class TaskToDo implements Task{
 	RepeatingFrequency frequency;
 
 
-	enum RepeatingFrequency {
+	public enum RepeatingFrequency {
 		NOTREPEATING,DAILY,WEEKLY,MONTHLY,YEARLY
 	};
 	public TaskToDo(){

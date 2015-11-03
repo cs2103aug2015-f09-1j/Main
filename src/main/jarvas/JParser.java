@@ -38,7 +38,7 @@ public class JParser {
 	
 	private static final Logger logger = Logger.getLogger(Logic.class.getName());
 	static Parser parser = new Parser();
-	protected static CommandType determineCommandType(String commandTypeString) {
+	public static CommandType determineCommandType(String commandTypeString) {
 		if (commandTypeString == null){
 			throw new Error();
 		}
