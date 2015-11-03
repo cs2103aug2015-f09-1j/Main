@@ -14,14 +14,13 @@ import executor.DeleteCommand;
 import executor.DigestInput;
 import executor.EditCommand;
 import executor.GetSplittedString;
+import executor.SearchCommand;
 /**
  * @author ONGJI_000
  *
  */
 public class Logic {
 	private static final String MSG_INVALID_INPUT = "invalid input";
-	private static final String MSG_SEARCH_SUCCESS = "task \"%1$s\" found";
-	private static final String MSG_SEARCH_FAIL = "task \"%1$s\" not found";
 	private static final String MSG_TASK_UNDO = "Undo success";
 	private static final String MSG_SAVE_SUCCESS = "File \"%1$s\" successfully saved";
 	private static final String MSG_SAVE_FAILURE = "File \"%1$s\" is not saved";
@@ -54,6 +53,9 @@ public class Logic {
 	JParser.CommandType commandType;
 	Vector <TaskToDo> tasks = new Vector <TaskToDo>();
 	Vector <TaskEvent> events = new Vector<TaskEvent>();
+	Vector <TaskToDo> tasksForSearch;
+	Vector <TaskEvent> eventsForSearch;
+	boolean IsCommandSearch;
 	public Logic(){
 		storage = Storage.getInstance();
 		storage.doStuff();
@@ -71,7 +73,7 @@ public class Logic {
 	
 		assert(input!=null):"input in excute function is null";
 		logger.log(Level.INFO, "execute function");
-		
+		IsCommandSearch = false;
 		DigestInput di = new DigestInput(input);
 		commandType = di.getCommandType();
 		commandStr = di.getCommandStr();
@@ -94,7 +96,12 @@ public class Logic {
 				displayTask();
 				break;
 			case SEARCH:
-				output = searchTask(contentStr);
+				IsCommandSearch = true;
+				SearchCommand searching = new SearchCommand(tasks, events, contentStr);
+				output = searching.getOutput();
+				tasksForSearch = searching.getTaskResult();
+				eventsForSearch = searching.getEventResult();
+				break;
 			case HELP:
 				output = displayHelp();
 				break;
@@ -121,6 +128,21 @@ public class Logic {
 		storage.processTasks(tasks,events);
 		return output;
 	}
+	
+	public boolean getIsCommandSearch(){
+		return IsCommandSearch;
+	}
+	
+	
+	public Vector<TaskToDo> getTasksForSearch(){
+		return tasksForSearch;
+	}
+	
+	
+	public Vector<TaskEvent> getEventsForSearch(){
+		return eventsForSearch;
+	}
+	
 	
 	
 	private String undo(){
@@ -158,32 +180,6 @@ public class Logic {
 	}
 	
 	
-
-	/**
-	 * This function search input by user from Task and Event 
-	 * @param contentStr
-	 * 				is the content to be used for the search
-	 * @return add success msg
-	 */
-	private String searchTask(String contentStr){
-		// Search Task
-		Vector<TaskToDo> searchingResultTasks = new Vector<>();
-		for(int i=0; i<tasks.size(); i++){
-			if(GetSplittedString.getTask(contentStr).trim().equals(tasks.get(i).getName())){
-				searchingResultTasks.addElement(tasks.elementAt(i));
-				return String.format(MSG_SEARCH_SUCCESS,tasks.get(i).getName());
-			}
-		}
-		// Search Event
-		Vector<TaskEvent> searchingResultEvents = new Vector<>();
-		for(int i=0; i<events.size(); i++){
-			if(GetSplittedString.getTask(contentStr).trim().equals(events.get(i).getName())){
-				searchingResultEvents.addElement(events.elementAt(i));
-				return String.format(MSG_SEARCH_SUCCESS,events.get(i).getName());
-			}
-		}
-		return String.format(MSG_SEARCH_FAIL,GetSplittedString.getTask(contentStr).trim());
-	}
 	/**
 	 * This function handle display help menu
 	 * 
