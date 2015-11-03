@@ -28,7 +28,7 @@ public class SearchCommand {
 	
 	public SearchCommand(Vector<TaskToDo> task, Vector<TaskEvent> event, String contentStr2){
 		tasks = task;
-		event = events;
+		events = event;
 		contentStr = contentStr2;
 		searchingResultTasks = new Vector<>();
 		searchingResultEvents = new Vector<>();

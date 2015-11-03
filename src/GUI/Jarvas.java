@@ -9,6 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
@@ -115,6 +116,24 @@ public class Jarvas extends Application{
             	return;
             }
             switch(item){
+            case "Searching Reasult:":
+            	setTextFill(Color.rgb(253, 50, 50));
+            	setFont(new Font("Avenir", 23));
+            	setText(item);
+            	//setBackground(new Background(new BackgroundFill(Color.rgb(253, 184, 186), CornerRadii.EMPTY, Insets.EMPTY)));
+            	break;
+            case "YEnd":
+            	setTextFill(Color.rgb(253, 120, 120));
+            	setFont(new Font("Avenir", 23));
+            	setText(item.substring(1));
+            	//setBackground(new Background(new BackgroundFill(Color.rgb(253, 184, 186), CornerRadii.EMPTY, Insets.EMPTY)));
+            	break;
+            case "STasks":
+            case "SEvents":
+            	setTextFill(Color.rgb(255, 120, 120));
+            	setFont(new Font("Courier", 20));
+            	setText(item.substring(1));
+            	break;
             case "Tasks":
             case "Events":
             	setTextFill(Color.rgb(71, 184, 251));
@@ -123,14 +142,26 @@ public class Jarvas extends Application{
             	break;
             default:
             	if(item.charAt(0) == 'Y'){
-                	setTextFill(Color.RED);
+                	setTextFill(Color.DARKGRAY);
                 	setFont(new Font("Courier", 14));
                 	setText(item.substring(1));
             	}
-            	else{
-                	setTextFill(Color.BLACK);
+            	else if(item.charAt(0) == 'N'){
+                	setTextFill(Color.CORNFLOWERBLUE);
                 	setFont(new Font("Courier", 14));
                 	setText(item.substring(1));
+            	}
+            	else if(item.charAt(0) == 'S'){
+                	if(item.charAt(1) == 'Y'){
+                    	setTextFill(Color.rgb(253, 150, 50));
+                    	setFont(new Font("Courier", 14));
+                    	setText(item.substring(2));
+                	}
+                	else if(item.charAt(1) == 'N'){
+                    	setTextFill(Color.rgb(253, 50, 150));
+                    	setFont(new Font("Courier", 14));
+                    	setText(item.substring(2));
+                	}
             	}
             }
         }
@@ -147,6 +178,39 @@ public class Jarvas extends Application{
             Vector<TaskToDo> tasks = logic.returnNewTasks();
             Vector<TaskEvent> events = logic.returnNewEvents();
             alltasks = FXCollections.observableArrayList();
+            if(logic.getIsCommandSearch()){
+                Vector<TaskToDo> tasksForSearch = logic.getTasksForSearch();
+                Vector<TaskEvent> eventsForSearch = logic.getEventsForSearch();
+                
+            	alltasks.add("Searching Reasult:");
+
+                alltasks.add("STasks");
+                for(int i=0; i<tasksForSearch.size();i++) {
+                	if(tasksForSearch.get(i).getDone()){
+                    	alltasks.add("SY" + (i+1) + ". Task name: " + tasksForSearch.get(i).getName());
+                    	alltasks.add("SY" + "    Due Date: " + tasksForSearch.get(i).getStringStartDate());
+                	}
+                	else{
+                    	alltasks.add("SN" + (i+1) + ". Task name: " + tasksForSearch.get(i).getName());
+                    	alltasks.add("SN" + "    Due Date: " + tasksForSearch.get(i).getStringStartDate());
+                	}
+                }
+                alltasks.add("SEvents");
+                for(int i=0; eventsForSearch != null && i<eventsForSearch.size();i++) {
+                	if(eventsForSearch.get(i).getDone()){
+                    	alltasks.add("SY" + (i+1) + ". Event name: " + eventsForSearch.get(i).getName());
+                    	alltasks.add("SY" + "    Start Date: " + eventsForSearch.get(i).getStartDate());
+                    	alltasks.add("SY" + "    End Date: " + eventsForSearch.get(i).getEndDate());
+                	}
+                	else{
+                    	alltasks.add("SN" + (i+1) + ". Event name: " + eventsForSearch.get(i).getName());
+                    	alltasks.add("SN" + "    Start Date: " + eventsForSearch.get(i).getStartDate());
+                    	alltasks.add("SN" + "    End Date: " + eventsForSearch.get(i).getEndDate());
+                	}
+                }
+            	alltasks.add("Y");
+            	
+            }
             alltasks.add("Tasks");
             for(int i=0; i<tasks.size();i++) {
             	if(tasks.get(i).getDone()){
