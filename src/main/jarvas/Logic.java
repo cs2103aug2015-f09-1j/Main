@@ -12,6 +12,7 @@ import executor.AddTask;
 import executor.ClearCommand;
 import executor.DeleteCommand;
 import executor.DigestInput;
+import executor.EditCommand;
 import executor.GetSplittedString;
 /**
  * @author ONGJI_000
@@ -19,14 +20,9 @@ import executor.GetSplittedString;
  */
 public class Logic {
 	private static final String MSG_INVALID_INPUT = "invalid input";
-	private static final String MSG_INVALID_DATEINPUT = "invalid date input";
-	private static final String MSG_ADD_SUCCESS = "task \"%1$s\" successfully added";
 	private static final String MSG_SEARCH_SUCCESS = "task \"%1$s\" found";
 	private static final String MSG_SEARCH_FAIL = "task \"%1$s\" not found";
-	private static final String MSG_ADD_FAIL_ALRTHERE = "task \"%1$s\" is already added, no changes";
-	private static final String MSG_TASK_NOTEXIST = "task \"%1$s\" does not exist";
 	private static final String MSG_TASK_UNDO = "Undo success";
-	private static final String MSG_EDIT_SUCCESS = "task \"%1$s\" successfully edited";
 	private static final String MSG_SAVE_SUCCESS = "File \"%1$s\" successfully saved";
 	private static final String MSG_SAVE_FAILURE = "File \"%1$s\" is not saved";
 	private static final String MSG_DONE_SUCCESS = " \"%1$s\" is marked";
@@ -91,7 +87,8 @@ public class Logic {
 				output = deleting.getOutput();
 				break;
 			case EDIT:
-				output = edit(contentStr);
+				EditCommand editing = new EditCommand(tasks, events, contentStr);
+				output = editing.getOutput();
 				break;
 			case DISPLAY: 
 				displayTask();
@@ -205,59 +202,6 @@ public class Logic {
 			temp = temp.concat(tasks.toString()+"\n");
 		}
 		return temp;
-	}
-	
-	/**
-	 * This function edit the current task key in by user by name of task
-	 * @param contentStr2
-	 * 				content of task task to be edited
-	 * @return msg of edit task's info
-	 * @throws ParseException 
-	 * @throws NumberFormatException 
-	 */
-	private String edit(String contentStr2) {
-		String[] contentStr3 = contentStr.split("\\s+");
-		logger.log(Level.INFO, "edit task function");
-		if(contentStr3[0].equals("task")){
-			if(contentStr3[2].equals("name")){
-				tasks.get(Integer.parseInt(contentStr3[1])-1).setName(contentStr3[3]);
-				logger.log(Level.INFO, "Task edit successful");
-				return String.format(MSG_EDIT_SUCCESS, contentStr3[3]);
-			}
-			else if(contentStr3[2].equals("due")){
-				tasks.get(Integer.parseInt(contentStr3[1])-1).setStart(contentStr3[3] + " " + contentStr3[4]);
-				logger.log(Level.INFO, "Task edit successful");
-				return String.format(MSG_EDIT_SUCCESS, contentStr3[3]);
-			}
-			else{
-				logger.log(Level.WARNING, "Task does not exist");
-				return String.format(MSG_TASK_NOTEXIST, contentStr3[1]);				
-			}
-		}
-		else if(contentStr3[0].equals("event")){
-			if(contentStr3[2].equals("name")){
-				events.get(Integer.parseInt(contentStr3[1])-1).setName(contentStr3[3]);
-				logger.log(Level.INFO, "Event edit successful");
-				return String.format(MSG_EDIT_SUCCESS, contentStr3[3]);
-			}
-			else if(contentStr3[2].equals("from")){
-				events.get(Integer.parseInt(contentStr3[1])-1).setStart(contentStr3[3] + " " + contentStr3[4]);
-				logger.log(Level.INFO, "Event edit successful");
-				return String.format(MSG_EDIT_SUCCESS, contentStr3[3]);
-			}
-			else if(contentStr3[2].equals("to")){
-				events.get(Integer.parseInt(contentStr3[1])-1).setEnd(contentStr3[3] + " " + contentStr3[4]);
-				logger.log(Level.INFO, "Event edit successful");
-				return String.format(MSG_EDIT_SUCCESS, contentStr3[3]);
-			}
-			else{
-				logger.log(Level.WARNING, "Event does not exist");
-				return String.format(MSG_TASK_NOTEXIST, contentStr3[1]);				
-			}			
-		}
-		else{
-			return String.format(MSG_TASK_NOTEXIST, contentStr3[1]);
-		}
 	}
 	
 
