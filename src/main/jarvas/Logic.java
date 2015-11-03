@@ -9,6 +9,7 @@ import main.jarvas.TaskToDo.RepeatingFrequency;
 import executor.AddCommand;
 import executor.AddEvent;
 import executor.AddTask;
+import executor.ClearCommand;
 import executor.DeleteCommand;
 import executor.DigestInput;
 import executor.GetSplittedString;
@@ -24,7 +25,6 @@ public class Logic {
 	private static final String MSG_SEARCH_FAIL = "task \"%1$s\" not found";
 	private static final String MSG_ADD_FAIL_ALRTHERE = "task \"%1$s\" is already added, no changes";
 	private static final String MSG_TASK_NOTEXIST = "task \"%1$s\" does not exist";
-	private static final String MSG_TASK_CLEAR = "tasks is clear";
 	private static final String MSG_TASK_UNDO = "Undo success";
 	private static final String MSG_EDIT_SUCCESS = "task \"%1$s\" successfully edited";
 	private static final String MSG_SAVE_SUCCESS = "File \"%1$s\" successfully saved";
@@ -104,7 +104,8 @@ public class Logic {
 			case EXIT:
 				System.exit(0);
 			case CLEAR:
-				output = clearTask();
+				ClearCommand clearing = new ClearCommand(tasks, events);
+				output = clearing.getOutput();
 				break;
 			case MARK:
 				output = doneTask(contentStr);
@@ -117,18 +118,13 @@ public class Logic {
 				getOriginalTasks();
 				break;
 			default:
-				logger.log(Level.WARNING, "user invalid input");
 				output = MSG_INVALID_INPUT;
+				logger.log(Level.WARNING, output);
 		}
 		storage.processTasks(tasks,events);
 		return output;
 	}
 	
-	public String clearTask() {
-		tasks.clear();
-		events.clear();
-		return MSG_TASK_CLEAR;
-	}
 	
 	private String undo(){
 		storage.undoStorage();
