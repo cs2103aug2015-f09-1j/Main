@@ -9,6 +9,7 @@ import main.jarvas.TaskToDo.RepeatingFrequency;
 import executor.AddCommand;
 import executor.AddEvent;
 import executor.AddTask;
+import executor.DeleteCommand;
 import executor.DigestInput;
 import executor.GetSplittedString;
 /**
@@ -22,8 +23,6 @@ public class Logic {
 	private static final String MSG_SEARCH_SUCCESS = "task \"%1$s\" found";
 	private static final String MSG_SEARCH_FAIL = "task \"%1$s\" not found";
 	private static final String MSG_ADD_FAIL_ALRTHERE = "task \"%1$s\" is already added, no changes";
-	private static final String MSG_DELETE_SUCCESS = "task \"%1$s\" successfully deleted";
-	private static final String MSG_DELETE_FAIL = "task \"%1$s\" failed to delete";
 	private static final String MSG_TASK_NOTEXIST = "task \"%1$s\" does not exist";
 	private static final String MSG_TASK_CLEAR = "tasks is clear";
 	private static final String MSG_TASK_UNDO = "Undo success";
@@ -88,7 +87,8 @@ public class Logic {
 				output = adding.getOutput();
 				break;
 			case DELETE:
-				output = deleteTask(contentStr);
+				DeleteCommand deleting = new DeleteCommand(contentStr, tasks, events);
+				output = deleting.getOutput();
 				break;
 			case EDIT:
 				output = edit(contentStr);
@@ -264,30 +264,7 @@ public class Logic {
 		}
 	}
 	
-	/**
-	 * This function delete the current task required by user
-	 * @param contentStr2
-	 * 				the name of task to be deleted
-	 * @return	msg of deleted task's info
-	 */
-	private String deleteTask(String contentStr2) {
-		// TODO Auto-generated method stub
-		String[] input = contentStr2.split("\\s+");
-		int indexToDelete = Integer.parseInt(input[1]);
-		if(input[0].equals("task")){
-			tasks.remove(indexToDelete-1);
-			logger.log(Level.INFO, "Task deleted");
-			return String.format(MSG_DELETE_SUCCESS, contentStr2);		
-		}
-		else if(input[0].equals("event")){
-			events.remove(indexToDelete-1);
-			logger.log(Level.INFO, "Task Event deleted");		
-			return String.format(MSG_DELETE_SUCCESS, contentStr2);
-		}
-		else{
-			return String.format(MSG_DELETE_FAIL, contentStr2);	
-		}
-	}
+
 	
 	/**
 	 * This function get the index of task by task name
