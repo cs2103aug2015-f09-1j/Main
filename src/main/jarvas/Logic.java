@@ -167,14 +167,18 @@ public class Logic {
 	 */
 	private String searchTask(String contentStr){
 		// Search Task
+		Vector<TaskToDo> searchingResultTasks = new Vector<>();
 		for(int i=0; i<tasks.size(); i++){
 			if(GetSplittedString.getTask(contentStr).trim().equals(tasks.get(i).getName())){
+				searchingResultTasks.addElement(tasks.elementAt(i));
 				return String.format(MSG_SEARCH_SUCCESS,tasks.get(i).getName());
 			}
 		}
 		// Search Event
+		Vector<TaskEvent> searchingResultEvents = new Vector<>();
 		for(int i=0; i<events.size(); i++){
 			if(GetSplittedString.getTask(contentStr).trim().equals(events.get(i).getName())){
+				searchingResultEvents.addElement(events.elementAt(i));
 				return String.format(MSG_SEARCH_SUCCESS,events.get(i).getName());
 			}
 		}
