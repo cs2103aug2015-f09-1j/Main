@@ -9,7 +9,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
@@ -25,6 +24,31 @@ import javafx.scene.layout.*;
  *
  */
 public class Jarvas extends Application{
+	
+	
+	private static final String TASK_NAME = ". Task name: ";
+	private static final String TASK_DUE = "    Due Date: ";
+	private static final String EVENT_NAME = ". Event name: ";
+	private static final String EVENT_START = "    Start Date: ";
+	private static final String EVENT_END = "    End Date: ";
+	private static final String DONE = "Y";
+	private static final String UNDONE = "N";
+	private static final char SEARCH = 'S';
+	private static final char CDONE = 'Y';
+	private static final char CUNDONE = 'N';
+	private static final String S_DONE = "SY";
+	private static final String S_UNDONE = "SN";
+	private static final String SEARCH_RESULT = "Searching Reasult:";
+	private static final String SEARCH_END = "YEnd";
+	private static final String EVENTS = "Events";
+	private static final String TASKS = "Tasks";
+	private static final String TASK_FOR_SEARCH = "STasks";
+	private static final String EVENT_FOR_SEARCH = "SEvents";
+	private static final String FONT_AVENIR = "Avenir";
+	private static final String FONT_COURIER = "Courier";
+	private static final String JARVAS = "Jarvas";
+	private static final String EMPTY = "";
+	private static final String SPACE = " ";
 
 	private final Logger logger = Logger.getLogger(Jarvas.class.getName());
 	private ObservableList<String> alltasks;
@@ -41,37 +65,37 @@ public class Jarvas extends Application{
 	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
+		
+
 		Logic logic = new Logic();
-        logger.log(Level.INFO, "controller class is initialised");
         Vector<TaskToDo> tasks = logic.returnNewTasks();
         alltasks = FXCollections.observableArrayList();
-        alltasks.add("Tasks");
+        alltasks.add(TASKS);
         for(int i=0; i<tasks.size();i++) {
         	if(tasks.get(i).getDone()){
-            	alltasks.add("Y" + (i+1) + ". Task name: " + tasks.get(i).getName());
-            	alltasks.add("Y" + "    Due Date: " + tasks.get(i).getStringStartDate());
+            	alltasks.add(DONE + (i+1) + TASK_NAME + tasks.get(i).getName());
+            	alltasks.add(DONE + TASK_DUE + tasks.get(i).getStringStartDate());
         	}
         	else{
-            	alltasks.add("N" + (i+1) + ". Task name: " + tasks.get(i).getName());
-            	alltasks.add("N" + "    Due Date: " + tasks.get(i).getStringStartDate());
+            	alltasks.add(UNDONE + (i+1) + TASK_NAME + tasks.get(i).getName());
+            	alltasks.add(UNDONE + TASK_DUE + tasks.get(i).getStringStartDate());
         	}
         }
         Vector<TaskEvent> events = logic.returnNewEvents();
-        alltasks.add("Events");
+        alltasks.add(EVENTS);
         for(int i=0; events != null && i<events.size();i++) {
         	if(events.get(i).getDone()){
-            	alltasks.add("Y" + (i+1) + ". Event name: " + events.get(i).getName());
-            	alltasks.add("Y" + "    Start Date: " + events.get(i).getStartDate());
-            	alltasks.add("Y" + "    End Date: " + events.get(i).getEndDate());
+            	alltasks.add(DONE + (i+1) + EVENT_NAME + events.get(i).getName());
+            	alltasks.add(DONE + EVENT_START + events.get(i).getStartDate());
+            	alltasks.add(DONE + EVENT_END + events.get(i).getEndDate());
         	}
         	else{
-            	alltasks.add("N" + (i+1) + ". Event name: " + events.get(i).getName());
-            	alltasks.add("N" + "    Start Date: " + events.get(i).getStartDate());
-            	alltasks.add("N" + "    End Date: " + events.get(i).getEndDate());
+            	alltasks.add(UNDONE + (i+1) + EVENT_NAME + events.get(i).getName());
+            	alltasks.add(UNDONE + EVENT_START + events.get(i).getStartDate());
+            	alltasks.add(UNDONE + EVENT_END + events.get(i).getEndDate());
         	}
         }
-    	alltasks.add("N");
+    	alltasks.add(UNDONE);
         allTasks = new ListView<>(alltasks);
         log = new Text();
         input = new TextField();
@@ -103,7 +127,7 @@ public class Jarvas extends Application{
 	            }
 	        );
         Scene scene = new Scene(pane, 530, 500,Color.rgb(238,236,218));
-        primaryStage.setTitle("Jarvas");
+        primaryStage.setTitle(JARVAS);
         primaryStage.setScene(scene);
         primaryStage.show();
 	}
@@ -116,50 +140,50 @@ public class Jarvas extends Application{
             	return;
             }
             switch(item){
-            case "Searching Reasult:":
+            case SEARCH_RESULT:
             	setTextFill(Color.rgb(253, 50, 50));
-            	setFont(new Font("Avenir", 23));
+            	setFont(new Font(FONT_AVENIR, 23));
             	setText(item);
             	//setBackground(new Background(new BackgroundFill(Color.rgb(253, 184, 186), CornerRadii.EMPTY, Insets.EMPTY)));
             	break;
-            case "YEnd":
+            case SEARCH_END:
             	setTextFill(Color.rgb(253, 120, 120));
-            	setFont(new Font("Avenir", 23));
+            	setFont(new Font(FONT_AVENIR, 23));
             	setText(item.substring(1));
             	//setBackground(new Background(new BackgroundFill(Color.rgb(253, 184, 186), CornerRadii.EMPTY, Insets.EMPTY)));
             	break;
-            case "STasks":
-            case "SEvents":
+            case TASK_FOR_SEARCH:
+            case EVENT_FOR_SEARCH:
             	setTextFill(Color.rgb(255, 120, 120));
-            	setFont(new Font("Courier", 20));
+            	setFont(new Font(FONT_COURIER, 20));
             	setText(item.substring(1));
             	break;
-            case "Tasks":
-            case "Events":
+            case TASKS:
+            case EVENTS:
             	setTextFill(Color.rgb(71, 184, 251));
-            	setFont(new Font("Courier", 20));
+            	setFont(new Font(FONT_COURIER, 20));
             	setText(item);
             	break;
             default:
-            	if(item.charAt(0) == 'Y'){
+            	if(item.charAt(0) == CDONE){
                 	setTextFill(Color.DARKGRAY);
-                	setFont(new Font("Courier", 14));
+                	setFont(new Font(FONT_COURIER, 14));
                 	setText(item.substring(1));
             	}
-            	else if(item.charAt(0) == 'N'){
+            	else if(item.charAt(0) == CUNDONE){
                 	setTextFill(Color.CORNFLOWERBLUE);
-                	setFont(new Font("Courier", 14));
+                	setFont(new Font(FONT_COURIER, 14));
                 	setText(item.substring(1));
             	}
-            	else if(item.charAt(0) == 'S'){
-                	if(item.charAt(1) == 'Y'){
+            	else if(item.charAt(0) == SEARCH){
+                	if(item.charAt(1) == CDONE){
                     	setTextFill(Color.rgb(253, 150, 50));
-                    	setFont(new Font("Courier", 14));
+                    	setFont(new Font(FONT_COURIER, 14));
                     	setText(item.substring(2));
                 	}
-                	else if(item.charAt(1) == 'N'){
+                	else if(item.charAt(1) == CUNDONE){
                     	setTextFill(Color.rgb(253, 50, 150));
-                    	setFont(new Font("Courier", 14));
+                    	setFont(new Font(FONT_COURIER, 14));
                     	setText(item.substring(2));
                 	}
             	}
@@ -173,8 +197,8 @@ public class Jarvas extends Application{
         	Logic logic = new Logic();
             String Input = input.getText();
             String outcome = logic.execute(Input);
-            log.setText(" " + outcome);
-            log.setFont(Font.font("Courier", 12));
+            log.setText(SPACE + outcome);
+            log.setFont(Font.font(FONT_COURIER, 12));
             Vector<TaskToDo> tasks = logic.returnNewTasks();
             Vector<TaskEvent> events = logic.returnNewEvents();
             alltasks = FXCollections.observableArrayList();
@@ -182,61 +206,61 @@ public class Jarvas extends Application{
                 Vector<TaskToDo> tasksForSearch = logic.getTasksForSearch();
                 Vector<TaskEvent> eventsForSearch = logic.getEventsForSearch();
                 
-            	alltasks.add("Searching Reasult:");
+            	alltasks.add(SEARCH_RESULT);
 
-                alltasks.add("STasks");
+                alltasks.add(TASK_FOR_SEARCH);
                 for(int i=0; i<tasksForSearch.size();i++) {
                 	if(tasksForSearch.get(i).getDone()){
-                    	alltasks.add("SY" + (i+1) + ". Task name: " + tasksForSearch.get(i).getName());
-                    	alltasks.add("SY" + "    Due Date: " + tasksForSearch.get(i).getStringStartDate());
+                    	alltasks.add(S_DONE + (i+1) + TASK_NAME + tasksForSearch.get(i).getName());
+                    	alltasks.add(S_DONE + TASK_DUE + tasksForSearch.get(i).getStringStartDate());
                 	}
                 	else{
-                    	alltasks.add("SN" + (i+1) + ". Task name: " + tasksForSearch.get(i).getName());
-                    	alltasks.add("SN" + "    Due Date: " + tasksForSearch.get(i).getStringStartDate());
+                    	alltasks.add(S_UNDONE + (i+1) + TASK_NAME + tasksForSearch.get(i).getName());
+                    	alltasks.add(S_UNDONE + TASK_DUE + tasksForSearch.get(i).getStringStartDate());
                 	}
                 }
-                alltasks.add("SEvents");
+                alltasks.add(EVENT_FOR_SEARCH);
                 for(int i=0; eventsForSearch != null && i<eventsForSearch.size();i++) {
                 	if(eventsForSearch.get(i).getDone()){
-                    	alltasks.add("SY" + (i+1) + ". Event name: " + eventsForSearch.get(i).getName());
-                    	alltasks.add("SY" + "    Start Date: " + eventsForSearch.get(i).getStartDate());
-                    	alltasks.add("SY" + "    End Date: " + eventsForSearch.get(i).getEndDate());
+                    	alltasks.add(S_DONE + (i+1) + EVENT_NAME + eventsForSearch.get(i).getName());
+                    	alltasks.add(S_DONE + EVENT_START + eventsForSearch.get(i).getStartDate());
+                    	alltasks.add(S_DONE + EVENT_END + eventsForSearch.get(i).getEndDate());
                 	}
                 	else{
-                    	alltasks.add("SN" + (i+1) + ". Event name: " + eventsForSearch.get(i).getName());
-                    	alltasks.add("SN" + "    Start Date: " + eventsForSearch.get(i).getStartDate());
-                    	alltasks.add("SN" + "    End Date: " + eventsForSearch.get(i).getEndDate());
+                    	alltasks.add(S_UNDONE + (i+1) + EVENT_NAME + eventsForSearch.get(i).getName());
+                    	alltasks.add(S_UNDONE + EVENT_START + eventsForSearch.get(i).getStartDate());
+                    	alltasks.add(S_UNDONE + EVENT_END + eventsForSearch.get(i).getEndDate());
                 	}
                 }
-            	alltasks.add("Y");
+            	alltasks.add(DONE);
             	
             }
-            alltasks.add("Tasks");
+            alltasks.add(TASKS);
             for(int i=0; i<tasks.size();i++) {
             	if(tasks.get(i).getDone()){
-                	alltasks.add("Y" + (i+1) + ". Task name: " + tasks.get(i).getName());
-                	alltasks.add("Y" + "    Due Date: " + tasks.get(i).getStringStartDate());
+                	alltasks.add(DONE + (i+1) + TASK_NAME + tasks.get(i).getName());
+                	alltasks.add(DONE + TASK_DUE + tasks.get(i).getStringStartDate());
             	}
             	else{
-                	alltasks.add("N" + (i+1) + ". Task name: " + tasks.get(i).getName());
-                	alltasks.add("N" + "    Due Date: " + tasks.get(i).getStringStartDate());
+                	alltasks.add(UNDONE + (i+1) + TASK_NAME + tasks.get(i).getName());
+                	alltasks.add(UNDONE + TASK_DUE + tasks.get(i).getStringStartDate());
             	}
             }
-            alltasks.add("Events");
+            alltasks.add(EVENTS);
             for(int i=0; events != null && i<events.size();i++) {
             	if(events.get(i).getDone()){
-                	alltasks.add("Y" + (i+1) + ". Event name: " + events.get(i).getName());
-                	alltasks.add("Y" + "    Start Date: " + events.get(i).getStartDate());
-                	alltasks.add("Y" + "    End Date: " + events.get(i).getEndDate());
+                	alltasks.add(DONE + (i+1) + EVENT_NAME + events.get(i).getName());
+                	alltasks.add(DONE + EVENT_START + events.get(i).getStartDate());
+                	alltasks.add(DONE + EVENT_END + events.get(i).getEndDate());
             	}
             	else{
-                	alltasks.add("N" + (i+1) + ". Event name: " + events.get(i).getName());
-                	alltasks.add("N" + "    Start Date: " + events.get(i).getStartDate());
-                	alltasks.add("N" + "    End Date: " + events.get(i).getEndDate());
+                	alltasks.add(UNDONE + (i+1) + EVENT_NAME + events.get(i).getName());
+                	alltasks.add(UNDONE + EVENT_START + events.get(i).getStartDate());
+                	alltasks.add(UNDONE + EVENT_END + events.get(i).getEndDate());
             	}
             }
-        	alltasks.add("N");
-            input.setText("");
+        	alltasks.add(UNDONE);
+            input.setText(EMPTY);
             allTasks = new ListView<>(alltasks);
             vbox.getChildren().clear();
             vbox.getChildren().add(allTasks);

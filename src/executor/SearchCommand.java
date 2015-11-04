@@ -51,9 +51,6 @@ public class SearchCommand {
 
 	/**
 	 * This function search input by user from Task and Event 
-	 * @param contentStr
-	 * 				is the content to be used for the search
-	 * @return add success msg
 	 */
 	private String searchTask(){
 		// Search Task
