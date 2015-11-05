@@ -14,6 +14,7 @@ import executor.DeleteCommand;
 import executor.DigestInput;
 import executor.EditCommand;
 import executor.GetSplittedString;
+import executor.MarkCommand;
 import executor.SearchCommand;
 import executor.UndoCommand;
 /**
@@ -24,8 +25,6 @@ public class Logic {
 	private static final String MSG_INVALID_INPUT = "invalid input";
 	private static final String MSG_SAVE_SUCCESS = "File \"%1$s\" successfully saved";
 	private static final String MSG_SAVE_FAILURE = "File \"%1$s\" is not saved";
-	private static final String MSG_DONE_SUCCESS = " \"%1$s\" is marked";
-	private static final String MSG_DONE_FAIL = " \"%1$s\" not marked";
 	private static final String MSG_HELP =
 			  "Add Task : add <name> -due  <date> -repeat <daily/weekly/monthly/yearly>\n"
 			+ " Add Event: add <name> -from <date> -to <date>\n"
@@ -82,6 +81,8 @@ public class Logic {
 		switch(commandType){
 			case ADD: 
 				AddCommand adding = new AddCommand(contentStr, indexTask, indexEvent, tasks, events);
+				indexTask = adding.getIndexTask();
+				indexEvent = adding.getIndexEvent();
 				output = adding.getOutput();
 				break;
 			case DELETE:
@@ -112,7 +113,10 @@ public class Logic {
 				output = clearing.getOutput();
 				break;
 			case MARK:
-				output = doneTask(contentStr);
+				MarkCommand marking = new MarkCommand(tasks, events, indexTask, indexEvent, contentStr);
+				indexTask = marking.getIndexTask();
+				indexEvent = marking.getIndexEvent();
+				output = marking.getOutput();
 				break;
 			case SAVE:
 				output = saveFile(contentStr);
@@ -145,25 +149,6 @@ public class Logic {
 	}
 	
 	
-	
-	private String doneTask(String contentStr2){
-		String[] contentStr3 = contentStr.split("\\s+");
-		TaskToDo temp = tasks.get(Integer.parseInt(contentStr3[1])-1);
-		if(contentStr3[0].equals("task")){
-			tasks.get(Integer.parseInt(contentStr3[1])-1).setDone(contentStr3[2]);
-			if(tasks.get(Integer.parseInt(contentStr3[1])-1).getFrequency()!=RepeatingFrequency.NOTREPEATING){
-				tasks.add(new TaskToDo(temp.getName(), temp.nextDate(), ++indexTask, false, temp.getFrequency()));
-			}
-			return String.format(MSG_DONE_SUCCESS,  contentStr3[0]+ " " + contentStr3[1]);
-		}
-		else if(contentStr3[0].equals("event")){
-			events.get(Integer.parseInt(contentStr3[1])-1).setDone(contentStr3[2]);
-			return String.format(MSG_DONE_SUCCESS, contentStr3[0]+ " " + contentStr3[1]);
-		}
-		else{
-			return String.format(MSG_DONE_FAIL, contentStr2);
-		}
-	}
 	
 	
 	public String saveFile(String contentStr2){
