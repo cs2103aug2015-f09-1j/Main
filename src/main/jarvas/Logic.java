@@ -15,13 +15,13 @@ import executor.DigestInput;
 import executor.EditCommand;
 import executor.GetSplittedString;
 import executor.SearchCommand;
+import executor.UndoCommand;
 /**
  * @author ONGJI_000
  *
  */
 public class Logic {
 	private static final String MSG_INVALID_INPUT = "invalid input";
-	private static final String MSG_TASK_UNDO = "Undo success";
 	private static final String MSG_SAVE_SUCCESS = "File \"%1$s\" successfully saved";
 	private static final String MSG_SAVE_FAILURE = "File \"%1$s\" is not saved";
 	private static final String MSG_DONE_SUCCESS = " \"%1$s\" is marked";
@@ -118,7 +118,8 @@ public class Logic {
 				output = saveFile(contentStr);
 				break;
 			case UNDO:
-				output = undo();
+				UndoCommand undoing = new UndoCommand(storage);
+				output =undoing.getOutput();
 				getOriginalTasks();
 				break;
 			default:
@@ -144,11 +145,6 @@ public class Logic {
 	}
 	
 	
-	
-	private String undo(){
-		storage.undoStorage();
-		return MSG_TASK_UNDO;
-	}
 	
 	private String doneTask(String contentStr2){
 		String[] contentStr3 = contentStr.split("\\s+");
@@ -263,12 +259,6 @@ public class Logic {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
 
 	private int[] convertDueDateStrtoIntarr(String dueDateStr) {
 		String[] dueDateStrArr= dueDateStr.split("/");
@@ -278,8 +268,4 @@ public class Logic {
 		}
 		return dueDateIntArr;
 	}
-	
-	
-	
-	
 }
