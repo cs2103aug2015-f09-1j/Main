@@ -108,4 +108,13 @@ public class JParser {
 		return convertedDate;
 	}
 	
+	public static boolean dateChecker(String startDate, String endDate){
+		if(dateConverter(startDate).before(dateConverter(endDate))){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
 }

@@ -7,6 +7,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import main.jarvas.JParser;
 import main.jarvas.Logic;
 import main.jarvas.Storage;
 import main.jarvas.TaskEvent;
@@ -22,7 +23,7 @@ import main.jarvas.TaskToDo.RepeatingFrequency;
 public class AddTask {
 
 	private static final String MSG_ADD_SUCCESS = "task \"%1$s\" successfully added";
-
+	private static final String MSG_ADD_FAIL = "task date error";
 	private static final Logger logger = Logger.getLogger(Logic.class.getName());
 
 	private String output;
@@ -33,19 +34,24 @@ public class AddTask {
 	public AddTask(String contentStr, int index, Vector<TaskToDo> task){
 		indexTask = index;
 		TaskToDo temp;
-		if(getDueDate(contentStr).equals("")){
-			temp = new TaskToDo(GetSplittedString.getTask(contentStr).trim(), ++indexTask, false);	
+		if(JParser.dateChecker("today", getDueDate(contentStr))){
+			if(getDueDate(contentStr).equals("")){
+				temp = new TaskToDo(GetSplittedString.getTask(contentStr).trim(), ++indexTask, false);	
+			}
+			else if(GetRepeat.getRepeat(contentStr)==RepeatingFrequency.NOTREPEATING){
+				temp = new TaskToDo(GetSplittedString.getTask(contentStr).trim(),getDueDate(contentStr), ++indexTask, false);
+			}else {
+				temp = new TaskToDo(GetSplittedString.getTask(contentStr).trim().concat(getRepeatString(GetRepeat.getRepeat(contentStr))),
+						getDueDate(contentStr), ++indexTask, false,GetRepeat.getRepeat(contentStr));
+			}
+			
+			task.add(temp);
+			logger.log(Level.INFO, "add task");
+			output = String.format(MSG_ADD_SUCCESS,temp.getName());
 		}
-		else if(GetRepeat.getRepeat(contentStr)==RepeatingFrequency.NOTREPEATING){
-			temp = new TaskToDo(GetSplittedString.getTask(contentStr).trim(),getDueDate(contentStr), ++indexTask, false);
-		}else {
-			temp = new TaskToDo(GetSplittedString.getTask(contentStr).trim().concat(getRepeatString(GetRepeat.getRepeat(contentStr))),
-					getDueDate(contentStr), ++indexTask, false,GetRepeat.getRepeat(contentStr));
+		else{
+			output = String.format(MSG_ADD_FAIL);
 		}
-		
-		task.add(temp);
-		logger.log(Level.INFO, "add task");
-		output = String.format(MSG_ADD_SUCCESS,temp.getName());
 	}
 	
 	public int getIndex(){
