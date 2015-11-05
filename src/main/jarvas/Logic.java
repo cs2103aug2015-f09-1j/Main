@@ -80,7 +80,6 @@ public class Logic {
 		String output=null;
 		switch(commandType){
 			case ADD: 
-				System.out.println(contentStr);
 				AddCommand adding = new AddCommand(contentStr, indexTask, indexEvent, tasks, events);
 				indexTask = adding.getIndexTask();
 				indexEvent = adding.getIndexEvent();
