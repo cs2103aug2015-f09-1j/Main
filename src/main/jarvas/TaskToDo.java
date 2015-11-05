@@ -14,7 +14,7 @@ import main.jarvas.TaskToDo.RepeatingFrequency;
  * Task class is a helper class
  */
 
-public class TaskToDo implements Task{
+public class TaskToDo implements Task, Comparable<TaskToDo>{
 	
 	public static final String EMPTY_SPACE = " ";
 	private static final String LABEL_TASK_NAME = "task name = ";
@@ -219,5 +219,9 @@ public class TaskToDo implements Task{
 		temp = temp.concat("    "+ String.format(LABEL_TASK_DUEDATE, getStringStartDate()));
 		return temp;
 		
+	}
+	@Override
+	public int compareTo(TaskToDo o) {
+		return getStartDate().compareTo(o.getStartDate());
 	}
 }

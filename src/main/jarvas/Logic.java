@@ -11,6 +11,7 @@ import executor.EditCommand;
 import executor.MarkCommand;
 import executor.SearchCommand;
 import executor.UndoCommand;
+import executor.sortCommand;
 /**
  * @author ONGJI_000
  *
@@ -122,6 +123,7 @@ public class Logic {
 				output = MSG_INVALID_INPUT;
 				logger.log(Level.WARNING, output);
 		}
+		sortCommand sort = new sortCommand(tasks,events);
 		storage.processTasks(tasks,events);
 		return output;
 	}

@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class TaskEvent implements Task{
+public class TaskEvent implements Task, Comparable<TaskEvent>{
 	private static final Logger logger = Logger.getLogger(TaskEvent.class.getName());
 	private static final String WORD_FROM = " from ";
 	private static final String WORD_TO = " to ";
@@ -90,6 +90,10 @@ public class TaskEvent implements Task{
 	public String print() {
 		String temp = eventName + WORD_FROM + sdf.format(getStartDate()) + WORD_TO + sdf.format(getEndDate()); 
 		return temp;
+	}
+	@Override
+	public int compareTo(TaskEvent o) {
+		return getStartDate().compareTo(o.getStartDate());	
 	}
 
 }
