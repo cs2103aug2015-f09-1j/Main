@@ -1,7 +1,4 @@
 package main.jarvas;
-import java.util.logging.Logger;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 /**
  * 
  */
@@ -34,54 +31,7 @@ public class Parser {
 		ADD, EDIT, DELETE, SORT, SEARCH, INVALID, EXIT, CLEAR, HELP, DISPLAY , FROM , TO , SAVE, MARK, UNDO
 	};
 	
-	private static final Logger logger = Logger.getLogger(Logic.class.getName());
 	
-	protected static CommandType determineCommandType(String commandTypeString) {
-		if (commandTypeString == null){
-			throw new Error();
-		}
-		
-		if (commandTypeString.equalsIgnoreCase(COMMAND_ADD) || commandTypeString.equalsIgnoreCase(COMMAND_ADD_SHORT)) {
-			return CommandType.ADD;
-		} 
-		else if (commandTypeString.equalsIgnoreCase(COMMAND_EDIT) || commandTypeString.equalsIgnoreCase(COMMAND_EDIT_SHORT)) {
-			return CommandType.EDIT;
-		} 
-		else if (commandTypeString.equalsIgnoreCase(COMMAND_DELETE) || commandTypeString.equalsIgnoreCase(COMMAND_DELETE_SHORT)) {
-		 	return CommandType.DELETE;
-		} 
-		else if (commandTypeString.equalsIgnoreCase(COMMAND_CLEAR)) {
-		 	return CommandType.CLEAR;
-		} 
-		else if (commandTypeString.equalsIgnoreCase(COMMAND_DISPLAY)) {
-		 	return CommandType.DISPLAY;
-		}
-		else if (commandTypeString.equalsIgnoreCase(COMMAND_SORT)) {
-		 	return CommandType.SORT;
-		} 
-		else if (commandTypeString.equalsIgnoreCase(COMMAND_SEARCH)) {
-		 	return CommandType.SEARCH;
-		} 
-		else if (commandTypeString.equalsIgnoreCase(COMMAND_HELP) || commandTypeString.equalsIgnoreCase(COMMAND_HELP_SHORT)) {
-		 	return CommandType.HELP;
-		} 
-		else if (commandTypeString.equalsIgnoreCase(COMMAND_SAVE)) {
-		 	return CommandType.SAVE;
-		} 
-		else if (commandTypeString.equalsIgnoreCase(COMMAND_MARK) || commandTypeString.equalsIgnoreCase(COMMAND_MARK_SHORT)) {
-		 	return CommandType.MARK;
-		} 
-		else if (commandTypeString.equalsIgnoreCase(COMMAND_UNDO)) {
-		 	return CommandType.UNDO;
-		} 
-		else if (commandTypeString.equalsIgnoreCase(COMMAND_EXIT)) {
-		 	return CommandType.EXIT;
-		} 
-		else {
-			logger.log(Level.WARNING, "Invalid command entered by user");
-			return CommandType.INVALID;
-		}
-	}
 	
 	
 }
