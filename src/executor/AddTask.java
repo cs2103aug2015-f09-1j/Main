@@ -11,7 +11,8 @@ import main.jarvas.JParser;
 import main.jarvas.Logic;
 import main.jarvas.TaskToDo;
 import main.jarvas.Logic.RequiredField;
-import main.jarvas.TaskToDo.RepeatingFrequency;
+import executor.GetRepeat.RepeatingFrequency;
+
 
 /**
  * @author Li

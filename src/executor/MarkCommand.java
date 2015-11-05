@@ -7,7 +7,7 @@ import java.util.Vector;
 
 import main.jarvas.TaskEvent;
 import main.jarvas.TaskToDo;
-import main.jarvas.TaskToDo.RepeatingFrequency;
+import executor.GetRepeat.RepeatingFrequency;
 
 /**
  * @author Li
@@ -36,6 +36,7 @@ public class MarkCommand {
 		indexTask = taskIndex;
 		indexEvent = eventIndex;
 		contentString = contentStr2;
+		System.out.println(contentStr2);
 		doneTask();
 	}
 	
@@ -55,7 +56,7 @@ public class MarkCommand {
 
 	private void doneTask(){
 		String[] contentStr3 = contentString.split(SPLITSTRING);
-		if(contentStr3 == null || contentStr3.length != 2){
+		if(contentStr3 == null){
 			markWithWrongNumber();
 		}
 		else{
@@ -70,12 +71,17 @@ public class MarkCommand {
 
 
 	private void markWithValidFormat(String[] contentStr3) {
-		TaskToDo temp = tasks.get(Integer.parseInt(contentStr3[1])-1);
+		TaskToDo temp = null;
+		TaskEvent tempEvent = null;
+		if(!tasks.isEmpty())
+				temp = tasks.get(Integer.parseInt(contentStr3[1])-1);
+		if(!events.isEmpty())
+				tempEvent = events.get(Integer.parseInt(contentStr3[1])-1);
 		if(contentStr3[0].equals(TASK)){
 			markTask(contentStr3, temp);
 		}
 		else if(contentStr3[0].equals(EVENT)){
-			markEvent(contentStr3);
+			markEvent(contentStr3, tempEvent);
 		}
 		else{
 			markWithWrongFormat();
@@ -88,20 +94,15 @@ public class MarkCommand {
 	}
 
 
-	private void markEvent(String[] contentStr3) {
+	private void markEvent(String[] contentStr3, TaskEvent temp) {
 		if(Integer.parseInt(contentStr3[1]) > events.size() || Integer.parseInt(contentStr3[1]) < 1){
 			markOutOfBound();
 		}
 		else{
-			markEventWithCorrectIndex(contentStr3);
+			markEventWithCorrectIndex(contentStr3, temp);
 		}
 	}
 
-
-	private void markEventWithCorrectIndex(String[] contentStr3) {
-		events.get(Integer.parseInt(contentStr3[1])-1).setDone(contentStr3[2]);
-		output = String.format(MSG_DONE_SUCCESS, contentStr3[0]+ SPACE + contentStr3[1]);
-	}
 
 
 	private void markOutOfBound() {
@@ -126,7 +127,15 @@ public class MarkCommand {
 		}
 		output = String.format(MSG_DONE_SUCCESS,  contentStr3[0]+ SPACE + contentStr3[1]);
 	}
-	
+
+	private void markEventWithCorrectIndex(String[] contentStr3, TaskEvent temp) {
+		events.get(Integer.parseInt(contentStr3[1])-1).setDone(contentStr3[2]);
+		if(events.get(Integer.parseInt(contentStr3[1])-1).getFrequency()!=RepeatingFrequency.NOTREPEATING){
+			events.add(new TaskEvent(temp.getName(), temp.nextStartDate(), temp.nextEndDate(), ++indexTask, false, temp.getFrequency()));
+		}
+		output = String.format(MSG_DONE_SUCCESS, contentStr3[0]+ SPACE + contentStr3[1]);
+	}
+
 	
 
 }

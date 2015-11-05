@@ -6,9 +6,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
-
-import main.jarvas.TaskToDo.RepeatingFrequency;
+import executor.GetRepeat;
+import executor.GetRepeat.RepeatingFrequency;
 
 /**
  * Task class is a helper class
@@ -26,10 +25,6 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 	private boolean done;
 	RepeatingFrequency frequency;
 
-
-	public enum RepeatingFrequency {
-		NOTREPEATING,DAILY,WEEKLY,MONTHLY,YEARLY
-	};
 	public TaskToDo(){
 		taskName = new String();
 		dateOfEvent = new DateOfEvent();
@@ -76,48 +71,15 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 		dateOfEvent = new DateOfEvent();
 		dateOfEvent.setStartDate(JParser.dateConverter(dueDate));
 		done = status;
-		this.frequency=convertStrtoFrequency(frequency);
+		this.frequency= GetRepeat.convertStrtoFrequency(frequency);
 	}
 
 	/**
 	 * @param frequency2
 	 * @return
 	 */
-	private RepeatingFrequency convertStrtoFrequency(String frequency) {
-		switch (frequency) {
-		case "weekly":
-			return RepeatingFrequency.WEEKLY;
-		case "monthly":
-			return RepeatingFrequency.MONTHLY;
-		case "daily":
-			return RepeatingFrequency.DAILY;
-		case "yearly":
-			return RepeatingFrequency.YEARLY;
-		default:
-			return RepeatingFrequency.NOTREPEATING;
-		}
-	}
-	public String getStrFrequency(){
-		String temp=null;
-		switch (frequency) {
-		case DAILY:
-			temp = "daily";
-			break;
-		case MONTHLY:
-			temp = "monthly";
-			break;
-		case YEARLY:
-			temp = "yearly";
-			break;
-		case WEEKLY:
-			temp = "weekly";
-			break;
-		default:
-			temp="not repeating";
-			break;
-		}
-		return temp;
-	}
+
+
 
 	public RepeatingFrequency getFrequency() {
 		return frequency;
@@ -169,7 +131,6 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 		}
 	}
 	public String nextDate(){
-		setNextDate();
 		return getNextDate();
 	}
 	public String getNextDate(){
@@ -192,9 +153,31 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 			
 			break;
 		}
-	    //dateOfEvent.setStartDate(calendar.getTime());
 		return sdf.format(calendar.getTime());
 	}
+	
+	public String getStrFrequency(){
+		String temp=null;
+		switch (frequency) {
+		case DAILY:
+			temp = "daily";
+			break;
+		case MONTHLY:
+			temp = "monthly";
+			break;
+		case YEARLY:
+			temp = "yearly";
+			break;
+		case WEEKLY:
+			temp = "weekly";
+			break;
+		default:
+			temp="not repeating";
+			break;
+		}
+		return temp;
+	}
+	
 	public void setNextDate(){
 		try {
 			dateOfEvent.setStartDate(sdf.parse(getNextDate()));
