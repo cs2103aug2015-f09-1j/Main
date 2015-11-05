@@ -89,18 +89,14 @@ public class Storage{
 		if(!newTemp.exists()){
 			try {
 				newTemp.createNewFile();
+				logger.log(Level.INFO, "file created");
 			} catch (IOException e) {
 				logger.log(Level.INFO, filename + " not exist");
 				return false;
 			}
-			logger.log(Level.INFO, "file created");
-			saveToStorage();
-			return true;
-		} else {
-			logger.log(Level.INFO, "file created");
-			saveToStorage();
-			return true;
-		}
+		} 
+		saveToStorage();
+		return true;
 	}
 	
 	private void seperateJSONArray() {
