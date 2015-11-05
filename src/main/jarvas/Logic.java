@@ -24,9 +24,10 @@ public class Logic {
 			+ " Add Event: add <name> -from <date> -to <date>\n"
 			+ " Delete   : delete task/event <index>\n"
 			+ " Edit     : edit task/event <index> name/due/from/to <attribute>\n"
-			+ " Display  : display\n"
+			+ " Save     : save <filename>\n"
 			+ " Clear    : clear\n"
 			+ " Mark     : mark task/event <index> <done/undone>\n"
+			+ " Search   : search <content>\n"
 			+ " Undo     : undo\n"
 			+ " Exit     : exit";
 			

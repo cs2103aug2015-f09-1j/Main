@@ -24,7 +24,7 @@ public class AddEvent {
 		String startDate = getStartDate(contentStr2);
 		String endDate = getEndDate(contentStr2);
 		TaskEvent temp;
-		if(JParser.dateChecker(startDate, endDate) && JParser.dateChecker("today", startDate) ){
+		if(JParser.dateChecker(startDate, endDate)){
 			temp = new TaskEvent(GetSplittedString.getTask(contentStr2), startDate, endDate, ++indexEvent, false);
 			events.add(temp);
 			output = String.format(MSG_ADDEVENT_SUCCESS, temp.getName());

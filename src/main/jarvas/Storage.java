@@ -86,8 +86,15 @@ public class Storage{
 		filename = newFileName;
 		File newTemp = new File(filename);
 		if(!newTemp.exists()){
-			logger.log(Level.INFO, filename + " not exist");
-			return false;
+			try {
+				newTemp.createNewFile();
+			} catch (IOException e) {
+				logger.log(Level.INFO, filename + " not exist");
+				return false;
+			}
+			logger.log(Level.INFO, "file created");
+			saveToStorage();
+			return true;
 		} else {
 			logger.log(Level.INFO, "file created");
 			saveToStorage();
