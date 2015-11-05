@@ -37,8 +37,6 @@ public class Logic {
 	
 	
 	private static final Logger logger = Logger.getLogger(Logic.class.getName());
-
-	String commandStr;
 	String contentStr;
 	String output;
 	Storage storage;
@@ -70,7 +68,6 @@ public class Logic {
 		IsCommandSearch = false;
 		DigestInput di = new DigestInput(input);
 		commandType = di.getCommandType();
-		commandStr = di.getCommandStr();
 		contentStr = di.getContentStr();
 		String output=null;
 		switch(commandType){

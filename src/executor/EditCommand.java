@@ -38,10 +38,10 @@ public class EditCommand {
 	String output;
 	String contentStr;
 	
-	public EditCommand(Vector<TaskToDo> task, Vector<TaskEvent> event, String contentStr2){
+	public EditCommand(Vector<TaskToDo> task, Vector<TaskEvent> event, String contentStr){
 		tasks = task;
 		events = event;
-		contentStr = contentStr2;
+		this.contentStr = contentStr;
 		edit();
 	}
 	
@@ -58,51 +58,51 @@ public class EditCommand {
 	 * @throws NumberFormatException 
 	 */
 	private void edit() {
-		String[] contentStr3 = contentStr.split(SPLITSTRING);
-		if(contentStr3 == null || contentStr3.length < 1){
-			editWithInvalidFormat(contentStr3);	
+		String[] contentStrArr = contentStr.split(SPLITSTRING);
+		if(contentStrArr == null || contentStrArr.length < 1){
+			editWithInvalidFormat(contentStrArr);	
 		}
 		else{
-			editWithContent(contentStr3);
+			editWithContent(contentStrArr);
 		}
 	}
 	
 	
-	private void editWithContent(String[] contentStr3) {
-		if(contentStr3[0].equals(TASK)){
-			editTask(contentStr3);
+	private void editWithContent(String[] contentStrArr) {
+		if(contentStrArr[0].equals(TASK)){
+			editTask(contentStrArr);
 		}
-		else if(contentStr3[0].equals(EVENT)){
-			editEvent(contentStr3);			
+		else if(contentStrArr[0].equals(EVENT)){
+			editEvent(contentStrArr);			
 		}
 		else{
-			editWithInvalidFormat(contentStr3);	
+			editWithInvalidFormat(contentStrArr);	
 		}
 	}
 	
 	
-	private void editEvent(String[] contentStr3) {
-		if(contentStr3.length < 4){
-			editWithInvalidFormat(contentStr3);	
+	private void editEvent(String[] contentStrArr) {
+		if(contentStrArr.length < 4){
+			editWithInvalidFormat(contentStrArr);	
 		}
 		else{
-			addEventWithField(contentStr3);
+			addEventWithField(contentStrArr);
 		}
 	}
 	
 	
-	private void addEventWithField(String[] contentStr3) {
-		if(contentStr3[2].equals(NAME)){
-			editEventName(contentStr3);
+	private void addEventWithField(String[] contentStrArr) {
+		if(contentStrArr[2].equals(NAME)){
+			editEventName(contentStrArr);
 		}
-		else if(contentStr3[2].equals(FROM)){
-			editEventStartDate(contentStr3);
+		else if(contentStrArr[2].equals(FROM)){
+			editEventStartDate(contentStrArr);
 		}
-		else if(contentStr3[2].equals(TO)){
-			editEventEndDate(contentStr3);
+		else if(contentStrArr[2].equals(TO)){
+			editEventEndDate(contentStrArr);
 		}
 		else{
-			editWithInvalidFormat(contentStr3);				
+			editWithInvalidFormat(contentStrArr);				
 		}
 	}
 	
@@ -113,35 +113,35 @@ public class EditCommand {
 	}
 	
 	
-	private void editEventEndDate(String[] contentStr3) {
-		if(events.size() < Integer.parseInt(contentStr3[1])){
-			output = String.format(MSG_EVENT_NOTEXIST, contentStr3[1]);
+	private void editEventEndDate(String[] contentStrArr) {
+		if(events.size() < Integer.parseInt(contentStrArr[1])){
+			output = String.format(MSG_EVENT_NOTEXIST, contentStrArr[1]);
 			logger.log(Level.INFO, output);
 		}
 		else{
 			String dateText = null;
-			for(int i=3; i<contentStr3.length; i++){
-				dateText += contentStr3[i] + " ";
+			for(int i=3; i<contentStrArr.length; i++){
+				dateText += contentStrArr[i] + " ";
 			}
-			events.get(Integer.parseInt(contentStr3[1])-1).setEnd(dateText);
-			output = String.format(MSG_EDIT_SUCCESS, contentStr3[3]);
+			events.get(Integer.parseInt(contentStrArr[1])-1).setEnd(dateText);
+			output = String.format(MSG_EDIT_SUCCESS, contentStrArr[3]);
 			logger.log(Level.INFO, output);
 		}
 	}
 	
 	
-	private void editEventStartDate(String[] contentStr3) {
-		if(events.size() < Integer.parseInt(contentStr3[1])){
-			output = String.format(MSG_EVENT_NOTEXIST, contentStr3[1]);
+	private void editEventStartDate(String[] contentStrArr) {
+		if(events.size() < Integer.parseInt(contentStrArr[1])){
+			output = String.format(MSG_EVENT_NOTEXIST, contentStrArr[1]);
 			logger.log(Level.INFO, output);
 		}
 		else{
 			String dateText = null;
-			for(int i=3; i<contentStr3.length; i++){
-				dateText += contentStr3[i] + " ";
+			for(int i=3; i<contentStrArr.length; i++){
+				dateText += contentStrArr[i] + " ";
 			}
-			events.get(Integer.parseInt(contentStr3[1])-1).setStart(dateText);
-			output = String.format(MSG_EDIT_SUCCESS, contentStr3[3]);
+			events.get(Integer.parseInt(contentStrArr[1])-1).setStart(dateText);
+			output = String.format(MSG_EDIT_SUCCESS, contentStrArr[3]);
 			logger.log(Level.INFO, output);
 		}
 	}
@@ -160,60 +160,60 @@ public class EditCommand {
 	}
 	
 	
-	private void editTask(String[] contentStr3) {
-		if(contentStr3.length < 4){
-			editWithInvalidFormat(contentStr3);	
+	private void editTask(String[] contentStrArr) {
+		if(contentStrArr.length < 4){
+			editWithInvalidFormat(contentStrArr);	
 		}
 		else{
-			editTaskWithField(contentStr3);
+			editTaskWithField(contentStrArr);
 		}
 	}
 	
 	
-	private void editTaskWithField(String[] contentStr3) {
-		if(contentStr3[2].equals(NAME)){
-			ediTaskName(contentStr3);
+	private void editTaskWithField(String[] contentStrArr) {
+		if(contentStrArr[2].equals(NAME)){
+			ediTaskName(contentStrArr);
 		}
-		else if(contentStr3[2].equals(DUE)){
-			editTaskDueDate(contentStr3);
+		else if(contentStrArr[2].equals(DUE)){
+			editTaskDueDate(contentStrArr);
 		}
 		else{
-			editTaskInvalidFormat(contentStr3);			
+			editTaskInvalidFormat(contentStrArr);			
 		}
 	}
 	
 	
-	private void editTaskInvalidFormat(String[] contentStr3) {
+	private void editTaskInvalidFormat(String[] contentStrArr) {
 		output = String.format(MSG_EDIT_INVALID_FORMAT);	
 		logger.log(Level.INFO, output);
 	}
 	
 	
-	private void editTaskDueDate(String[] contentStr3) {
-		if(tasks.size() < Integer.parseInt(contentStr3[1])){
-			output = String.format(MSG_TASK_NOTEXIST, contentStr3[1]);
+	private void editTaskDueDate(String[] contentStrArr) {
+		if(tasks.size() < Integer.parseInt(contentStrArr[1])){
+			output = String.format(MSG_TASK_NOTEXIST, contentStrArr[1]);
 			logger.log(Level.INFO, output);
 		}
 		else{
 			String dateText = null;
-			for(int i=3; i<contentStr3.length; i++){
-				dateText += contentStr3[i] + " ";
+			for(int i=3; i<contentStrArr.length; i++){
+				dateText += contentStrArr[i] + " ";
 			}
-			tasks.get(Integer.parseInt(contentStr3[1])-1).setStart(dateText);
-			output = String.format(MSG_EDIT_SUCCESS, contentStr3[3]);
+			tasks.get(Integer.parseInt(contentStrArr[1])-1).setStart(dateText);
+			output = String.format(MSG_EDIT_SUCCESS, contentStrArr[3]);
 			logger.log(Level.INFO, output);
 		}
 	}
 	
 	
-	private void ediTaskName(String[] contentStr3) {
-		if(tasks.size() < Integer.parseInt(contentStr3[1])){
-			output = String.format(MSG_TASK_NOTEXIST, contentStr3[1]);
+	private void ediTaskName(String[] contentStrArr) {
+		if(tasks.size() < Integer.parseInt(contentStrArr[1])){
+			output = String.format(MSG_TASK_NOTEXIST, contentStrArr[1]);
 			logger.log(Level.INFO, output);
 		}
 		else{
-			tasks.get(Integer.parseInt(contentStr3[1])-1).setName(contentStr3[3]);
-			output = String.format(MSG_EDIT_SUCCESS, contentStr3[3]);
+			tasks.get(Integer.parseInt(contentStrArr[1])-1).setName(contentStrArr[3]);
+			output = String.format(MSG_EDIT_SUCCESS, contentStrArr[3]);
 			logger.log(Level.INFO, output);
 		}
 	}
