@@ -54,8 +54,7 @@ public class AddCommand {
 	private boolean checkTodo(String contentStr){
 		
 		String tempTodo = contentStr.replace(GetSplittedString.getTask(contentStr), "");
-		tempTodo = contentStr.replace("-", "");
-		if(tempTodo.contains("from")){
+		if(tempTodo.contains("-from") || tempTodo.contains("-f")){
 			return true;
 		}
 		else{

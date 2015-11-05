@@ -55,14 +55,14 @@ public class SearchCommand {
 	private String searchTask(){
 		// Search Task
 		for(int i=0; i<tasks.size(); i++){
-			if(GetSplittedString.getTask(contentStr).trim().equals(tasks.get(i).getName())){
+			if(tasks.get(i).getName().contains(GetSplittedString.getTask(contentStr).trim())){
 				searchingResultTasks.addElement(tasks.elementAt(i));
 				keyWordIsFound = true;
 			}
 		}
 		// Search Event
 		for(int i=0; i<events.size(); i++){
-			if(GetSplittedString.getTask(contentStr).trim().equals(events.get(i).getName())){
+			if(events.get(i).getName().contains(GetSplittedString.getTask(contentStr).trim())){
 				searchingResultEvents.addElement(events.elementAt(i));
 				keyWordIsFound = true;
 			}
