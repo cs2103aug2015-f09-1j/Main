@@ -120,7 +120,11 @@ public class EditCommand {
 			logger.log(Level.INFO, output);
 		}
 		else{
-			events.get(Integer.parseInt(contentStr3[1])-1).setEnd(contentStr3[3] + SPACE + contentStr3[4]);
+			String dateText = null;
+			for(int i=3; i<contentStr3.length; i++){
+				dateText += contentStr3[i] + " ";
+			}
+			events.get(Integer.parseInt(contentStr3[1])-1).setEnd(dateText);
 			output = String.format(MSG_EDIT_SUCCESS, contentStr3[3]);
 			logger.log(Level.INFO, output);
 		}
@@ -133,7 +137,11 @@ public class EditCommand {
 			logger.log(Level.INFO, output);
 		}
 		else{
-			events.get(Integer.parseInt(contentStr3[1])-1).setStart(contentStr3[3] + SPACE + contentStr3[4]);
+			String dateText = null;
+			for(int i=3; i<contentStr3.length; i++){
+				dateText += contentStr3[i] + " ";
+			}
+			events.get(Integer.parseInt(contentStr3[1])-1).setStart(dateText);
 			output = String.format(MSG_EDIT_SUCCESS, contentStr3[3]);
 			logger.log(Level.INFO, output);
 		}
@@ -188,7 +196,11 @@ public class EditCommand {
 			logger.log(Level.INFO, output);
 		}
 		else{
-			tasks.get(Integer.parseInt(contentStr3[1])-1).setStart(contentStr3[3] + SPACE + contentStr3[4]);
+			String dateText = null;
+			for(int i=3; i<contentStr3.length; i++){
+				dateText += contentStr3[i] + " ";
+			}
+			tasks.get(Integer.parseInt(contentStr3[1])-1).setStart(dateText);
 			output = String.format(MSG_EDIT_SUCCESS, contentStr3[3]);
 			logger.log(Level.INFO, output);
 		}
