@@ -1,8 +1,6 @@
 package main.jarvas;
 import java.util.logging.Logger;
 import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;

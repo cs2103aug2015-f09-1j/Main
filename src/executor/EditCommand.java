@@ -13,7 +13,7 @@ import main.jarvas.TaskEvent;
 import main.jarvas.TaskToDo;
 
 /**
- * @author Li
+ * @author A0145381H
  *
  */
 public class EditCommand {
@@ -29,7 +29,6 @@ public class EditCommand {
 	private static final String FROM = "from";
 	private static final String TO = "to";
 	private static final String DUE = "due";
-	private static final String SPACE = " ";
 	
 	
 	private static final Logger logger = Logger.getLogger(Logic.class.getName());

@@ -4,9 +4,7 @@
 package executor;
 
 import main.jarvas.TaskEvent;
-
 import java.util.Vector;
-
 import main.jarvas.Logic.RequiredField;
 
 /**

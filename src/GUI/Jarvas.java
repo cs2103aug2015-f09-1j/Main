@@ -1,7 +1,6 @@
 
 package GUI;
 import java.util.*;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
@@ -20,7 +19,7 @@ import main.jarvas.TaskToDo;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 /**
- * @author Li Huiying
+ * @author A0145381H
  *
  */
 public class Jarvas extends Application{
@@ -50,7 +49,6 @@ public class Jarvas extends Application{
 	private static final String EMPTY = "";
 	private static final String SPACE = " ";
 
-	private final Logger logger = Logger.getLogger(Jarvas.class.getName());
 	private ObservableList<String> alltasks;
 	private ListView<String> allTasks;
 	private Text log;

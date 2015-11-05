@@ -1,19 +1,13 @@
 package main.jarvas;
 
-import java.text.ParseException;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import main.jarvas.TaskToDo.RepeatingFrequency;
 import executor.AddCommand;
-import executor.AddEvent;
-import executor.AddTask;
 import executor.ClearCommand;
 import executor.DeleteCommand;
 import executor.DigestInput;
 import executor.EditCommand;
-import executor.GetSplittedString;
 import executor.MarkCommand;
 import executor.SearchCommand;
 import executor.UndoCommand;
@@ -185,33 +179,6 @@ public class Logic {
 		return temp;
 	}
 	
-
-	
-	/**
-	 * This function get the index of task by task name
-	 * 
-	 * @param taskNameToBeEdit
-	 * 				is name of task 
-	 * @return index of task within the vector
-	 */
-	private int getIndexofTask(String taskNameToBeEdit) {
-		
-		int i;
-		for(i=0; i<tasks.size();i++){
-			if(tasks.get(i).getName().equals(taskNameToBeEdit.trim())){
-				break;
-			}
-		}
-		
-		assert(i>=0):"index of task is negative";
-		if(i>=tasks.size()){
-			logger.log(Level.INFO, "index of task not found");
-			return -1;
-		}else{
-			return i;
-		}
-		
-	}
 	/**
 	 * This function initialize the vector for tasks
 	 */
@@ -241,16 +208,5 @@ public class Logic {
 	public Vector<TaskEvent> returnNewEvents() {
 		//Return the new vector contains tasks after each operation
 		return events;
-	}
-	
-	
-
-	private int[] convertDueDateStrtoIntarr(String dueDateStr) {
-		String[] dueDateStrArr= dueDateStr.split("/");
-		int[] dueDateIntArr=new int[dueDateStrArr.length];
-		for(int i=0;i<dueDateStrArr.length;i++){
-			dueDateIntArr[i] = Integer.parseInt(dueDateStrArr[i]);
-		}
-		return dueDateIntArr;
 	}
 }
