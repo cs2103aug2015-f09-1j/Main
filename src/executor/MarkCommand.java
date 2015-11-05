@@ -124,14 +124,16 @@ public class MarkCommand {
 		tasks.get(Integer.parseInt(contentStr3[1])-1).setDone(contentStr3[2]);
 		if(tasks.get(Integer.parseInt(contentStr3[1])-1).getFrequency()!=RepeatingFrequency.NOTREPEATING){
 			tasks.add(new TaskToDo(temp.getName(), temp.nextDate(), ++indexTask, false, temp.getFrequency()));
+			tasks.remove(Integer.parseInt(contentStr3[1])-1);
 		}
 		output = String.format(MSG_DONE_SUCCESS,  contentStr3[0]+ SPACE + contentStr3[1]);
 	}
 
 	private void markEventWithCorrectIndex(String[] contentStr3, TaskEvent temp) {
 		events.get(Integer.parseInt(contentStr3[1])-1).setDone(contentStr3[2]);
-		if(events.get(Integer.parseInt(contentStr3[1])-1).getFrequency()!=RepeatingFrequency.NOTREPEATING){
+		if(events.get(Integer.parseInt(contentStr3[1])-1).getFrequency()!=RepeatingFrequency.NOTREPEATING){			
 			events.add(new TaskEvent(temp.getName(), temp.nextStartDate(), temp.nextEndDate(), ++indexTask, false, temp.getFrequency()));
+			events.remove(Integer.parseInt(contentStr3[1])-1);
 		}
 		output = String.format(MSG_DONE_SUCCESS, contentStr3[0]+ SPACE + contentStr3[1]);
 	}
