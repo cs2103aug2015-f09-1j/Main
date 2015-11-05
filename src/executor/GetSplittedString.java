@@ -24,6 +24,7 @@ public class GetSplittedString {
 	private static final Logger logger = Logger.getLogger(Logic.class.getName());
 	private String output;
 	private String returnStr;
+	private String returnStr1;
 	public GetSplittedString(String str,RequiredField requiredField){
 		try{
 			String removedTaskName = str.replace(getTask(str), "");
@@ -31,18 +32,38 @@ public class GetSplittedString {
 			switch (requiredField) {
 			case TASKDUEDATE:
 				returnStr = getContent(strArr,"due ");
+				returnStr1 = getContent(strArr,"d ");
+				if(returnStr.equals("")){
+					returnStr = returnStr1;
+				}
 				break;
 			case EVENT_STARTDATE:
 				returnStr = getContent(strArr, "from ");
+				returnStr1 = getContent(strArr,"f ");
+				if(returnStr.equals("")){
+					returnStr = returnStr1;
+				}
 				break;
 			case EVENT_ENDDATE:
 				returnStr = getContent(strArr, "to ");
+				returnStr1 = getContent(strArr,"t ");
+				if(returnStr.equals("")){
+					returnStr = returnStr1;
+				}
 				break;
 			case TASKLOCATION:
 				returnStr = getContent(strArr, "at"	);
+				returnStr1 = getContent(strArr,"a ");
+				if(returnStr.equals("")){
+					returnStr = returnStr1;
+				}
 				break;
 			case REPEAT:
 				returnStr = getContent(strArr, "repeat");
+				returnStr1 = getContent(strArr,"r ");
+				if(returnStr.equals("")){
+					returnStr = returnStr1;
+				}
 				break;
 			default:
 				logger.log(Level.INFO, "invalid RequiredField");
@@ -77,7 +98,13 @@ public class GetSplittedString {
 			}
 			i++;
 		}
-		String dueDateStr = arr[i].trim().replace(str, "");
+		String dueDateStr;
+		if(i >= arr.length){
+			dueDateStr = "";
+		}
+		else{
+			dueDateStr = arr[i].trim().replace(str, "");
+		}
 		return dueDateStr;
 	}
 	/**

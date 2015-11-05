@@ -25,7 +25,7 @@ public class AddCommand {
 		indexEvent = indexE;
 		if(checkTodo(contentString)){
 			AddEvent addingEvent = new AddEvent(contentString, indexEvent, events);
-			indexTask = addingEvent.getIndex();
+			indexEvent = addingEvent.getIndex();
 			output = addingEvent.getOutput();
 		}
 		else{
