@@ -54,7 +54,8 @@ public class DigestInput {
 	 * @return	the rest of String without first word
 	 */
 	private String removeFirstWord(String userCommand) {
-		String temp = userCommand.replace(getFirstWord(userCommand), "").trim();
+		int len = getFirstWord(userCommand).length();
+		String temp = userCommand.substring(len).trim();
 		return temp;
 	}
 }

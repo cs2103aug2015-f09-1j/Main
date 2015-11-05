@@ -34,6 +34,7 @@ public class AddTask {
 		indexTask = index;
 		TaskToDo temp;
 		if(getDueDate(contentStr).equals("")){
+			System.out.println(GetSplittedString.getTask(contentStr).trim());
 			temp = new TaskToDo(GetSplittedString.getTask(contentStr).trim(), ++indexTask, false);	
 		}
 		else if(GetRepeat.getRepeat(contentStr)==RepeatingFrequency.NOTREPEATING){
