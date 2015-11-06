@@ -9,6 +9,7 @@ import executor.DeleteCommand;
 import executor.DigestInput;
 import executor.EditCommand;
 import executor.MarkCommand;
+import executor.RedoCommand;
 import executor.SearchCommand;
 import executor.UndoCommand;
 import executor.sortCommand;
@@ -30,6 +31,7 @@ public class Logic {
 			+ " Mark     : mark task/event <index> <done/undone>\n"
 			+ " Search   : search <content>\n"
 			+ " Undo     : undo\n"
+			+ " Redo     : redo\n"
 			+ " Exit     : exit";
 			
 	public enum RequiredField {
@@ -117,6 +119,11 @@ public class Logic {
 			case UNDO:
 				UndoCommand undoing = new UndoCommand(storage);
 				output =undoing.getOutput();
+				getOriginalTasks();
+				break;
+			case REDO:
+				RedoCommand redoing = new RedoCommand(storage);
+				output =redoing.getOutput();
 				getOriginalTasks();
 				break;
 			default:

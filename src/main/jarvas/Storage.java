@@ -32,8 +32,10 @@ public class Storage{
 	public JSONArray newEvent;
 	public JSONObject totalTask;
 	private boolean undoStatus = false;
-	private Stack<JSONArray> tempTask;
-	private Stack<JSONArray> tempEvent;
+	private Stack<JSONArray> tempTaskUndo;
+	private Stack<JSONArray> tempEventUndo;
+	private Stack<JSONArray> tempTaskRedo;
+	private Stack<JSONArray> tempEventRedo;
 	private int indexEvent;
 	private int indexTask;
 	public static Storage instance = null;
@@ -45,8 +47,10 @@ public class Storage{
 	}
 	Storage(String inputFileName){
 		filename = inputFileName;
-		tempTask = new Stack<JSONArray>();
-		tempEvent = new Stack<JSONArray>();
+		tempTaskUndo = new Stack<JSONArray>();
+		tempEventUndo = new Stack<JSONArray>();
+		tempTaskRedo = new Stack<JSONArray>();
+		tempEventRedo = new Stack<JSONArray>();
 		File temp = new File(filename);
 		if(!temp.exists()){
 			logger.log(Level.INFO, filename + " not exist");
@@ -65,8 +69,10 @@ public class Storage{
 		}else{
 			newTask = new JSONArray();
 			newEvent = new JSONArray();
-			tempTask = new Stack<JSONArray>();
-			tempEvent = new Stack<JSONArray>();
+			tempTaskUndo = new Stack<JSONArray>();
+			tempEventUndo = new Stack<JSONArray>();
+			tempTaskRedo = new Stack<JSONArray>();
+			tempEventRedo = new Stack<JSONArray>();
 			totalTask = new JSONObject();
 			
 		}
@@ -135,13 +141,7 @@ public class Storage{
 			System.err.println("invalid parse " + e.getMessage());
 		}	
 	}
-	
-	public void undoStorage(){
-		newTask = tempTask.pop();
-		newEvent = tempEvent.pop();
-		undoStatus = true;
-	}
-	
+
 	private void updateTempFile(){
 
 	}
@@ -260,10 +260,28 @@ public class Storage{
 		
 	}
 	
+	public void undoStorage(){
+		tempTaskRedo.push(newTask);
+		tempEventRedo.push(newEvent);
+		newTask = tempTaskUndo.pop();
+		newEvent = tempEventUndo.pop();
+
+		undoStatus = true;
+	}
+	
+	public void redoStorage(){
+		tempTaskUndo.push(newTask);
+		tempEventUndo.push(newEvent);
+		newTask = tempTaskRedo.pop();
+		newEvent = tempEventRedo.pop();
+
+		undoStatus = false;
+	}
+	
 	private void pushToHistory(){
 		if(undoStatus==false){
-			tempTask.push(newTask);	
-			tempEvent.push(newEvent);
+			tempTaskUndo.push(newTask);	
+			tempEventUndo.push(newEvent);
 		}
 		undoStatus=false;
 	}
