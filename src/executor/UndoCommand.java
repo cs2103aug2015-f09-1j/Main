@@ -10,7 +10,6 @@ import main.jarvas.Storage;
  *
  */
 public class UndoCommand {
-	private static final String MSG_TASK_UNDO = "Undo success";
 	
 	Storage storage;
 	String output;
@@ -26,7 +25,7 @@ public class UndoCommand {
 
 	
 	private void undo(){
-		storage.undoStorage();
-		output =  MSG_TASK_UNDO;
+		output = storage.undoStorage();
+;
 	}
 }

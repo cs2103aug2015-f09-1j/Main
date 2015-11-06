@@ -13,7 +13,7 @@ import main.jarvas.TaskToDo;
  *
  */
 public class ClearCommand {
-	private static final String MSG_TASK_CLEAR = "tasks is clear";
+	private static final String MSG_TASK_CLEAR = "Events and Tasks are cleared";
 	
 	private String output;
 	

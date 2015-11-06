@@ -2,6 +2,7 @@ package main.jarvas;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.EmptyStackException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
@@ -142,10 +143,6 @@ public class Storage{
 		}	
 	}
 
-	private void updateTempFile(){
-
-	}
-	
 	/**
 	 * This function convert content of JSONArray into vector
 	 * @return converted content in vector
@@ -260,22 +257,31 @@ public class Storage{
 		
 	}
 	
-	public void undoStorage(){
-		tempTaskRedo.push(newTask);
-		tempEventRedo.push(newEvent);
-		newTask = tempTaskUndo.pop();
-		newEvent = tempEventUndo.pop();
-
-		undoStatus = true;
+	public String undoStorage(){
+		try{
+			tempTaskRedo.push(newTask);
+			tempEventRedo.push(newEvent);
+			newTask = tempTaskUndo.pop();
+			newEvent = tempEventUndo.pop();
+			undoStatus = true;
+		}catch(EmptyStackException o){
+			return "Nothing to undo";
+		}
+		return "Undo Success";
 	}
 	
-	public void redoStorage(){
-		tempTaskUndo.push(newTask);
-		tempEventUndo.push(newEvent);
-		newTask = tempTaskRedo.pop();
-		newEvent = tempEventRedo.pop();
-
-		undoStatus = false;
+	public String redoStorage(){
+		try{
+			tempTaskUndo.push(newTask);
+			tempEventUndo.push(newEvent);
+			newTask = tempTaskRedo.pop();
+			newEvent = tempEventRedo.pop();
+			undoStatus = false;
+		}catch(EmptyStackException o){
+			return "Nothing to redo";
+		}
+		return "Redo Success";
+			
 	}
 	
 	private void pushToHistory(){

@@ -10,7 +10,6 @@ import main.jarvas.Storage;
  *
  */
 public class RedoCommand {
-private static final String MSG_TASK_REDO = "Undo success";
 	
 	Storage storage;
 	String output;
@@ -26,7 +25,7 @@ private static final String MSG_TASK_REDO = "Undo success";
 
 	
 	private void redo(){
-		storage.redoStorage();
-		output =  MSG_TASK_REDO;
+
+		output = storage.redoStorage();;
 	}
 }
