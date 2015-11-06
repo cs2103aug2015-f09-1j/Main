@@ -96,9 +96,9 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 		if(status.equals("done")){
 			done = true;
 		}
-		else{
+		else if (status.equals("undone")){
 			done = false;
-		}
+		} 
 	}
 	
 	public boolean getDone(){
