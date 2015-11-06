@@ -37,7 +37,7 @@ public class Jarvas extends Application{
 	private static final char CUNDONE = 'N';
 	private static final String S_DONE = "SY";
 	private static final String S_UNDONE = "SN";
-	private static final String SEARCH_RESULT = "Searching Reasult:";
+	private static final String SEARCH_RESULT = "Searching Result:";
 	private static final String SEARCH_END = "YEnd";
 	private static final String EVENTS = "Events";
 	private static final String TASKS = "Tasks";
@@ -72,11 +72,11 @@ public class Jarvas extends Application{
         for(int i=0; i<tasks.size();i++) {
         	if(tasks.get(i).getDone()){
             	alltasks.add(DONE + (i+1) + TASK_NAME + tasks.get(i).getName());
-            	alltasks.add(DONE + TASK_DUE + tasks.get(i).getStringStartDate());
+            	alltasks.add(DONE + TASK_DUE + tasks.get(i).getStartDate());
         	}
         	else{
             	alltasks.add(UNDONE + (i+1) + TASK_NAME + tasks.get(i).getName());
-            	alltasks.add(UNDONE + TASK_DUE + tasks.get(i).getStringStartDate());
+            	alltasks.add(UNDONE + TASK_DUE + tasks.get(i).getStartDate());
         	}
         }
         Vector<TaskEvent> events = logic.returnNewEvents();
@@ -210,11 +210,11 @@ public class Jarvas extends Application{
                 for(int i=0; i<tasksForSearch.size();i++) {
                 	if(tasksForSearch.get(i).getDone()){
                     	alltasks.add(S_DONE + (i+1) + TASK_NAME + tasksForSearch.get(i).getName());
-                    	alltasks.add(S_DONE + TASK_DUE + tasksForSearch.get(i).getStringStartDate());
+                    	alltasks.add(S_DONE + TASK_DUE + tasksForSearch.get(i).getStartDate());
                 	}
                 	else{
                     	alltasks.add(S_UNDONE + (i+1) + TASK_NAME + tasksForSearch.get(i).getName());
-                    	alltasks.add(S_UNDONE + TASK_DUE + tasksForSearch.get(i).getStringStartDate());
+                    	alltasks.add(S_UNDONE + TASK_DUE + tasksForSearch.get(i).getStartDate());
                 	}
                 }
                 alltasks.add(EVENT_FOR_SEARCH);
@@ -237,11 +237,11 @@ public class Jarvas extends Application{
             for(int i=0; i<tasks.size();i++) {
             	if(tasks.get(i).getDone()){
                 	alltasks.add(DONE + (i+1) + TASK_NAME + tasks.get(i).getName());
-                	alltasks.add(DONE + TASK_DUE + tasks.get(i).getStringStartDate());
+                	alltasks.add(DONE + TASK_DUE + tasks.get(i).getStartDate());
             	}
             	else{
                 	alltasks.add(UNDONE + (i+1) + TASK_NAME + tasks.get(i).getName());
-                	alltasks.add(UNDONE + TASK_DUE + tasks.get(i).getStringStartDate());
+                	alltasks.add(UNDONE + TASK_DUE + tasks.get(i).getStartDate());
             	}
             }
             alltasks.add(EVENTS);

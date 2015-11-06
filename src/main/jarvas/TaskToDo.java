@@ -127,7 +127,7 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 			return sdf.format(getStartDate());	
 		}
 		else{
-			return "";
+			return "--";
 		}
 	}
 	public String nextDate(){
