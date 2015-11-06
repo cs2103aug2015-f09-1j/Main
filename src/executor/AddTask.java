@@ -32,7 +32,7 @@ public class AddTask {
 	public AddTask(String contentStr, int index, Vector<TaskToDo> task){
 		indexTask = index;
 		TaskToDo temp;
-		if(JParser.dateChecker("today", getDueDate(contentStr))){
+		if(getDueDate(contentStr).equals("") || JParser.dateChecker("today", getDueDate(contentStr))){
 			if(getDueDate(contentStr).equals("")){
 				temp = new TaskToDo(GetSplittedString.getTask(contentStr).trim(), ++indexTask, false);	
 			}

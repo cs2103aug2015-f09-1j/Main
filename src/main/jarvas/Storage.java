@@ -177,7 +177,13 @@ public class Storage{
 			String startDate = event.get("Start Date").toString();
 			String endDate = event.get("End Date").toString();
 			boolean done = Boolean.valueOf(event.get("Done").toString());
-			String frequency = event.get("RepeatFrequency").toString();
+			String frequency;
+			if(event.get("RepeatFrequency") == null){
+				frequency = "";
+			}
+			else{
+				frequency = event.get("RepeatFrequency").toString();
+			}
 			TaskEvent aEvent = new TaskEvent(name, startDate, endDate, Integer.parseInt(index), done, frequency);
 			vecEvent.add(aEvent);
 		}

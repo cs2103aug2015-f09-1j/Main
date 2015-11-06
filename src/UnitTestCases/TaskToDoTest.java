@@ -12,8 +12,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import executor.GetRepeat.RepeatingFrequency;
 import main.jarvas.TaskToDo;
-import main.jarvas.TaskToDo.RepeatingFrequency;
 
 /**
  * 

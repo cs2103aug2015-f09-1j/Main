@@ -205,6 +205,9 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 	}
 	@Override
 	public int compareTo(TaskToDo o) {
+		if(getStartDate() == null){
+			return 1;
+		}
 		return getStartDate().compareTo(o.getStartDate());
 	}
 }
