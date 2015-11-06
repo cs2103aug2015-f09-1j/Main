@@ -10,7 +10,7 @@ import main.jarvas.Logic.RequiredField;
 import executor.GetRepeat.RepeatingFrequency;
 
 /**
- * @author Li
+ * @author A0145381H
  *
  */
 public class AddEvent {
