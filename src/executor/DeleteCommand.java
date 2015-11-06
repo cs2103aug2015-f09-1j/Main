@@ -17,7 +17,7 @@ import main.jarvas.TaskToDo;
  */
 public class DeleteCommand {
 	private static final String MSG_DELETE_SUCCESS = "\"%1$s\" successfully deleted";
-	private static final String MSG_DELETE_FAIL = "\"%1$s\" failed to delete";
+	private static final String MSG_DELETE_FAIL = "\"%1$s\" failed to delete(out of bound)";
 	private static final String MSG_INVALID_INPUT = "invalid input";
 	private static final String TASK = "task";
 	private static final String EVENT = "event";
@@ -42,7 +42,7 @@ public class DeleteCommand {
 		else{
 			int indexToDelete = Integer.parseInt(input[1]);
 			if(input[0].equals(TASK)){
-				if(tasks.size() < indexToDelete){
+				if(tasks.size() < indexToDelete || indexToDelete < 1){
 					output = String.format(MSG_DELETE_FAIL, contentStr2);
 				}
 				else{
@@ -53,7 +53,7 @@ public class DeleteCommand {
 						
 			}
 			else if(input[0].equals(EVENT)){
-				if(events.size() < indexToDelete){
+				if(events.size() < indexToDelete || indexToDelete < 1){
 					output = String.format(MSG_DELETE_FAIL, contentStr2);
 				}
 				else{

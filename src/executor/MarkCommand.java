@@ -14,8 +14,8 @@ import executor.GetRepeat.RepeatingFrequency;
  *
  */
 public class MarkCommand {
-	private static final String MSG_DONE_SUCCESS = " \"%1$s\" is marked";
-	private static final String MSG_DONE_FAIL = " \"%1$s\" not marked";
+	private static final String MSG_DONE_SUCCESS = "\"%1$s\" is marked";
+	private static final String MSG_DONE_FAIL = "\"%1$s\" not marked";
 	private static final String MSG_DONE_WRONG_FORMAT = "The format of mark is not correct";
 	private static final String MSG_DONE_OUT_OF_BOUND = "The index is out of bound.";
 	private static final String SPLITSTRING = "\\s+";

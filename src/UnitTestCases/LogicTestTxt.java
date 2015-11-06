@@ -75,7 +75,7 @@ public class LogicTestTxt {
 	}
 	@Test
 	public void testExecute_mark(){
-		assertEquals("The format of mark is not correct", logic.execute("mark task 1 done"));
+		assertEquals("\"task 1\" is marked", logic.execute("mark task 1 done"));
 	}
 	@Test
 	public void testExecute_invalid(){
