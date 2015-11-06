@@ -119,10 +119,7 @@ public class EditCommand {
 			logger.log(Level.INFO, output);
 		}
 		else{
-			String dateText = null;
-			for(int i=3; i<contentStrArr.length; i++){
-				dateText += contentStrArr[i] + " ";
-			}
+			String dateText = textFormer(contentStrArr,3);
 			events.get(Integer.parseInt(contentStrArr[1])-1).setEnd(dateText);
 			output = String.format(MSG_EDIT_SUCCESS, contentStrArr[3]);
 			logger.log(Level.INFO, output);
@@ -136,10 +133,7 @@ public class EditCommand {
 			logger.log(Level.INFO, output);
 		}
 		else{
-			String dateText = null;
-			for(int i=3; i<contentStrArr.length; i++){
-				dateText += contentStrArr[i] + " ";
-			}
+			String dateText = textFormer(contentStrArr,3);
 			events.get(Integer.parseInt(contentStrArr[1])-1).setStart(dateText);
 			output = String.format(MSG_EDIT_SUCCESS, contentStrArr[3]);
 			logger.log(Level.INFO, output);
@@ -153,7 +147,8 @@ public class EditCommand {
 			logger.log(Level.INFO, output);
 		}
 		else{
-			events.get(Integer.parseInt(contentStr3[1])-1).setName(contentStr3[3]);
+			String name = textFormer(contentStr3,3);
+			events.get(Integer.parseInt(contentStr3[1])-1).setName(name);
 			output = String.format(MSG_EDIT_SUCCESS, contentStr3[3]);
 			logger.log(Level.INFO, output);
 		}
@@ -195,10 +190,7 @@ public class EditCommand {
 			logger.log(Level.INFO, output);
 		}
 		else{
-			String dateText = null;
-			for(int i=3; i<contentStrArr.length; i++){
-				dateText += contentStrArr[i] + " ";
-			}
+			String dateText = textFormer(contentStrArr,3);
 			tasks.get(Integer.parseInt(contentStrArr[1])-1).setStart(dateText);
 			output = String.format(MSG_EDIT_SUCCESS, contentStrArr[3]);
 			logger.log(Level.INFO, output);
@@ -212,10 +204,20 @@ public class EditCommand {
 			logger.log(Level.INFO, output);
 		}
 		else{
-			tasks.get(Integer.parseInt(contentStrArr[1])-1).setName(contentStrArr[3]);
+			String name = textFormer(contentStrArr,3);
+			tasks.get(Integer.parseInt(contentStrArr[1])-1).setName(name);
 			output = String.format(MSG_EDIT_SUCCESS, contentStrArr[3]);
 			logger.log(Level.INFO, output);
 		}
+	}
+	
+	private String textFormer(String[] input, int start){
+		String output = "";
+		for(int i=start; i<input.length; i++){
+			output += input[i] + " ";
+		}
+		System.out.println(output);
+		return output;
 	}
 	
 }
