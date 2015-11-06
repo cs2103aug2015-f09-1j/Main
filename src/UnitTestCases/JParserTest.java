@@ -37,6 +37,7 @@ public class JParserTest {
 	public void testDetermineCommand(){
 		assertEquals(CommandType.ADD, JParser.determineCommandType("add"));
 		assertEquals(CommandType.DELETE, JParser.determineCommandType("delete"));
+		assertEquals(CommandType.EDIT, JParser.determineCommandType("edit"));
 	}
 	
 	@Test
