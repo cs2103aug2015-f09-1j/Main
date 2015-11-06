@@ -208,6 +208,9 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 		if(getStartDate() == null){
 			return 1;
 		}
+		else if(o.getStartDate() == null){
+			return -1;
+		}
 		return getStartDate().compareTo(o.getStartDate());
 	}
 }
