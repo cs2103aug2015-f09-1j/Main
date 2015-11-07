@@ -251,8 +251,9 @@ public class Storage{
 	 * @param tasks 
 	 * 
 	 */
-	public void processTasks(Vector<TaskToDo> tasks, Vector<TaskEvent> events) {
-		pushToHistory();
+	public void processTasks(Vector<TaskToDo> tasks, Vector<TaskEvent> events, boolean status) {
+		if(status == true)
+			pushToHistory();
 		convertTaskToJSONObject(tasks);
 		convertEventToJSONObject(events);
 		saveToStorage();
@@ -261,29 +262,45 @@ public class Storage{
 	
 	public String undoStorage(){
 		try{
-			tempTaskRedo.push(newTask);
-			tempEventRedo.push(newEvent);
-			newTask = tempTaskUndo.pop();
-			newEvent = tempEventUndo.pop();
-			undoStatus = true;
+			if(checker() == false){
+				tempTaskRedo.push(newTask);
+				tempEventRedo.push(newEvent);
+				newTask = tempTaskUndo.pop();
+				newEvent = tempEventUndo.pop();
+				undoStatus = true;		
+				return "Undo Success";
+			}	
 		}catch(EmptyStackException o){
 			return "Nothing to undo";
 		}
-		return "Undo Success";
+		return "Nothing to undo";
 	}
 	
 	public String redoStorage(){
 		try{
-			tempTaskUndo.push(newTask);
-			tempEventUndo.push(newEvent);
-			newTask = tempTaskRedo.pop();
-			newEvent = tempEventRedo.pop();
-			undoStatus = false;
+			//if(checker() == false){
+				tempTaskUndo.push(newTask);
+				tempEventUndo.push(newEvent);
+				newTask = tempTaskRedo.pop();
+				newEvent = tempEventRedo.pop();
+				undoStatus = false;
+			//}
 		}catch(EmptyStackException o){
 			return "Nothing to redo";
 		}
 		return "Redo Success";
 			
+	}
+	
+	private boolean checker(){
+		try{
+			if(tempTaskUndo.peek().equals(newTask) && tempEventUndo.peek().equals(newEvent))
+				return true;
+			else 
+				return false;
+		}catch(EmptyStackException o){
+			return false;
+		}
 	}
 	
 	private void pushToHistory(){

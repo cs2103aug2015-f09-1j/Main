@@ -73,6 +73,7 @@ public class Logic {
 		commandType = di.getCommandType();
 		contentStr = di.getContentStr();
 		String output=null;
+		Boolean status = true;
 		switch(commandType){
 			case ADD: 
 				AddCommand adding = new AddCommand(contentStr, indexTask, indexEvent, tasks, events);
@@ -127,11 +128,12 @@ public class Logic {
 				getOriginalTasks();
 				break;
 			default:
+				status = false;
 				output = MSG_INVALID_INPUT;
 				logger.log(Level.WARNING, output);
 		}
 		sortCommand sort = new sortCommand(tasks,events);
-		storage.processTasks(tasks,events);
+		storage.processTasks(tasks,events,status);
 		return output;
 	}
 	
