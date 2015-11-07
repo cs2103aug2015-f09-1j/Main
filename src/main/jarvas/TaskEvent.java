@@ -26,6 +26,7 @@ public class TaskEvent implements Task, Comparable<TaskEvent>{
 		dateOfEvent = new DateOfEvent();
 		dateOfEvent.setEndDate(null);
 		dateOfEvent.setStartDate(null);
+		dateOfEvent.setUntilDate(null);
 		frequency=RepeatingFrequency.NOTREPEATING;
 	}
 	public TaskEvent(String eventName , String startDate , String endDate,
@@ -37,6 +38,7 @@ public class TaskEvent implements Task, Comparable<TaskEvent>{
 			dateOfEvent.setEndDate(JParser.dateConverter(endDate));
 			done = status;
 			frequency=RepeatingFrequency.NOTREPEATING;
+			dateOfEvent.setUntilDate(null);
 	}
 	
 	public TaskEvent(String eventName , String startDate , String endDate, int index, boolean status, String frequency){
@@ -47,10 +49,10 @@ public class TaskEvent implements Task, Comparable<TaskEvent>{
 		dateOfEvent.setEndDate(JParser.dateConverter(endDate));
 		done = status;
 		this.frequency=GetRepeat.convertStrtoFrequency(frequency);
-
+		dateOfEvent.setUntilDate(null);
 	}
 	
-	public TaskEvent(String eventName , String startDate , String endDate, int index, boolean status, RepeatingFrequency frequency){
+public TaskEvent(String eventName , String startDate , String endDate, int index, boolean status, RepeatingFrequency frequency){
 		dateOfEvent = new DateOfEvent();
 		this.index = index;
 		this.eventName= eventName;
@@ -58,7 +60,29 @@ public class TaskEvent implements Task, Comparable<TaskEvent>{
 		dateOfEvent.setEndDate(JParser.dateConverter(endDate));
 		done = status;
 		this.frequency=frequency;
+		dateOfEvent.setUntilDate(null);
 
+	}
+	public TaskEvent(String eventName , String startDate , String endDate, int index, boolean status, RepeatingFrequency frequency,String untilDate){
+		dateOfEvent = new DateOfEvent();
+		this.index = index;
+		this.eventName= eventName;
+		dateOfEvent.setStartDate(JParser.dateConverter(startDate));
+		dateOfEvent.setEndDate(JParser.dateConverter(endDate));
+		done = status;
+		this.frequency=frequency;
+		dateOfEvent.setUntilDate(JParser.dateConverter(untilDate));
+
+	}
+	public TaskEvent(String eventName , String startDate , String endDate, int index, boolean status, String frequency,String untilDate){
+		dateOfEvent = new DateOfEvent();
+		this.index = index;
+		this.eventName= eventName;
+		dateOfEvent.setStartDate(JParser.dateConverter(startDate));
+		dateOfEvent.setEndDate(JParser.dateConverter(endDate));
+		done = status;
+		this.frequency=GetRepeat.convertStrtoFrequency(frequency);
+		dateOfEvent.setUntilDate(JParser.dateConverter(untilDate));
 	}
 	/*********** START OF RECURRING *************/
 	public String getStrFrequency(){
@@ -187,6 +211,12 @@ public class TaskEvent implements Task, Comparable<TaskEvent>{
 	}
 	public Date getEndDate() {
 		return dateOfEvent.getEndDate();
+	}
+	public String getStringUntilDate(){
+		return sdf.format(getUntilDate());
+	}
+	public Date getUntilDate() {
+		return dateOfEvent.getUntilDate();
 	}
 	@Override
 	public String print() {

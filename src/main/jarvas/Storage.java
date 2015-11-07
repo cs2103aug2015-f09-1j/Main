@@ -174,6 +174,7 @@ public class Storage{
 			String index = event.get("Index").toString();
 			String startDate = event.get("Start Date").toString();
 			String endDate = event.get("End Date").toString();
+			String untilDate = event.get("Until Date").toString();
 			boolean done = Boolean.valueOf(event.get("Done").toString());
 			String frequency;
 			if(event.get("RepeatFrequency") == null){
@@ -182,7 +183,7 @@ public class Storage{
 			else{
 				frequency = event.get("RepeatFrequency").toString();
 			}
-			TaskEvent aEvent = new TaskEvent(name, startDate, endDate, Integer.parseInt(index), done, frequency);
+			TaskEvent aEvent = new TaskEvent(name, startDate, endDate, Integer.parseInt(index), done, frequency,untilDate);
 			vecEvent.add(aEvent);
 		}
 		return vecEvent;
@@ -238,6 +239,7 @@ public class Storage{
 			entry.put("Index", String.valueOf(events.get(i).getIndex()));
 			entry.put("Start Date", events.get(i).getStringStartDate());
 			entry.put("End Date", events.get(i).getStringEndDate());
+			entry.put("Until Date", events.get(i).getStringUntilDate());
 			entry.put("Done", String.valueOf(events.get(i).getDone()));
 			entry.put("RepeatFrequency", events.get(i).getStrFrequency());
 			JSONObject jsonEntry = new JSONObject();

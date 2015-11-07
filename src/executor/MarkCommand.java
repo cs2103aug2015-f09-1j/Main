@@ -128,7 +128,10 @@ public class MarkCommand {
 		Date currentDate = temp.getStartDate();
 		Date dateUntil = tasks.get(taskIndex).getUntilDate();
 		
-		if(tasks.get(taskIndex).getFrequency()!=RepeatingFrequency.NOTREPEATING && currentDate.before(dateUntil)){
+		if(tasks.get(taskIndex).getFrequency()!=RepeatingFrequency.NOTREPEATING &&dateUntil!=null&& currentDate.before(dateUntil)){
+			tasks.add(new TaskToDo(temp.getName(), temp.nextDate(), ++indexTask, false, temp.getFrequency(),temp.getStringUntilDate()));
+			tasks.remove(taskIndex);
+		}else if(tasks.get(taskIndex).getFrequency()!=RepeatingFrequency.NOTREPEATING &&dateUntil==null){
 			tasks.add(new TaskToDo(temp.getName(), temp.nextDate(), ++indexTask, false, temp.getFrequency(),temp.getStringUntilDate()));
 			tasks.remove(taskIndex);
 		}
@@ -137,9 +140,16 @@ public class MarkCommand {
 
 	private void markEventWithCorrectIndex(String[] contentStr3, TaskEvent temp) {
 		events.get(Integer.parseInt(contentStr3[1])-1).setDone(contentStr3[2]);
-		if(events.get(Integer.parseInt(contentStr3[1])-1).getFrequency()!=RepeatingFrequency.NOTREPEATING){			
-			events.add(new TaskEvent(temp.getName(), temp.nextStartDate(), temp.nextEndDate(), ++indexTask, false, temp.getFrequency()));
-			events.remove(Integer.parseInt(contentStr3[1])-1);
+		
+		int eventIndex = Integer.parseInt(contentStr3[1])-1;
+		Date dateUntil = tasks.get(eventIndex).getUntilDate();
+		Date dateEnd = temp.getEndDate();
+		if(events.get(eventIndex).getFrequency()!=RepeatingFrequency.NOTREPEATING &&dateUntil !=null&& dateEnd.before(dateUntil)){			
+			events.add(new TaskEvent(temp.getName(), temp.nextStartDate(), temp.nextEndDate(), ++indexTask, false, temp.getFrequency(),temp.getStringUntilDate()));
+			events.remove(eventIndex);
+		} else if(events.get(eventIndex).getFrequency()!=RepeatingFrequency.NOTREPEATING && dateUntil==null){
+			events.add(new TaskEvent(temp.getName(), temp.nextStartDate(), temp.nextEndDate(), ++indexTask, false, temp.getFrequency(),temp.getStringUntilDate()));
+			events.remove(eventIndex);
 		}
 		output = String.format(MSG_DONE_SUCCESS, contentStr3[0]+ SPACE + contentStr3[1]);
 	}

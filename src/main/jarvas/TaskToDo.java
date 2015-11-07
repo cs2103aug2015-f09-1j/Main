@@ -33,6 +33,7 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 		index = 0;
 		frequency=RepeatingFrequency.NOTREPEATING;
 		repeatDate = new Date();
+		dateOfEvent.setUntilDate(null);
 	}
 	
 	public TaskToDo(String taskName, int index, boolean status){
@@ -41,6 +42,7 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 		dateOfEvent = new DateOfEvent();
 		done = status;
 		frequency=RepeatingFrequency.NOTREPEATING;
+		dateOfEvent.setUntilDate(null);
 	}
 	
 	public TaskToDo(String taskName, String dueDate,  int index, boolean status){
@@ -50,6 +52,7 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 		dateOfEvent.setStartDate(JParser.dateConverter(dueDate));
 		done = status;
 		frequency=RepeatingFrequency.NOTREPEATING;
+		dateOfEvent.setUntilDate(null);
 	}
 	public TaskToDo(String taskName, String dueDate,  int index, boolean status,RepeatingFrequency frequency){
 		setName(taskName);
@@ -58,6 +61,7 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 		dateOfEvent.setStartDate(JParser.dateConverter(dueDate));
 		done = status;
 		this.frequency=frequency;
+		dateOfEvent.setUntilDate(null);
 	}
 	public TaskToDo(String taskName, String dueDate,  int index, boolean status,RepeatingFrequency frequency,String untilDate){
 		setName(taskName);
@@ -84,6 +88,7 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 		dateOfEvent.setStartDate(JParser.dateConverter(dueDate));
 		done = status;
 		this.frequency= GetRepeat.convertStrtoFrequency(frequency);
+		dateOfEvent.setUntilDate(null);
 	}
 	public TaskToDo(String taskName, String dueDate, int index, boolean status, String frequency,String untilDate) {
 		// TODO Auto-generated constructor stub

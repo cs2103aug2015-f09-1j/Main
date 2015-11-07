@@ -31,8 +31,12 @@ public class AddEvent {
 				events.add(temp);
 				output = String.format(MSG_ADDEVENT_SUCCESS, temp.getName());
 			}
-			else{
+			else if(getUntilDate(contentStr2).equals("")){
 				temp = new TaskEvent(GetSplittedString.getTask(contentStr2), startDate, endDate, ++indexEvent, false, GetRepeat.getRepeat(contentStr2));
+				events.add(temp);
+				output = String.format(MSG_ADDEVENT_SUCCESS, temp.getName());
+			} else{
+				temp = new TaskEvent(GetSplittedString.getTask(contentStr2), startDate, endDate, ++indexEvent, false, GetRepeat.getRepeat(contentStr2),getUntilDate(contentStr2));
 				events.add(temp);
 				output = String.format(MSG_ADDEVENT_SUCCESS, temp.getName());
 			}
@@ -42,7 +46,10 @@ public class AddEvent {
 		}
 	}
 	
-	
+	private String getUntilDate(String contentStr){
+		GetSplittedString temp = new GetSplittedString(contentStr, RequiredField.UNTIL);
+		return temp.getReturnStr();
+	}
 	public String getOutput(){
 		return output;
 	}
