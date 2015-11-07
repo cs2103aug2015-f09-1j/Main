@@ -3,6 +3,8 @@
  */
 package executor;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Vector;
 
 import main.jarvas.TaskEvent;
@@ -122,9 +124,13 @@ public class MarkCommand {
 
 	private void markTaskWithCorrectIndex(String[] contentStr3, TaskToDo temp) {
 		tasks.get(Integer.parseInt(contentStr3[1])-1).setDone(contentStr3[2]);
-		if(tasks.get(Integer.parseInt(contentStr3[1])-1).getFrequency()!=RepeatingFrequency.NOTREPEATING){
-			tasks.add(new TaskToDo(temp.getName(), temp.nextDate(), ++indexTask, false, temp.getFrequency()));
-			tasks.remove(Integer.parseInt(contentStr3[1])-1);
+		int taskIndex = Integer.parseInt(contentStr3[1])-1;
+		Date currentDate = temp.getStartDate();
+		Date dateUntil = tasks.get(taskIndex).getUntilDate();
+		
+		if(tasks.get(taskIndex).getFrequency()!=RepeatingFrequency.NOTREPEATING && currentDate.before(dateUntil)){
+			tasks.add(new TaskToDo(temp.getName(), temp.nextDate(), ++indexTask, false, temp.getFrequency(),temp.getStringUntilDate()));
+			tasks.remove(taskIndex);
 		}
 		output = String.format(MSG_DONE_SUCCESS,  contentStr3[0]+ SPACE + contentStr3[1]);
 	}
