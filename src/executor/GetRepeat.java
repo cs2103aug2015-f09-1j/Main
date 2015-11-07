@@ -18,24 +18,29 @@ public class GetRepeat {
 	 * @return
 	 */
 	public enum RepeatingFrequency {
-		NOTREPEATING,DAILY,WEEKLY,MONTHLY,YEARLY
+		NOTREPEATING,DAILY,WEEKLY,MONTHLY,YEARLY,WRONG
 	};
 	
 	public static RepeatingFrequency getRepeat(String contentStr2) {
 		// TODO Auto-generated method stub
 		GetSplittedString gsString = new GetSplittedString(contentStr2, RequiredField.REPEAT);
 		String temp = gsString.getReturnStr().trim();
-		switch (temp) {
-		case "weekly":
-			return RepeatingFrequency.WEEKLY;
-		case "monthly":
-			return RepeatingFrequency.MONTHLY;
-		case "daily":
-			return RepeatingFrequency.DAILY;
-		case "yearly":
-			return RepeatingFrequency.YEARLY;
-		default:
-			return RepeatingFrequency.NOTREPEATING;
+		if(gsString.getOutput() == null){
+			switch (temp) {
+			case "weekly":
+				return RepeatingFrequency.WEEKLY;
+			case "monthly":
+				return RepeatingFrequency.MONTHLY;
+			case "daily":
+				return RepeatingFrequency.DAILY;
+			case "yearly":
+				return RepeatingFrequency.YEARLY;
+			default:
+				return RepeatingFrequency.NOTREPEATING;
+			}
+		}
+		else{
+			return RepeatingFrequency.WRONG;
 		}
 	}
 	

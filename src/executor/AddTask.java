@@ -20,6 +20,7 @@ import executor.GetRepeat.RepeatingFrequency;
  */
 public class AddTask {
 
+	private static final String MESSAGE_INPUT_WRONG_FORMAT = "Input is wrong format.";
 	private static final String MSG_ADD_SUCCESS = "task \"%1$s\" successfully added";
 	private static final String MSG_ADD_FAIL = "task date error";
 	private static final Logger logger = Logger.getLogger(Logic.class.getName());
@@ -32,26 +33,31 @@ public class AddTask {
 	public AddTask(String contentStr, int index, Vector<TaskToDo> task){
 		indexTask = index;
 		TaskToDo temp;
-		if(getDueDate(contentStr).equals("") || JParser.dateChecker("today", getDueDate(contentStr))){
-			if(getDueDate(contentStr).equals("")){
-				temp = new TaskToDo(GetSplittedString.getTask(contentStr).trim(), ++indexTask, false);	
-			}
-			else if(GetRepeat.getRepeat(contentStr)==RepeatingFrequency.NOTREPEATING){
-				temp = new TaskToDo(GetSplittedString.getTask(contentStr).trim(),getDueDate(contentStr), ++indexTask, false);
-			}else if(getUntilDate(contentStr).equals("")){
-				temp = new TaskToDo(GetSplittedString.getTask(contentStr).trim().concat(getRepeatString(GetRepeat.getRepeat(contentStr))),
-						getDueDate(contentStr), ++indexTask, false,GetRepeat.getRepeat(contentStr));
-			}else {
-				temp = new TaskToDo(GetSplittedString.getTask(contentStr).trim().concat(getRepeatString(GetRepeat.getRepeat(contentStr))),
-						getDueDate(contentStr), ++indexTask, false,GetRepeat.getRepeat(contentStr),getUntilDate(contentStr));
-			}
-			
-			task.add(temp);
-			logger.log(Level.INFO, "add task");
-			output = String.format(MSG_ADD_SUCCESS,temp.getName());
+		if(getDueDate(contentStr) == null){
+			output = MESSAGE_INPUT_WRONG_FORMAT;
 		}
 		else{
-			output = String.format(MSG_ADD_FAIL);
+			if(getDueDate(contentStr).equals("") || JParser.dateChecker("today", getDueDate(contentStr))){
+				if(getDueDate(contentStr).equals("")){
+					temp = new TaskToDo(GetSplittedString.getTask(contentStr).trim(), ++indexTask, false);	
+				}
+				else if(GetRepeat.getRepeat(contentStr)==RepeatingFrequency.NOTREPEATING){
+					temp = new TaskToDo(GetSplittedString.getTask(contentStr).trim(),getDueDate(contentStr), ++indexTask, false);
+				}else if(getUntilDate(contentStr).equals("")){
+					temp = new TaskToDo(GetSplittedString.getTask(contentStr).trim().concat(getRepeatString(GetRepeat.getRepeat(contentStr))),
+							getDueDate(contentStr), ++indexTask, false,GetRepeat.getRepeat(contentStr));
+				}else {
+					temp = new TaskToDo(GetSplittedString.getTask(contentStr).trim().concat(getRepeatString(GetRepeat.getRepeat(contentStr))),
+							getDueDate(contentStr), ++indexTask, false,GetRepeat.getRepeat(contentStr),getUntilDate(contentStr));
+				}
+				
+				task.add(temp);
+				logger.log(Level.INFO, "add task");
+				output = String.format(MSG_ADD_SUCCESS,temp.getName());
+			}
+			else{
+				output = String.format(MSG_ADD_FAIL);
+			}
 		}
 	}
 	
@@ -72,7 +78,12 @@ public class AddTask {
 	private String getDueDate(String contentStr2) {
 		// TODO Auto-generated method stub
 		GetSplittedString gsString = new GetSplittedString(contentStr2, RequiredField.TASKDUEDATE);
-		return gsString.getReturnStr();
+		if(gsString.getOutput() == null){
+			return gsString.getReturnStr();
+		}
+		else{
+			return null;
+		}
 	}
 	private String getUntilDate(String contentStr){
 		GetSplittedString temp = new GetSplittedString(contentStr, RequiredField.UNTIL);

@@ -21,6 +21,8 @@ import main.jarvas.Logic.RequiredField;
  * @return	desire part of string
  */
 public class GetSplittedString {
+	private static final String MESSAGE_INPUT_WRONG_FORMAT = "Input is wrong format.";
+	
 	private static final Logger logger = Logger.getLogger(Logic.class.getName());
 	private String output;
 	private String returnStr;
@@ -77,6 +79,9 @@ public class GetSplittedString {
 				output = "invalid RequiredField";
 				break;
 			}
+			if(strArr.length > 1 && returnStr.equals("")){
+				output = MESSAGE_INPUT_WRONG_FORMAT;
+			}
 		}catch(Exception e){
 			returnStr = "";
 		}
@@ -122,7 +127,7 @@ public class GetSplittedString {
 	 */
 	public static String getTask(String str){
 		if(str.contains("-")){
-			String taskName = str.trim().substring(0, str.indexOf('-'));	
+			String taskName = str.trim().substring(0, str.indexOf('-') - 1);	
 			return taskName;
 		}
 		else
