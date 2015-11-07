@@ -278,17 +278,18 @@ public class Storage{
 	
 	public String redoStorage(){
 		try{
-			//if(checker() == false){
-				tempTaskUndo.push(newTask);
-				tempEventUndo.push(newEvent);
+			if(checker() == false){
+				//tempTaskUndo.push(newTask);
+				//tempEventUndo.push(newEvent);
 				newTask = tempTaskRedo.pop();
 				newEvent = tempEventRedo.pop();
-				undoStatus = false;
-			//}
+				undoStatus = true;	
+				return "Redo Success";
+			}
 		}catch(EmptyStackException o){
 			return "Nothing to redo";
 		}
-		return "Redo Success";
+		return "Nothing to Redo";
 			
 	}
 	

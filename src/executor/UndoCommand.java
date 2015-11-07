@@ -26,6 +26,5 @@ public class UndoCommand {
 	
 	private void undo(){
 		output = storage.undoStorage();
-;
 	}
 }
