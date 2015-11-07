@@ -38,9 +38,12 @@ public class AddTask {
 			}
 			else if(GetRepeat.getRepeat(contentStr)==RepeatingFrequency.NOTREPEATING){
 				temp = new TaskToDo(GetSplittedString.getTask(contentStr).trim(),getDueDate(contentStr), ++indexTask, false);
-			}else {
+			}else if(getUntilDate(contentStr).equals("")){
 				temp = new TaskToDo(GetSplittedString.getTask(contentStr).trim().concat(getRepeatString(GetRepeat.getRepeat(contentStr))),
 						getDueDate(contentStr), ++indexTask, false,GetRepeat.getRepeat(contentStr));
+			}else {
+				temp = new TaskToDo(GetSplittedString.getTask(contentStr).trim().concat(getRepeatString(GetRepeat.getRepeat(contentStr))),
+						getDueDate(contentStr), ++indexTask, false,GetRepeat.getRepeat(contentStr),getUntilDate(contentStr));
 			}
 			
 			task.add(temp);
@@ -70,6 +73,10 @@ public class AddTask {
 		// TODO Auto-generated method stub
 		GetSplittedString gsString = new GetSplittedString(contentStr2, RequiredField.TASKDUEDATE);
 		return gsString.getReturnStr();
+	}
+	private String getUntilDate(String contentStr){
+		GetSplittedString temp = new GetSplittedString(contentStr, RequiredField.UNTIL);
+		return temp.getReturnStr();
 	}
 	
 

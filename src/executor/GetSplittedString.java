@@ -65,6 +65,13 @@ public class GetSplittedString {
 					returnStr = returnStr1;
 				}
 				break;
+			case UNTIL:
+				returnStr = getContent(strArr,"until ");
+				returnStr1 = getContent(strArr,"u ");
+				if(returnStr.equals("")){
+					returnStr = returnStr1;
+				}
+				break;
 			default:
 				logger.log(Level.INFO, "invalid RequiredField");
 				output = "invalid RequiredField";

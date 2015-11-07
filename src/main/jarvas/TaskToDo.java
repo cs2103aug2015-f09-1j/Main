@@ -22,6 +22,7 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 	private String taskName;
 	private int index;
 	DateOfEvent dateOfEvent;
+	Date repeatDate;
 	private boolean done;
 	RepeatingFrequency frequency;
 
@@ -31,6 +32,7 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 		dateOfEvent.setStartDate(null);
 		index = 0;
 		frequency=RepeatingFrequency.NOTREPEATING;
+		repeatDate = new Date();
 	}
 	
 	public TaskToDo(String taskName, int index, boolean status){
@@ -57,6 +59,16 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 		done = status;
 		this.frequency=frequency;
 	}
+	public TaskToDo(String taskName, String dueDate,  int index, boolean status,RepeatingFrequency frequency,String untilDate){
+		setName(taskName);
+		this.index = index;
+		dateOfEvent = new DateOfEvent();
+		dateOfEvent.setStartDate(JParser.dateConverter(dueDate));
+		done = status;
+		this.frequency=frequency;
+		dateOfEvent.setUntilDate(JParser.dateConverter(untilDate));
+		
+	}
 	/**
 	 * @param name
 	 * @param date
@@ -72,6 +84,16 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 		dateOfEvent.setStartDate(JParser.dateConverter(dueDate));
 		done = status;
 		this.frequency= GetRepeat.convertStrtoFrequency(frequency);
+	}
+	public TaskToDo(String taskName, String dueDate, int index, boolean status, String frequency,String untilDate) {
+		// TODO Auto-generated constructor stub
+		setName(taskName);
+		this.index = index;
+		dateOfEvent = new DateOfEvent();
+		dateOfEvent.setStartDate(JParser.dateConverter(dueDate));
+		done = status;
+		this.frequency= GetRepeat.convertStrtoFrequency(frequency);
+		dateOfEvent.setUntilDate(JParser.dateConverter(untilDate));
 	}
 
 	/**
@@ -120,6 +142,20 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 	
 	public Date getStartDate() {
 		return dateOfEvent.getStartDate();
+	}
+	public void setUntil(String untilDate){
+		dateOfEvent.setUntilDate(JParser.dateConverter(untilDate));
+	}
+	public Date getUntilDate(){
+		return dateOfEvent.getUntilDate();
+	}
+	public String getStringUntilDate(){
+		if(getUntilDate()!=null){
+			return sdf.format(getUntilDate());	
+		}
+		else{
+			return "";
+		}
 	}
 
 	public String getStringStartDate(){

@@ -28,7 +28,8 @@ public class TaskEvent implements Task, Comparable<TaskEvent>{
 		dateOfEvent.setStartDate(null);
 		frequency=RepeatingFrequency.NOTREPEATING;
 	}
-	public TaskEvent(String eventName , String startDate , String endDate, int index, boolean status){
+	public TaskEvent(String eventName , String startDate , String endDate,
+			int index, boolean status){
 			dateOfEvent = new DateOfEvent();
 			this.index = index;
 			this.eventName= eventName;

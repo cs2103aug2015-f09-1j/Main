@@ -156,7 +156,8 @@ public class Storage{
 			String index = task.get("Index").toString();
 			boolean done = Boolean.valueOf(task.get("Done").toString());
 			String frequency = task.get("RepeatFrequency").toString();
-			TaskToDo aTask = new TaskToDo(name, date, Integer.parseInt(index), done,frequency);
+			String untilDate = task.get("UntilDate").toString();
+			TaskToDo aTask = new TaskToDo(name, date, Integer.parseInt(index), done,frequency,untilDate);
 			vecTask.add(aTask);
 		}
 		return vecTask;
@@ -217,6 +218,7 @@ public class Storage{
 			entry.put("Date", tasks.get(i).getStringStartDate());
 			entry.put("Done", String.valueOf(tasks.get(i).getDone()));
 			entry.put("RepeatFrequency", tasks.get(i).getStrFrequency());
+			entry.put("UntilDate", tasks.get(i).getStringUntilDate());
 			JSONObject jsonEntry = new JSONObject();
 			jsonEntry.putAll(entry);
 			convertToJSONArray(jsonEntry, newTask);
