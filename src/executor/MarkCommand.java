@@ -75,18 +75,23 @@ public class MarkCommand {
 	private void markWithValidFormat(String[] contentStr3) {
 		TaskToDo temp = null;
 		TaskEvent tempEvent = null;
-		if(!tasks.isEmpty())
+		try{
+			if(!tasks.isEmpty())
 				temp = tasks.get(Integer.parseInt(contentStr3[1])-1);
-		if(!events.isEmpty())
+			if(!events.isEmpty())
 				tempEvent = events.get(Integer.parseInt(contentStr3[1])-1);
-		if(contentStr3[0].equals(TASK)){
-			markTask(contentStr3, temp);
-		}
-		else if(contentStr3[0].equals(EVENT)){
-			markEvent(contentStr3, tempEvent);
-		}
-		else{
-			markWithWrongFormat();
+			if(contentStr3[0].equals(TASK)){
+				markTask(contentStr3, temp);
+			}
+			else if(contentStr3[0].equals(EVENT)){
+				markEvent(contentStr3, tempEvent);
+			}
+			else{
+				markWithWrongFormat();
+			}
+			
+		}catch(Exception e){
+			markWithWrongNumber();
 		}
 	}
 
@@ -128,7 +133,7 @@ public class MarkCommand {
 		Date currentDate = temp.getStartDate();
 		Date dateUntil = tasks.get(taskIndex).getUntilDate();
 		
-		if(tasks.get(taskIndex).getFrequency()!=RepeatingFrequency.NOTREPEATING &&dateUntil!=null&& currentDate.before(dateUntil)){
+		if(tasks.get(taskIndex).getFrequency()!=RepeatingFrequency.NOTREPEATING &&dateUntil!=null&& temp.nextCompareDate().before(dateUntil)){
 			tasks.add(new TaskToDo(temp.getName(), temp.nextDate(), ++indexTask, false, temp.getFrequency(),temp.getStringUntilDate()));
 			tasks.remove(taskIndex);
 		}else if(tasks.get(taskIndex).getFrequency()!=RepeatingFrequency.NOTREPEATING &&dateUntil==null){
@@ -144,7 +149,7 @@ public class MarkCommand {
 		int eventIndex = Integer.parseInt(contentStr3[1])-1;
 		Date dateUntil = temp.getUntilDate();
 		Date dateEnd = temp.getEndDate();
-		if(events.get(eventIndex).getFrequency()!=RepeatingFrequency.NOTREPEATING && dateUntil !=null && dateEnd.before(dateUntil)){			
+		if(events.get(eventIndex).getFrequency()!=RepeatingFrequency.NOTREPEATING && dateUntil !=null && temp.nextCompareDate().before(dateUntil)){			
 			events.add(new TaskEvent(temp.getName(), temp.nextStartDate(), temp.nextEndDate(), ++indexTask, false, temp.getFrequency(),temp.getStringUntilDate()));
 			events.remove(eventIndex);
 		} else if(events.get(eventIndex).getFrequency()!=RepeatingFrequency.NOTREPEATING && dateUntil==null){

@@ -61,9 +61,9 @@ public class LogicTestTxt {
 				logic.execute("add go to park"));
 		assertEquals("task \"do homework\" successfully added", 
 				logic.execute("a do homework"));
-		assertEquals("task \"go to the tutorial for SE\" successfully added", 
+		assertEquals("task \"go to the tutorial for SE \" successfully added", 
 				logic.execute("add go to the tutorial for SE -due today"));
-		assertEquals("task \"fix the bug in Jarvas\" successfully added", 
+		assertEquals("task \"fix the bug in Jarvas \" successfully added", 
 				logic.execute("a fix the bug in Jarvas -d 12/12/2015 00:11"));
 		assertEquals("task \"finish the lab for OS(WEEKLY)\" successfully added", 
 				logic.execute("add finish the lab for OS -due Monday 10am - repeat weekly"));
@@ -71,8 +71,6 @@ public class LogicTestTxt {
 				logic.execute("a have breakfast -d tommorrow 9am -r daily"));
 		assertEquals("Input is wrong format.", 
 				logic.execute("add do homework -du 12/12/2015 00:11 -repeat daily"));
-		assertEquals("Input is wrong format.", 
-				logic.execute("add do homework -due 12/12/2015 00:11 -re daily"));
 	}
 	
 	@Test

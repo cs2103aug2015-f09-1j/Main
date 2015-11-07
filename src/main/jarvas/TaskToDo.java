@@ -197,6 +197,36 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 		return sdf.format(calendar.getTime());
 	}
 	
+	
+
+	public Date nextCompareDate(){
+		return getNextCompareDate();
+	}
+	
+
+	public Date getNextCompareDate(){
+		GregorianCalendar calendar = new GregorianCalendar();
+	    calendar.setTime(getStartDate());
+	    switch (frequency) {
+		case DAILY:
+			calendar.add(Calendar.DAY_OF_YEAR, 1);
+			break;
+		case MONTHLY:
+			calendar.add(Calendar.MONTH, 1);
+			break;
+		case YEARLY:
+			calendar.add(Calendar.YEAR, 1);
+			break;
+		case WEEKLY:
+			calendar.add(Calendar.WEEK_OF_YEAR, 1);
+			break;
+		default:
+			
+			break;
+		}
+		return calendar.getTime();
+	}
+	
 	public String getStrFrequency(){
 		String temp=null;
 		switch (frequency) {

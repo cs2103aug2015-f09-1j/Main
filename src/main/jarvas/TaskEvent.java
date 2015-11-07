@@ -123,6 +123,9 @@ public TaskEvent(String eventName , String startDate , String endDate, int index
 		return getNextDate(getEndDate());
 	}
 	
+	
+	
+	
 	public String getNextDate(Date date){
 		GregorianCalendar calendar = new GregorianCalendar();
 	    calendar.setTime(date);
@@ -146,6 +149,41 @@ public TaskEvent(String eventName , String startDate , String endDate, int index
 	    //dateOfEvent.setStartDate(calendar.getTime());
 		return sdf.format(calendar.getTime());
 	}
+	
+	
+
+	public Date nextCompareDate(){
+		return getNextCompareDate(getStartDate());
+	}
+	
+	
+	public Date getNextCompareDate(Date date){
+		GregorianCalendar calendar = new GregorianCalendar();
+	    calendar.setTime(date);
+	    switch (frequency) {
+		case DAILY:
+			calendar.add(Calendar.DAY_OF_YEAR, 1);
+			break;
+		case MONTHLY:
+			calendar.add(Calendar.MONTH, 1);
+			break;
+		case YEARLY:
+			calendar.add(Calendar.YEAR, 1);
+			break;
+		case WEEKLY:
+			calendar.add(Calendar.WEEK_OF_YEAR, 1);
+			break;
+		default:
+			
+			break;
+		}
+	    //dateOfEvent.setStartDate(calendar.getTime());
+		return calendar.getTime();
+	}
+	
+	
+	
+	
 	
 	public void setNextStartDate(){
 		try {
