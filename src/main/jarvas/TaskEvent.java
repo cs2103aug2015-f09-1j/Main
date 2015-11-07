@@ -213,7 +213,12 @@ public TaskEvent(String eventName , String startDate , String endDate, int index
 		return dateOfEvent.getEndDate();
 	}
 	public String getStringUntilDate(){
-		return sdf.format(getUntilDate());
+		if(getUntilDate()!=null){
+			return sdf.format(getUntilDate());	
+		}
+		else{
+			return "";
+		}
 	}
 	public Date getUntilDate() {
 		return dateOfEvent.getUntilDate();

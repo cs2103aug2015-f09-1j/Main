@@ -142,9 +142,9 @@ public class MarkCommand {
 		events.get(Integer.parseInt(contentStr3[1])-1).setDone(contentStr3[2]);
 		
 		int eventIndex = Integer.parseInt(contentStr3[1])-1;
-		Date dateUntil = tasks.get(eventIndex).getUntilDate();
+		Date dateUntil = temp.getUntilDate();
 		Date dateEnd = temp.getEndDate();
-		if(events.get(eventIndex).getFrequency()!=RepeatingFrequency.NOTREPEATING &&dateUntil !=null&& dateEnd.before(dateUntil)){			
+		if(events.get(eventIndex).getFrequency()!=RepeatingFrequency.NOTREPEATING && dateUntil !=null && dateEnd.before(dateUntil)){			
 			events.add(new TaskEvent(temp.getName(), temp.nextStartDate(), temp.nextEndDate(), ++indexTask, false, temp.getFrequency(),temp.getStringUntilDate()));
 			events.remove(eventIndex);
 		} else if(events.get(eventIndex).getFrequency()!=RepeatingFrequency.NOTREPEATING && dateUntil==null){
