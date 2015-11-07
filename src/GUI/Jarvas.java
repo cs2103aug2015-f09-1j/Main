@@ -20,7 +20,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 /**
  * @author A0145381H
- *
+ * 
  */
 public class Jarvas extends Application{
 	
@@ -72,11 +72,21 @@ public class Jarvas extends Application{
         for(int i=0; i<tasks.size();i++) {
         	if(tasks.get(i).getDone()){
             	alltasks.add(DONE + (i+1) + TASK_NAME + tasks.get(i).getName());
-            	alltasks.add(DONE + TASK_DUE + tasks.get(i).getStartDate());
+            	if(tasks.get(i).getStartDate() == null){
+            		alltasks.add(DONE + TASK_DUE + tasks.get(i).getStartDate());
+            	}
+            	else{
+                	alltasks.add(DONE + TASK_DUE + tasks.get(i).getStartDate().toString().replace("CST ", ""));
+            	}
         	}
         	else{
             	alltasks.add(UNDONE + (i+1) + TASK_NAME + tasks.get(i).getName());
-            	alltasks.add(UNDONE + TASK_DUE + tasks.get(i).getStartDate());
+            	if(tasks.get(i).getStartDate() == null){
+            		alltasks.add(UNDONE + TASK_DUE + tasks.get(i).getStartDate());
+            	}
+            	else{
+                	alltasks.add(UNDONE + TASK_DUE + tasks.get(i).getStartDate().toString().replace("CST ", ""));
+            	}
         	}
         }
         Vector<TaskEvent> events = logic.returnNewEvents();
@@ -84,13 +94,13 @@ public class Jarvas extends Application{
         for(int i=0; events != null && i<events.size();i++) {
         	if(events.get(i).getDone()){
             	alltasks.add(DONE + (i+1) + EVENT_NAME + events.get(i).getName());
-            	alltasks.add(DONE + EVENT_START + events.get(i).getStartDate());
-            	alltasks.add(DONE + EVENT_END + events.get(i).getEndDate());
+            	alltasks.add(DONE + EVENT_START + events.get(i).getStartDate().toString().replace("CST ", ""));
+            	alltasks.add(DONE + EVENT_END + events.get(i).getEndDate().toString().replace("CST ", ""));
         	}
         	else{
             	alltasks.add(UNDONE + (i+1) + EVENT_NAME + events.get(i).getName());
-            	alltasks.add(UNDONE + EVENT_START + events.get(i).getStartDate());
-            	alltasks.add(UNDONE + EVENT_END + events.get(i).getEndDate());
+            	alltasks.add(UNDONE + EVENT_START + events.get(i).getStartDate().toString().replace("CST ", ""));
+            	alltasks.add(UNDONE + EVENT_END + events.get(i).getEndDate().toString().replace("CST ", ""));
         	}
         }
     	alltasks.add(UNDONE);
@@ -142,13 +152,11 @@ public class Jarvas extends Application{
             	setTextFill(Color.rgb(253, 50, 50));
             	setFont(new Font(FONT_AVENIR, 23));
             	setText(item);
-            	//setBackground(new Background(new BackgroundFill(Color.rgb(253, 184, 186), CornerRadii.EMPTY, Insets.EMPTY)));
             	break;
             case SEARCH_END:
             	setTextFill(Color.rgb(253, 120, 120));
             	setFont(new Font(FONT_AVENIR, 23));
             	setText(item.substring(1));
-            	//setBackground(new Background(new BackgroundFill(Color.rgb(253, 184, 186), CornerRadii.EMPTY, Insets.EMPTY)));
             	break;
             case TASK_FOR_SEARCH:
             case EVENT_FOR_SEARCH:
@@ -210,24 +218,34 @@ public class Jarvas extends Application{
                 for(int i=0; i<tasksForSearch.size();i++) {
                 	if(tasksForSearch.get(i).getDone()){
                     	alltasks.add(S_DONE + (i+1) + TASK_NAME + tasksForSearch.get(i).getName());
-                    	alltasks.add(S_DONE + TASK_DUE + tasksForSearch.get(i).getStartDate());
+                    	if(tasks.get(i).getStartDate() == null){
+                    		alltasks.add(DONE + TASK_DUE + tasks.get(i).getStartDate());
+                    	}
+                    	else{
+                        	alltasks.add(DONE + TASK_DUE + tasks.get(i).getStartDate().toString().replace("CST ", ""));
+                    	}
                 	}
                 	else{
                     	alltasks.add(S_UNDONE + (i+1) + TASK_NAME + tasksForSearch.get(i).getName());
-                    	alltasks.add(S_UNDONE + TASK_DUE + tasksForSearch.get(i).getStartDate());
+                    	if(tasks.get(i).getStartDate() == null){
+                    		alltasks.add(UNDONE + TASK_DUE + tasks.get(i).getStartDate());
+                    	}
+                    	else{
+                        	alltasks.add(UNDONE + TASK_DUE + tasks.get(i).getStartDate().toString().replace("CST ", ""));
+                    	}
                 	}
                 }
                 alltasks.add(EVENT_FOR_SEARCH);
                 for(int i=0; eventsForSearch != null && i<eventsForSearch.size();i++) {
                 	if(eventsForSearch.get(i).getDone()){
                     	alltasks.add(S_DONE + (i+1) + EVENT_NAME + eventsForSearch.get(i).getName());
-                    	alltasks.add(S_DONE + EVENT_START + eventsForSearch.get(i).getStartDate());
-                    	alltasks.add(S_DONE + EVENT_END + eventsForSearch.get(i).getEndDate());
+                    	alltasks.add(S_DONE + EVENT_START + eventsForSearch.get(i).getStartDate().toString().replace("CST ", ""));
+                    	alltasks.add(S_DONE + EVENT_END + eventsForSearch.get(i).getEndDate().toString().replace("CST ", ""));
                 	}
                 	else{
                     	alltasks.add(S_UNDONE + (i+1) + EVENT_NAME + eventsForSearch.get(i).getName());
-                    	alltasks.add(S_UNDONE + EVENT_START + eventsForSearch.get(i).getStartDate());
-                    	alltasks.add(S_UNDONE + EVENT_END + eventsForSearch.get(i).getEndDate());
+                    	alltasks.add(S_UNDONE + EVENT_START + eventsForSearch.get(i).getStartDate().toString().replace("CST ", ""));
+                    	alltasks.add(S_UNDONE + EVENT_END + eventsForSearch.get(i).getEndDate().toString().replace("CST ", ""));
                 	}
                 }
             	alltasks.add(DONE);
@@ -237,24 +255,34 @@ public class Jarvas extends Application{
             for(int i=0; i<tasks.size();i++) {
             	if(tasks.get(i).getDone()){
                 	alltasks.add(DONE + (i+1) + TASK_NAME + tasks.get(i).getName());
-                	alltasks.add(DONE + TASK_DUE + tasks.get(i).getStartDate());
+                	if(tasks.get(i).getStartDate() == null){
+                		alltasks.add(DONE + TASK_DUE + tasks.get(i).getStartDate());
+                	}
+                	else{
+                    	alltasks.add(DONE + TASK_DUE + tasks.get(i).getStartDate().toString().replace("CST ", ""));
+                	}
             	}
             	else{
                 	alltasks.add(UNDONE + (i+1) + TASK_NAME + tasks.get(i).getName());
-                	alltasks.add(UNDONE + TASK_DUE + tasks.get(i).getStartDate());
+                	if(tasks.get(i).getStartDate() == null){
+                		alltasks.add(UNDONE + TASK_DUE + tasks.get(i).getStartDate());
+                	}
+                	else{
+                    	alltasks.add(UNDONE + TASK_DUE + tasks.get(i).getStartDate().toString().replace("CST ", ""));
+                	}
             	}
             }
             alltasks.add(EVENTS);
             for(int i=0; events != null && i<events.size();i++) {
             	if(events.get(i).getDone()){
                 	alltasks.add(DONE + (i+1) + EVENT_NAME + events.get(i).getName());
-                	alltasks.add(DONE + EVENT_START + events.get(i).getStartDate());
-                	alltasks.add(DONE + EVENT_END + events.get(i).getEndDate());
+                	alltasks.add(DONE + EVENT_START + events.get(i).getStartDate().toString().replace("CST ", ""));
+                	alltasks.add(DONE + EVENT_END + events.get(i).getEndDate().toString().replace("CST ", ""));
             	}
             	else{
                 	alltasks.add(UNDONE + (i+1) + EVENT_NAME + events.get(i).getName());
-                	alltasks.add(UNDONE + EVENT_START + events.get(i).getStartDate());
-                	alltasks.add(UNDONE + EVENT_END + events.get(i).getEndDate());
+                	alltasks.add(UNDONE + EVENT_START + events.get(i).getStartDate().toString().replace("CST ", ""));
+                	alltasks.add(UNDONE + EVENT_END + events.get(i).getEndDate().toString().replace("CST ", ""));
             	}
             }
         	alltasks.add(UNDONE);
