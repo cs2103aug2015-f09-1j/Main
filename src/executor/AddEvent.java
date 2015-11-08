@@ -32,11 +32,11 @@ public class AddEvent {
 				output = String.format(MSG_ADDEVENT_SUCCESS, temp.getName());
 			}
 			else if(getUntilDate(contentStr2).equals("")){
-				temp = new TaskEvent(GetSplittedString.getTask(contentStr2), startDate, endDate, ++indexEvent, false, GetRepeat.getRepeat(contentStr2));
+				temp = new TaskEvent(GetSplittedString.getTask(contentStr2).trim().concat(getRepeatString(GetRepeat.getRepeat(contentStr2))), startDate, endDate, ++indexEvent, false, GetRepeat.getRepeat(contentStr2));
 				events.add(temp);
 				output = String.format(MSG_ADDEVENT_SUCCESS, temp.getName());
 			} else{
-				temp = new TaskEvent(GetSplittedString.getTask(contentStr2), startDate, endDate, ++indexEvent, false, GetRepeat.getRepeat(contentStr2),getUntilDate(contentStr2));
+				temp = new TaskEvent(GetSplittedString.getTask(contentStr2).trim().concat(getRepeatString(GetRepeat.getRepeat(contentStr2))), startDate, endDate, ++indexEvent, false, GetRepeat.getRepeat(contentStr2),getUntilDate(contentStr2));
 				events.add(temp);
 				output = String.format(MSG_ADDEVENT_SUCCESS, temp.getName());
 			}
@@ -91,7 +91,7 @@ public class AddEvent {
 	
 	
 	
-	/*private String getRepeatString(RepeatingFrequency repeat) {
+	private String getRepeatString(RepeatingFrequency repeat) {
 		// TODO Auto-generated method stub
 		String temp=null;
 		switch (repeat) {
@@ -108,11 +108,11 @@ public class AddEvent {
 			temp = "(WEEKLY)";
 			break;
 		default:
-			temp=" ";
+			temp="";
 			break;
 		}
 		return temp;
-	}*/
+	}
 	
 	
 }

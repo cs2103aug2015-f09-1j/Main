@@ -114,7 +114,7 @@ public class AddTask {
 			temp = "(WEEKLY)";
 			break;
 		default:
-			temp=" ";
+			temp="";
 			break;
 		}
 		return temp;
