@@ -62,7 +62,7 @@ public class LogicTestTxt {
 		assertEquals("task \"do homework\" successfully added", 
 				logic.execute("a do homework"));
 		assertEquals("task \"go to the tutorial for SE \" successfully added", 
-				logic.execute("add go to the tutorial for SE -due today"));
+				logic.execute("add go to the tutorial for SE -due tommorrow"));
 		assertEquals("task \"fix the bug in Jarvas \" successfully added", 
 				logic.execute("a fix the bug in Jarvas -d 12/12/2015 00:11"));
 		assertEquals("task \"finish the lab for OS(WEEKLY)\" successfully added", 
