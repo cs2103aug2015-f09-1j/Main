@@ -121,7 +121,7 @@ public class EditCommand {
 		else{
 			String dateText = textFormer(contentStrArr,3);
 			events.get(Integer.parseInt(contentStrArr[1])-1).setEnd(dateText);
-			output = String.format(MSG_EDIT_SUCCESS, contentStrArr[3]);
+			output = String.format(MSG_EDIT_SUCCESS, contentStrArr[0] + " " + contentStrArr[1]);
 			logger.log(Level.INFO, output);
 		}
 	}
@@ -135,21 +135,21 @@ public class EditCommand {
 		else{
 			String dateText = textFormer(contentStrArr,3);
 			events.get(Integer.parseInt(contentStrArr[1])-1).setStart(dateText);
-			output = String.format(MSG_EDIT_SUCCESS, contentStrArr[3]);
+			output = String.format(MSG_EDIT_SUCCESS, contentStrArr[0] + " " + contentStrArr[1]);
 			logger.log(Level.INFO, output);
 		}
 	}
 	
 	
-	private void editEventName(String[] contentStr3) {
-		if(events.size() < Integer.parseInt(contentStr3[1])){
-			output = String.format(MSG_EVENT_NOTEXIST, contentStr3[1]);
+	private void editEventName(String[] contentStrArr) {
+		if(events.size() < Integer.parseInt(contentStrArr[1])){
+			output = String.format(MSG_EVENT_NOTEXIST, contentStrArr[1]);
 			logger.log(Level.INFO, output);
 		}
 		else{
-			String name = textFormer(contentStr3,3);
-			events.get(Integer.parseInt(contentStr3[1])-1).setName(name);
-			output = String.format(MSG_EDIT_SUCCESS, contentStr3[3]);
+			String name = textFormer(contentStrArr,3);
+			events.get(Integer.parseInt(contentStrArr[1])-1).setName(name);
+			output = String.format(MSG_EDIT_SUCCESS, contentStrArr[0] + " " + contentStrArr[1]);
 			logger.log(Level.INFO, output);
 		}
 	}
@@ -192,7 +192,7 @@ public class EditCommand {
 		else{
 			String dateText = textFormer(contentStrArr,3);
 			tasks.get(Integer.parseInt(contentStrArr[1])-1).setStart(dateText);
-			output = String.format(MSG_EDIT_SUCCESS, contentStrArr[3]);
+			output = String.format(MSG_EDIT_SUCCESS, contentStrArr[0] + " " + contentStrArr[1]);
 			logger.log(Level.INFO, output);
 		}
 	}
@@ -206,7 +206,7 @@ public class EditCommand {
 		else{
 			String name = textFormer(contentStrArr,3);
 			tasks.get(Integer.parseInt(contentStrArr[1])-1).setName(name);
-			output = String.format(MSG_EDIT_SUCCESS, contentStrArr[3]);
+			output = String.format(MSG_EDIT_SUCCESS, contentStrArr[0] + " " + contentStrArr[1]);
 			logger.log(Level.INFO, output);
 		}
 	}
