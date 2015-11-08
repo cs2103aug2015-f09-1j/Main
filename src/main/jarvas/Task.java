@@ -3,6 +3,7 @@ package main.jarvas;
  * 
  */
 
+//@@author
 public interface Task {
 	public String getName();
 	public void setName(String taskName);

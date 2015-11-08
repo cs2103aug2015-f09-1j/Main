@@ -13,10 +13,9 @@ import executor.RedoCommand;
 import executor.SearchCommand;
 import executor.UndoCommand;
 import executor.sortCommand;
-/**
- * @author ONGJI_000
- *
- */
+
+
+//@@author JQ
 public class Logic {
 	private static final String MSG_INVALID_INPUT = "invalid input";
 	private static final String MSG_SAVE_SUCCESS = "File \"%1$s\" successfully saved";
@@ -38,7 +37,7 @@ public class Logic {
 		TASKDUEDATE,TASKLOCATION,EVENT_STARTDATE,EVENT_ENDDATE,REPEAT,UNTIL
 	};
 	
-	
+	//@@author
 	private static final Logger logger = Logger.getLogger(Logic.class.getName());
 	String contentStr;
 	String output;
@@ -58,12 +57,13 @@ public class Logic {
 		output = "";
 	}
 	
-	/**
+	/** 
 	 * This function is called to execute users command
 	 * @param input
 	 * 			is user input
 	 * @return message to be printed
 	 */
+	//@@author Jaime
 	public String execute(String input){
 	
 		assert(input!=null):"input in excute function is null";
@@ -137,23 +137,22 @@ public class Logic {
 		return output;
 	}
 	
+	//@@author
 	public boolean getIsCommandSearch(){
 		return IsCommandSearch;
 	}
 	
-	
+	//@@author
 	public Vector<TaskToDo> getTasksForSearch(){
 		return tasksForSearch;
 	}
 	
-	
+	//@@author
 	public Vector<TaskEvent> getEventsForSearch(){
 		return eventsForSearch;
 	}
 	
-	
-	
-	
+	//@@author
 	public String saveFile(String contentStr2){
 		if(storage.saveToLocation(contentStr2)){
 			return String.format(MSG_SAVE_SUCCESS, contentStr2);
@@ -163,12 +162,12 @@ public class Logic {
 		}
 	}
 	
-	
 	/**
 	 * This function handle display help menu
 	 * 
 	 * @return help msg
 	 */
+	//@@author
 	private String displayHelp(){
 		logger.log(Level.INFO, "display help function");
 		return MSG_HELP;
@@ -179,6 +178,7 @@ public class Logic {
 	 * 
 	 * @return all tasks in String
 	 */
+	//@@author
 	public String displayTask(){
 		logger.log(Level.INFO, "display task function");
 		String temp = "";
@@ -188,9 +188,10 @@ public class Logic {
 		return temp;
 	}
 	
-	/**
+	/** 
 	 * This function initialize the vector for tasks
 	 */
+	//@@author
 	public void getOriginalTasks() {
 		Vector<TaskToDo> returnTask = storage.convertToTask();
 		indexTask = returnTask.size();
@@ -205,6 +206,7 @@ public class Logic {
 	 * This function return the new vector contains tasks after each operation
 	 * @return  new tasks vector
 	 */
+	//@@author Jaime
 	public Vector<TaskToDo> returnNewTasks() {
 		//Return the new vector contains tasks after each operation
 		return tasks;
@@ -214,6 +216,7 @@ public class Logic {
 	 * This function return the new vector contains tasks after each operation
 	 * @return  new tasks vector
 	 */
+	//@@author Jaime
 	public Vector<TaskEvent> returnNewEvents() {
 		//Return the new vector contains tasks after each operation
 		return events;

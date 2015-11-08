@@ -9,9 +9,10 @@ import main.jarvas.TaskEvent;
 import main.jarvas.TaskToDo;
 
 /**
- * @author A0145381H
+ * This class provide adding functionality for Jarvas
  *
  */
+
 public class AddCommand {
 	
 	String contentString;
@@ -35,7 +36,7 @@ public class AddCommand {
 		}
 	}
 	
-	
+	//getter methods
 	public String getOutput(){
 		return output;
 	}
@@ -51,6 +52,12 @@ public class AddCommand {
 	
 
 	
+	/**
+	 * this method check whether command is for event or task
+	 * @param contentStr is the content of command entered
+	 * @return
+	 * 		true if it is a event command
+	 */
 	private boolean checkTodo(String contentStr){
 		
 		String tempTodo = contentStr.replace(GetSplittedString.getTask(contentStr), "");

@@ -19,7 +19,7 @@ public class AddEvent {
 	private int indexEvent;
 	private String output;
 	
-	
+	//constructor that call collect TaskEvent method 
 	public AddEvent(String contentStr2, int index, Vector<TaskEvent> events) {
 		indexEvent = index;
 		String startDate = getStartDate(contentStr2);
@@ -46,6 +46,13 @@ public class AddEvent {
 		}
 	}
 	
+	/**
+	 * this method get the Date for the event last
+	 * @param contentStr
+	 * 			is the content of the command
+	 * @return
+	 * 		the Date in String of the event last
+	 */
 	private String getUntilDate(String contentStr){
 		GetSplittedString temp = new GetSplittedString(contentStr, RequiredField.UNTIL);
 		return temp.getReturnStr();
@@ -60,8 +67,10 @@ public class AddEvent {
 	}
 
 	/**
+	 * this method get the  date and time of event start
 	 * @param contentStr2
-	 * @return
+	 * 			is the content of command
+	 * @return	Date in String
 	 */
 	private String getStartDate(String contentStr2) {
 		GetSplittedString gsString = new GetSplittedString(contentStr2, RequiredField.EVENT_STARTDATE);
@@ -70,8 +79,10 @@ public class AddEvent {
 	
 
 	/**
+	 * this method get the date and time of event end
 	 * @param contentStr2
-	 * @return
+	 * 			is the content of command
+	 * @return	Date in String
 	 */
 	private String getEndDate(String contentStr2) {
 		GetSplittedString gsString = new GetSplittedString(contentStr2, RequiredField.EVENT_ENDDATE);
