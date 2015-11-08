@@ -224,7 +224,6 @@ public TaskEvent(String eventName , String startDate , String endDate, int index
 		return eventName;
 	}
 
-
 	@Override
 	public void setName(String taskName) {
 		this.eventName = taskName;
@@ -261,6 +260,13 @@ public TaskEvent(String eventName , String startDate , String endDate, int index
 	public Date getUntilDate() {
 		return dateOfEvent.getUntilDate();
 	}
+	
+	public void setUntil(String untilDate){
+		dateOfEvent.setUntilDate(JParser.dateConverter(untilDate));
+	}
+	
+
+	
 	@Override
 	public String print() {
 		String temp = eventName + WORD_FROM + sdf.format(getStartDate()) + WORD_TO + sdf.format(getEndDate()); 

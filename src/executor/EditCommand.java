@@ -29,6 +29,7 @@ public class EditCommand {
 	private static final String FROM = "from";
 	private static final String TO = "to";
 	private static final String DUE = "due";
+	private static final String REPEAT = "repeat";
 	
 	
 	private static final Logger logger = Logger.getLogger(Logic.class.getName());
@@ -101,12 +102,36 @@ public class EditCommand {
 		else if(contentStrArr[2].equals(TO)){
 			editEventEndDate(contentStrArr);
 		}
+		else if(contentStrArr[2].equals(REPEAT)){
+			editEventRepeat(contentStrArr);
+		}
 		else{
 			editWithInvalidFormat(contentStrArr);				
 		}
 	}
 	
 	
+	/**
+	 * @param contentStrArr
+	 */
+	private void editEventRepeat(String[] contentStrArr) {
+		String input = textFormer(contentStrArr,0);
+		if(input.contains("until")){
+			events.get(Integer.parseInt(contentStrArr[1])-1).setFrequency(GetRepeat.convertStrtoFrequency(contentStrArr[3]));
+			input = textFormer(contentStrArr,5);
+			events.get(Integer.parseInt(contentStrArr[1])-1).setUntil(input);
+			output = String.format(MSG_EDIT_SUCCESS, contentStrArr[0] + " " + contentStrArr[1]);
+			logger.log(Level.INFO, output);
+		}
+		else{
+			events.get(Integer.parseInt(contentStrArr[1])-1).setFrequency(GetRepeat.convertStrtoFrequency(contentStrArr[3]));
+			output = String.format(MSG_EDIT_SUCCESS, contentStrArr[0] + " " + contentStrArr[1]);
+			logger.log(Level.INFO, output);
+		}
+		
+	}
+
+
 	private void editWithInvalidFormat(String[] contentStr3) {
 		output = String.format(MSG_EDIT_INVALID_FORMAT);
 		logger.log(Level.INFO, output);
@@ -172,12 +197,36 @@ public class EditCommand {
 		else if(contentStrArr[2].equals(DUE)){
 			editTaskDueDate(contentStrArr);
 		}
+		else if(contentStrArr[2].equals(REPEAT)){
+			editTaskRepeat(contentStrArr);
+		}
 		else{
 			editTaskInvalidFormat(contentStrArr);			
 		}
 	}
 	
 	
+	/**
+	 * @param contentStrArr
+	 */
+	private void editTaskRepeat(String[] contentStrArr) {
+		String input = textFormer(contentStrArr,0);
+		if(input.contains("until")){
+			tasks.get(Integer.parseInt(contentStrArr[1])-1).setFrequency(GetRepeat.convertStrtoFrequency(contentStrArr[3]));
+			input = textFormer(contentStrArr,5);
+			tasks.get(Integer.parseInt(contentStrArr[1])-1).setUntil(input);
+			output = String.format(MSG_EDIT_SUCCESS, contentStrArr[0] + " " + contentStrArr[1]);
+			logger.log(Level.INFO, output);
+		}
+		else{
+			tasks.get(Integer.parseInt(contentStrArr[1])-1).setFrequency(GetRepeat.convertStrtoFrequency(contentStrArr[3]));
+			output = String.format(MSG_EDIT_SUCCESS, contentStrArr[0] + " " + contentStrArr[1]);
+			logger.log(Level.INFO, output);
+		}
+		
+	}
+
+
 	private void editTaskInvalidFormat(String[] contentStrArr) {
 		output = String.format(MSG_EDIT_INVALID_FORMAT);	
 		logger.log(Level.INFO, output);
