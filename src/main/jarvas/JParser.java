@@ -111,7 +111,7 @@ public class JParser {
 	
 	//@@author
 	public static boolean dateChecker(String startDate, String endDate){
-		if(dateConverter(startDate).before(dateConverter(endDate))){
+		if(dateConverter(startDate).before(dateConverter(endDate)) || dateConverter(startDate).equals(dateConverter(endDate))){
 			return true;
 		}
 		else{
