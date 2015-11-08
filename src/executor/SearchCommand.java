@@ -9,7 +9,7 @@ import main.jarvas.TaskEvent;
 import main.jarvas.TaskToDo;
 
 /**
- * @author A0145381H
+ * this class provide search functionality to Jarvas
  *
  */
 public class SearchCommand {
@@ -51,6 +51,7 @@ public class SearchCommand {
 
 	/**
 	 * This function search input by user from Task and Event 
+	 * @return string to be return
 	 */
 	private String searchTask(){
 		// Search Task

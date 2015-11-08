@@ -10,7 +10,6 @@ import main.jarvas.Logic;
 import main.jarvas.Logic.RequiredField;
 
 /**
- * @author Li
  *
  *
  * This Class get the desire part of String

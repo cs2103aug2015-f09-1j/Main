@@ -6,7 +6,7 @@ package executor;
 import main.jarvas.Storage;
 
 /**
- * @author Li
+ * this class provide undo functionality to Jarvas
  *
  */
 public class UndoCommand {
@@ -24,6 +24,9 @@ public class UndoCommand {
 	}
 
 	
+	/**
+	 * this method undo the the previous command
+	 */
 	private void undo(){
 		output = storage.undoStorage();
 	}

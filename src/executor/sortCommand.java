@@ -9,7 +9,7 @@ import main.jarvas.TaskEvent;
 import main.jarvas.TaskToDo;
 
 /**
- * @author YiHong
+ * this class provide sort functionality to Jarvas
  *
  */
 public class sortCommand{
@@ -23,8 +23,9 @@ public class sortCommand{
 		sortAll();
 	}
 
+	
 	/**
-	 * @param events2
+	 * this method sort all the content inside vector tasks and events
 	 */
 	private void sortAll() {
 		Collections.sort(tasks);

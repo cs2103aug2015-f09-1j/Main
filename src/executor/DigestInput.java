@@ -7,7 +7,6 @@ import main.jarvas.JParser;
 
 /**
  * This Class digest the input command into content and command type
- * @author Li
  *
  */
 public class DigestInput {

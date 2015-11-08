@@ -6,7 +6,7 @@ package executor;
 import main.jarvas.Storage;
 
 /**
- * @author YiHong
+ * this class provide redo functionality to Jarvas
  *
  */
 public class RedoCommand {
@@ -24,6 +24,9 @@ public class RedoCommand {
 	}
 
 	
+	/**
+	 * redo to previous command
+	 */
 	private void redo(){
 
 		output = storage.redoStorage();;

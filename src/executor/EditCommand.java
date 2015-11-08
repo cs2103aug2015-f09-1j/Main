@@ -13,11 +13,11 @@ import main.jarvas.TaskEvent;
 import main.jarvas.TaskToDo;
 
 /**
- * @author A0145381H
+ * this class provide edit functionality for jarvas
  *
  */
 public class EditCommand {
-
+	//method string that will be called for specific situation
 	private static final String MSG_EDIT_SUCCESS = "\"%1$s\" successfully edited";
 	private static final String MSG_TASK_NOTEXIST = "Task \"%1$s\" does not exist";
 	private static final String MSG_EVENT_NOTEXIST = "Event \"%1$s\" does not exist";
@@ -61,7 +61,7 @@ public class EditCommand {
 	private void edit() {
 		String[] contentStrArr = contentStr.split(SPLITSTRING);
 		if(contentStrArr == null || contentStrArr.length < 1){
-			editWithInvalidFormat(contentStrArr);	
+			editWithInvalidFormat();	
 		}
 		else{
 			editWithContent(contentStrArr);
@@ -69,6 +69,10 @@ public class EditCommand {
 	}
 	
 	
+	/**
+	 * edit the task or event with given content
+	 * @param contentStrArr is the content that splitted into array
+	 */
 	private void editWithContent(String[] contentStrArr) {
 		if(contentStrArr[0].equals(TASK)){
 			editTask(contentStrArr);
@@ -77,14 +81,18 @@ public class EditCommand {
 			editEvent(contentStrArr);			
 		}
 		else{
-			editWithInvalidFormat(contentStrArr);	
+			editWithInvalidFormat();	
 		}
 	}
 	
 	
+	/**
+	 * edit event with give content
+	 * @param contentStrArr is the content that splitted into array
+	 */
 	private void editEvent(String[] contentStrArr) {
 		if(contentStrArr.length < 4){
-			editWithInvalidFormat(contentStrArr);	
+			editWithInvalidFormat();	
 		}
 		else{
 			addEventWithField(contentStrArr);
@@ -92,6 +100,10 @@ public class EditCommand {
 	}
 	
 	
+	/**
+	 * edit the event from the given array
+	 * @param contentStrArr is the content that splitted int array
+	 */
 	private void addEventWithField(String[] contentStrArr) {
 		if(contentStrArr[2].equals(NAME)){
 			editEventName(contentStrArr);
@@ -106,12 +118,13 @@ public class EditCommand {
 			editEventRepeat(contentStrArr);
 		}
 		else{
-			editWithInvalidFormat(contentStrArr);				
+			editWithInvalidFormat();				
 		}
 	}
 	
 	
 	/**
+<<<<<<< Updated upstream
 	 * @param contentStrArr
 	 */
 	private void editEventRepeat(String[] contentStrArr) {
@@ -132,12 +145,21 @@ public class EditCommand {
 	}
 
 
-	private void editWithInvalidFormat(String[] contentStr3) {
+	/*
+	 * save the invalid msg into output 
+	 * @param contentStr3
+	 */
+	private void editWithInvalidFormat() {
+
 		output = String.format(MSG_EDIT_INVALID_FORMAT);
 		logger.log(Level.INFO, output);
 	}
 	
 	
+	/**
+	 * edit the event's end date 
+	 * @param contentStrArr	is the array that contain desire date
+	 */
 	private void editEventEndDate(String[] contentStrArr) {
 		if(events.size() < Integer.parseInt(contentStrArr[1])){
 			output = String.format(MSG_EVENT_NOTEXIST, contentStrArr[1]);
@@ -152,6 +174,10 @@ public class EditCommand {
 	}
 	
 	
+	/**
+	 * edit the event's start date
+	 * @param contentStrArr is the array that contain desire date
+	 */
 	private void editEventStartDate(String[] contentStrArr) {
 		if(events.size() < Integer.parseInt(contentStrArr[1])){
 			output = String.format(MSG_EVENT_NOTEXIST, contentStrArr[1]);
@@ -166,6 +192,10 @@ public class EditCommand {
 	}
 	
 	
+	/**
+	 * edit the name of event
+	 * @param contentStrArr is the array that contain desire name
+	 */
 	private void editEventName(String[] contentStrArr) {
 		if(events.size() < Integer.parseInt(contentStrArr[1])){
 			output = String.format(MSG_EVENT_NOTEXIST, contentStrArr[1]);
@@ -180,9 +210,13 @@ public class EditCommand {
 	}
 	
 	
+	/**
+	 * edit the task
+	 * @param contentStrArr is the content of user command
+	 */
 	private void editTask(String[] contentStrArr) {
 		if(contentStrArr.length < 4){
-			editWithInvalidFormat(contentStrArr);	
+			editWithInvalidFormat();	
 		}
 		else{
 			editTaskWithField(contentStrArr);
@@ -190,6 +224,10 @@ public class EditCommand {
 	}
 	
 	
+	/**
+	 * edit the task with the given field
+	 * @param contentStrArr is the content of array content the field
+	 */
 	private void editTaskWithField(String[] contentStrArr) {
 		if(contentStrArr[2].equals(NAME)){
 			ediTaskName(contentStrArr);
@@ -201,12 +239,13 @@ public class EditCommand {
 			editTaskRepeat(contentStrArr);
 		}
 		else{
-			editTaskInvalidFormat(contentStrArr);			
+			editTaskInvalidFormat();			
 		}
 	}
 	
 	
 	/**
+<<<<<<< Updated upstream
 	 * @param contentStrArr
 	 */
 	private void editTaskRepeat(String[] contentStrArr) {
@@ -227,12 +266,20 @@ public class EditCommand {
 	}
 
 
-	private void editTaskInvalidFormat(String[] contentStrArr) {
+	/*
+	 * set the invalid msg into output
+	 *
+	 */
+	private void editTaskInvalidFormat() {
 		output = String.format(MSG_EDIT_INVALID_FORMAT);	
 		logger.log(Level.INFO, output);
 	}
 	
 	
+	/**
+	 * edit task's due date
+	 * @param contentStrArr is the content of array contain desire due date
+	 */
 	private void editTaskDueDate(String[] contentStrArr) {
 		if(tasks.size() < Integer.parseInt(contentStrArr[1])){
 			output = String.format(MSG_TASK_NOTEXIST, contentStrArr[1]);
@@ -247,6 +294,10 @@ public class EditCommand {
 	}
 	
 	
+	/**
+	 * edit the task name
+	 * @param contentStrArr is the content of array content desire task name
+	 */
 	private void ediTaskName(String[] contentStrArr) {
 		if(tasks.size() < Integer.parseInt(contentStrArr[1])){
 			output = String.format(MSG_TASK_NOTEXIST, contentStrArr[1]);

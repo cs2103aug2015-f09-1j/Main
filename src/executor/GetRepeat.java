@@ -8,15 +8,12 @@ import main.jarvas.Logic.RequiredField;
 
 
 /**
- * @author Li
+ * this class provide the repeat functionality for Jarvas
  *
  */
 public class GetRepeat {
 
-	/**
-	 * @param contentStr2
-	 * @return
-	 */
+
 	public enum RepeatingFrequency {
 		NOTREPEATING,DAILY,WEEKLY,MONTHLY,YEARLY,WRONG
 	};
