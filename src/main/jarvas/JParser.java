@@ -7,11 +7,8 @@ import java.util.Map;
 
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
-/**
- * 
- */
 
-
+//@@author
 public class JParser {
 	public static final String COMMAND_ADD = "add";
 	public static final String COMMAND_ADD_SHORT = "a";
@@ -40,6 +37,7 @@ public class JParser {
 		ADD, EDIT, DELETE, SORT, SEARCH, INVALID, EXIT, CLEAR, HELP, DISPLAY , FROM , TO , SAVE, MARK, UNDO, REDO, 
 	};
 	
+	//@@author Jaime
 	private static final Logger logger = Logger.getLogger(Logic.class.getName());
 	static Parser parser = new Parser();
 	public static CommandType determineCommandType(String commandTypeString) {
@@ -92,6 +90,7 @@ public class JParser {
 		}
 	}
 	
+	//@@author
 	public static Date dateConverter(String inputDate){
 		List<DateGroup> groups = parser.parse(inputDate);
 		Date convertedDate = null;
@@ -110,6 +109,7 @@ public class JParser {
 		return convertedDate;
 	}
 	
+	//@@author
 	public static boolean dateChecker(String startDate, String endDate){
 		if(dateConverter(startDate).before(dateConverter(endDate))){
 			return true;

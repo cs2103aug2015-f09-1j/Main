@@ -19,9 +19,11 @@ import main.jarvas.TaskToDo;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 /**
- * @author A0145381H
+ *
  * 
  */
+
+//@@author
 public class Jarvas extends Application{
 	
 	
@@ -61,6 +63,8 @@ public class Jarvas extends Application{
 	/* (non-Javadoc)
 	 * @see javafx.application.Application#start(javafx.stage.Stage)
 	 */
+	
+	//@@author
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
@@ -140,6 +144,7 @@ public class Jarvas extends Application{
         primaryStage.show();
 	}
 	
+	//@@author
 	static class ColorTaskCell extends ListCell<String> {
         @Override
         public void updateItem(String item, boolean empty) {
@@ -197,7 +202,7 @@ public class Jarvas extends Application{
         }
     }
 	
-
+	//@@author 
     class inputHandler implements EventHandler<ActionEvent>{
         public void handle(ActionEvent ae){
         	Logic logic = new Logic();
@@ -300,7 +305,7 @@ public class Jarvas extends Application{
         }
     }
 	
-	
+    //@@author Jaime
 	public static void main(String[] args) {
         launch(args);
     }

@@ -10,18 +10,19 @@ import org.junit.Test;
 import main.jarvas.Logic;
 
 
-//jarvas test skeleton
+//@@author
 public class JarvasTest {
 
 	GUI.Jarvas jarvas = new GUI.Jarvas();
 	Logic logic = new Logic();
 
-	
+	//@@author
 	@Test
 	public void testDetermineCommandType(){
 		//Need to add test case		
 	}
 	
+	//@@author
 	@Test
 	public void testExecute() throws IOException{
 		//equivalence partitioning for invalid value partition(without command)
@@ -35,6 +36,8 @@ public class JarvasTest {
 		assertEquals("\"task 1\" successfully deleted", logic.execute("d task 1"));
 
 	}
+	
+	//@@author
 	@Test
 	public void testAddEvent(){
 		// equivalence partitioning with valid date format dd/mm/yyyy HH/MM
@@ -43,25 +46,30 @@ public class JarvasTest {
 		assertEquals("invalid format of date", logic.execute("ola -from 12/12/1991 12 -to 12/12/1991 12:13"));
 	}
 
-	
+	//@@author
 	@Test
 	public void testClear() throws IOException{
 		//assertEquals("tasks is clear", logic.clearTask());
 	}
 	
+	//@@author
 	@Test
 	public void testSort() throws IOException{
 		
 	}
 	
+	//@@author
 	@Test
 	public void testSearch() throws IOException{
-
 	}
+	
+	//@@author
 	@Before
 	public void beforeRunTest(){
 	//	logic.clearTask();
 	}
+	
+	//@@author
 	@After
 	public void afterRunTest(){
 	//	logic.clearTask();

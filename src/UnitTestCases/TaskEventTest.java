@@ -18,9 +18,10 @@ import main.jarvas.TaskToDo;
  */
 
 /**
- * @author Li
+ * 
  *
  */
+//@@author
 public class TaskEventTest {
 	TaskEvent event = null;
 	@Before
