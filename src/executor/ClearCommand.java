@@ -9,7 +9,7 @@ import main.jarvas.TaskEvent;
 import main.jarvas.TaskToDo;
 
 /**
- * @author A0145381H
+ * this class perform clear functionality for Jarvas
  *
  */
 public class ClearCommand {
@@ -17,6 +17,14 @@ public class ClearCommand {
 	
 	private String output;
 	
+	
+	/**
+	 * this method clear the content of vectors
+	 * @param tasks
+	 * 			is the vector of tasks
+	 * @param events
+	 * 			is the vector of events
+	 */
 	public ClearCommand(Vector<TaskToDo> tasks, Vector<TaskEvent> events){
 		tasks.clear();
 		events.clear();

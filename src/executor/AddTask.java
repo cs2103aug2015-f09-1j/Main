@@ -15,7 +15,7 @@ import executor.GetRepeat.RepeatingFrequency;
 
 
 /**
- * @author A0145381H
+ * this class perform add task functionality for jarvas
  *
  */
 public class AddTask {
@@ -92,8 +92,10 @@ public class AddTask {
 	
 
 	/**
-	 * @param repeat
+	 * this method convert the repeat frequency into string
+	 * @param repeat enum RepeatingFrequency
 	 * @return
+	 * 		frequency in String
 	 */
 	private String getRepeatString(RepeatingFrequency repeat) {
 		// TODO Auto-generated method stub
