@@ -21,8 +21,8 @@ public class Logic {
 	private static final String MSG_SAVE_SUCCESS = "File \"%1$s\" successfully saved";
 	private static final String MSG_SAVE_FAILURE = "File \"%1$s\" is not saved";
 	private static final String MSG_HELP =
-			  "Add Task 	: add <name> -due  <date> -repeat <daily/weekly/monthly/yearly> -Until <date>\n"
-			+ " Add Event	: add <name> -from <date> -to <date>\n"
+			  "Add Task  : add <name> -due  <date> -repeat <daily/weekly/monthly/yearly> -Until <date>\n"
+			+ " Add Event: add <name> -from <date> -to <date>\n"
 			+ " Delete   : delete task/event <index>\n"
 			+ " Edit     : edit task/event <index> name/due/from/to/repeat <attribute>\n"
 			+ " Save     : save <filename>\n"
