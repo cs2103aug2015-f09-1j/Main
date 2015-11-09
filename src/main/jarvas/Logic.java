@@ -76,28 +76,19 @@ public class Logic {
 		Boolean status = true;
 		switch(commandType){
 			case ADD: 
-				AddCommand adding = new AddCommand(contentStr, indexTask, indexEvent, tasks, events);
-				indexTask = adding.getIndexTask();
-				indexEvent = adding.getIndexEvent();
-				output = adding.getOutput();
+				output = executeAdd();
 				break;
 			case DELETE:
-				DeleteCommand deleting = new DeleteCommand(contentStr, tasks, events);
-				output = deleting.getOutput();
+				output = executeDelete();
 				break;
 			case EDIT:
-				EditCommand editing = new EditCommand(tasks, events, contentStr);
-				output = editing.getOutput();
+				output = executeEdit();
 				break;
 			case DISPLAY: 
 				displayTask();
 				break;
 			case SEARCH:
-				IsCommandSearch = true;
-				SearchCommand searching = new SearchCommand(tasks, events, contentStr);
-				output = searching.getOutput();
-				tasksForSearch = searching.getTaskResult();
-				eventsForSearch = searching.getEventResult();
+				output = executeSearch();
 				break;
 			case HELP:
 				output = displayHelp();
@@ -105,27 +96,19 @@ public class Logic {
 			case EXIT:
 				System.exit(0);
 			case CLEAR:
-				ClearCommand clearing = new ClearCommand(tasks, events);
-				output = clearing.getOutput();
+				output = executeClear();
 				break;
 			case MARK:
-				MarkCommand marking = new MarkCommand(tasks, events, indexTask, indexEvent, contentStr);
-				indexTask = marking.getIndexTask();
-				indexEvent = marking.getIndexEvent();
-				output = marking.getOutput();
+				output = executeMark();
 				break;
 			case SAVE:
 				output = saveFile(contentStr);
 				break;
 			case UNDO:
-				UndoCommand undoing = new UndoCommand(storage);
-				output =undoing.getOutput();
-				getOriginalTasks();
+				output = executeUndo();
 				break;
 			case REDO:
-				RedoCommand redoing = new RedoCommand(storage);
-				output =redoing.getOutput();
-				getOriginalTasks();
+				output = executeRedo();
 				break;
 			default:
 				status = false;
@@ -134,6 +117,71 @@ public class Logic {
 		}
 		sortCommand sort = new sortCommand(tasks,events);
 		storage.processTasks(tasks,events,status);
+		return output;
+	}
+
+	private String executeRedo() {
+		String output;
+		RedoCommand redoing = new RedoCommand(storage);
+		output =redoing.getOutput();
+		getOriginalTasks();
+		return output;
+	}
+
+	private String executeUndo() {
+		String output;
+		UndoCommand undoing = new UndoCommand(storage);
+		output =undoing.getOutput();
+		getOriginalTasks();
+		return output;
+	}
+
+	private String executeMark() {
+		String output;
+		MarkCommand marking = new MarkCommand(tasks, events, indexTask, indexEvent, contentStr);
+		indexTask = marking.getIndexTask();
+		indexEvent = marking.getIndexEvent();
+		output = marking.getOutput();
+		return output;
+	}
+
+	private String executeEdit() {
+		String output;
+		EditCommand editing = new EditCommand(tasks, events, contentStr);
+		output = editing.getOutput();
+		return output;
+	}
+
+	private String executeClear() {
+		String output;
+		ClearCommand clearing = new ClearCommand(tasks, events);
+		output = clearing.getOutput();
+		return output;
+	}
+
+	private String executeSearch() {
+		String output;
+		IsCommandSearch = true;
+		SearchCommand searching = new SearchCommand(tasks, events, contentStr);
+		output = searching.getOutput();
+		tasksForSearch = searching.getTaskResult();
+		eventsForSearch = searching.getEventResult();
+		return output;
+	}
+
+	private String executeDelete() {
+		String output;
+		DeleteCommand deleting = new DeleteCommand(contentStr, tasks, events);
+		output = deleting.getOutput();
+		return output;
+	}
+
+	private String executeAdd() {
+		String output;
+		AddCommand adding = new AddCommand(contentStr, indexTask, indexEvent, tasks, events);
+		indexTask = adding.getIndexTask();
+		indexEvent = adding.getIndexEvent();
+		output = adding.getOutput();
 		return output;
 	}
 	
