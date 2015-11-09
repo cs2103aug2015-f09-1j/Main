@@ -18,7 +18,7 @@ import sun.util.logging.resources.logging;
  * this Storage class Unit testing included logicTest.txt
  *
  */
-//@@author A0126259B	
+//@@author A0134109N	
 public class StorageTestTxt {
 	Logic logic = null;
 	Storage storage = null;
@@ -26,36 +26,41 @@ public class StorageTestTxt {
 	 * @throws java.lang.Exception
 	 */
 	@Before
-	public void setUp() throws Exception {
+	public void storageTester() throws Exception {
 		logic = new Logic();
-		logic.saveFile("logicTest.txt");
-		logic.execute("add go martket -due 12/12/2015 00:11 -repeat daily");
-		logic.execute("add go buy milk -due 12/13/2015 00:11 -repeat weekly");
+		logic.saveFile("storage.txt");
+		logic.execute("add attend lecture -due tomorrow -repeat weekly");
+		logic.execute("add attend tutorial -due day after tomorrow");
+		logic.execute("add attend lab -from today 2pm -to today 4pm");
 		storage = Storage.getInstance();
-		
 	}
-
+	
 	/**
 	 * @throws java.lang.Exception
 	 */
+	@Test
+	public void checkFileName(){
+		assertEquals(2,storage.newTask.size());
+		assertEquals(1,storage.newEvent.size());
+		assertEquals(Storage.filename, "storage.txt");
+	}
+	@Test
+	public void storageLocation(){
+		assertEquals(true, storage.saveToLocation("storage.txt"));
+		
+	}
+	
+	//@@author A0126259B	
+	@Test
+	public void testSingleton(){
+		assertEquals(storage, Storage.getInstance());
+	}
+	
 	@After
 	public void tearDown() throws Exception {
 		logic.execute("clear");
 	}
 
-	@Test
-	public void testFileName(){
-		assertEquals(0,storage.newEvent.size());
-		assertEquals(Storage.filename, "logicTest.txt");
-	}
-	@Test
-	public void testSaveToLocation(){
-		assertEquals(true, storage.saveToLocation("logicTest.txt"));
-		
-	}
-	@Test
-	public void testSingleton(){
-		assertEquals(storage, Storage.getInstance());
-	}
-
+	
+	
 }
