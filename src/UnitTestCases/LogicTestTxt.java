@@ -22,17 +22,19 @@ import main.jarvas.Logic;
 public class LogicTestTxt {
 	Logic logic = null;
 	private static final String MSG_HELP =
-			  "Add Task  : add <name> -due  <date> -repeat <daily/weekly/monthly/yearly> -Until <date>\n"
-			+ " Add Event: add <name> -from <date> -to <date>\n"
-			+ " Delete   : delete task/event <index>\n"
-			+ " Edit     : edit task/event <index> name/due/from/to/repeat <attribute>\n"
-			+ " Save     : save <filename>\n"
-			+ " Clear    : clear\n"
-			+ " Mark     : mark task/event <index> <done/undone>\n"
-			+ " Search   : search <content>\n"
-			+ " Undo     : undo\n"
-			+ " Redo     : redo\n"
-			+ " Exit     : exit";
+			  "Add Task	: add/a <name> -due/d  <date>\n"
+			+ "                  -repeat/r <daily/weekly/monthly/yearly> -until/u <date>\n"
+			+ " Add Event	: add/a <name> -from/f <date> -to/t <date>\n"
+			+ "                  -repeat/r <daily/weekly/monthly/yearly> -until/u <date>\n"
+			+ " Delete		: delete/d task/event <index>\n"
+			+ " Edit		: edit/e task/event <index> name/due/from/to/repeat <attribute>\n"
+			+ " Save		: save <filename>\n"
+			+ " Clear		: clear\n"
+			+ " Mark		: mark/m task/event <index> <done/undone>\n"
+			+ " Search		: search/s <content>\n"
+			+ " Undo		: undo\n"
+			+ " Redo		: redo\n"
+			+ " Exit		: exit";
 			
 	
 	/**
