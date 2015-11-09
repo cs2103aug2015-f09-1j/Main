@@ -8,6 +8,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import main.jarvas.JParser;
 import main.jarvas.Logic;
 import main.jarvas.TaskEvent;
 import main.jarvas.TaskToDo;
@@ -141,6 +142,13 @@ public class EditCommand {
 			output = String.format(MSG_EDIT_SUCCESS, contentStrArr[0] + " " + contentStrArr[1]);
 			logger.log(Level.INFO, output);
 		}
+		String eventName = events.get(Integer.parseInt(contentStrArr[1])-1).getName();
+		if(JParser.getRepeatString(GetRepeat.convertStrtoFrequency(contentStrArr[3]))== ""){
+			events.get(Integer.parseInt(contentStrArr[1])-1).setName(eventName.replaceAll(" \\S*$", ""));
+		}
+		else{
+			events.get(Integer.parseInt(contentStrArr[1])-1).setName(eventName + " " + JParser.getRepeatString(GetRepeat.convertStrtoFrequency(contentStrArr[3])));
+		}
 		
 	}
 
@@ -262,7 +270,13 @@ public class EditCommand {
 			output = String.format(MSG_EDIT_SUCCESS, contentStrArr[0] + " " + contentStrArr[1]);
 			logger.log(Level.INFO, output);
 		}
-		
+		String taskName = tasks.get(Integer.parseInt(contentStrArr[1])-1).getName();
+		if(JParser.getRepeatString(GetRepeat.convertStrtoFrequency(contentStrArr[3]))== ""){
+			tasks.get(Integer.parseInt(contentStrArr[1])-1).setName(taskName.replaceAll(" \\S*$", ""));
+		}
+		else{
+			tasks.get(Integer.parseInt(contentStrArr[1])-1).setName(taskName + " " + JParser.getRepeatString(GetRepeat.convertStrtoFrequency(contentStrArr[3])));
+		}
 	}
 
 
