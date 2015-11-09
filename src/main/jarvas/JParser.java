@@ -8,6 +8,8 @@ import java.util.Map;
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
+import executor.GetRepeat.RepeatingFrequency;
+
 //@@author
 public class JParser {
 	public static final String COMMAND_ADD = "add";
@@ -94,13 +96,7 @@ public class JParser {
 	public static Date dateConverter(String inputDate){
 		List<DateGroup> groups = parser.parse(inputDate);
 		Date convertedDate = null;
-	    convertedDate = convertDate(groups, convertedDate);
-		return convertedDate;
-	}
-	
-	//@@author Jaime	
-	private static Date convertDate(List<DateGroup> groups, Date convertedDate) {
-		for(DateGroup group:groups)  {
+	    for(DateGroup group:groups)  {
 		    Date dates = group.getDates().get(0);    
 		    int line = group.getLine();
 		    int column = group.getPosition();
@@ -110,13 +106,14 @@ public class JParser {
 		    boolean isRecurreing = group.isRecurring();
 		    Date recursUntil = group.getRecursUntil();
 		    convertedDate = dates;
+		    
 	       }
 		return convertedDate;
 	}
 	
 	//@@author
 	public static boolean dateChecker(String startDate, String endDate){
-		if(isStartBeforeEnd(startDate, endDate)){
+		if(dateConverter(startDate).before(dateConverter(endDate)) || dateConverter(startDate).equals(dateConverter(endDate))){
 			return true;
 		}
 		else{
@@ -124,8 +121,27 @@ public class JParser {
 		}
 	}
 	
-	//@@author Jaime
-	private static boolean isStartBeforeEnd(String startDate, String endDate) {
-		return dateConverter(startDate).before(dateConverter(endDate)) || dateConverter(startDate).equals(dateConverter(endDate));
+	public static String getRepeatString(RepeatingFrequency repeat) {
+		// TODO Auto-generated method stub
+		String temp=null;
+		switch (repeat) {
+		case DAILY:
+			temp = "(DAILY)";
+			break;
+		case MONTHLY:
+			temp = "(MONTHLY)";
+			break;
+		case YEARLY:
+			temp = "(YEARLY)";
+			break;
+		case WEEKLY:
+			temp = "(WEEKLY)";
+			break;
+		default:
+			temp="";
+			break;
+		}
+		return temp;
 	}
+	
 }
