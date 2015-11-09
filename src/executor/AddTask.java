@@ -98,7 +98,7 @@ public class AddTask {
 	 * @return
 	 * 		frequency in String
 	 */
-	//@@author A0126259B	
+	//@@author A0126159A	
 	private String getRepeatString(RepeatingFrequency repeat) {
 		String temp=null;
 		switch (repeat) {

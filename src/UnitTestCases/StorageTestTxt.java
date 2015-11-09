@@ -38,12 +38,15 @@ public class StorageTestTxt {
 	/**
 	 * @throws java.lang.Exception
 	 */
+	//@@author A0126159A
 	@Test
 	public void checkFileName(){
 		assertEquals(2,storage.newTask.size());
 		assertEquals(1,storage.newEvent.size());
 		assertEquals(Storage.filename, "storage.txt");
 	}
+	
+	//@@author A0126159A
 	@Test
 	public void storageLocation(){
 		assertEquals(true, storage.saveToLocation("storage.txt"));

@@ -10,7 +10,7 @@ import org.junit.Test;
 import main.jarvas.Logic;
 
 
-//@@author A0126259B	
+//@@author A0126159A
 public class JarvasTest {
 
 	GUI.Jarvas jarvas = new GUI.Jarvas();

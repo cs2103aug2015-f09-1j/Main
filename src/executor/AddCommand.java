@@ -57,6 +57,7 @@ public class AddCommand {
 	 * @return
 	 * 		true if it is a event command
 	 */
+	//@@author A0126159A
 	private boolean checkTodo(String contentStr){
 		
 		String tempTodo = contentStr.replace(GetSplittedString.getTask(contentStr), "");

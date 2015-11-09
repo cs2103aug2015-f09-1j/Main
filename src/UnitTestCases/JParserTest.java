@@ -33,6 +33,7 @@ public class JParserTest {
 	public void tearDown() throws Exception {
 	}
 
+	//@@author A0126159A
 	//white box approach, equivalent partition, function coverage
 	@Test
 	public void testDetermineCommand(){
@@ -41,8 +42,9 @@ public class JParserTest {
 		assertEquals(CommandType.EDIT, JParser.determineCommandType("edit"));
 	}
 	
+	//@@author A0126159A
 	@Test
-	public void testDeterminCommand_shortForm(){
+	public void testDetermineCommand_shortForm(){
 		assertEquals(CommandType.ADD, JParser.determineCommandType("a"));
 	}
 	

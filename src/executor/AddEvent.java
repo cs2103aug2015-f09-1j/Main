@@ -16,6 +16,7 @@ public class AddEvent {
 	private String output;
 	
 	//constructor that call collect TaskEvent method 
+	//@@author A0126159A
 	public AddEvent(String contentStr2, int index, Vector<TaskEvent> events) {
 		indexEvent = index;
 		String startDate = getStartDate(contentStr2);
@@ -89,7 +90,7 @@ public class AddEvent {
 	}
 	
 	
-	//@@author A0126259B	
+	//@@author A0126159A	
 	private String getRepeatString(RepeatingFrequency repeat) {
 		String temp=null;
 		switch (repeat) {
@@ -111,6 +112,4 @@ public class AddEvent {
 		}
 		return temp;
 	}
-	
-	
 }

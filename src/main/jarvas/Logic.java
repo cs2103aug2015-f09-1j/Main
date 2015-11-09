@@ -160,7 +160,7 @@ public class Logic {
 		return output;
 	}
 
-	//@@author A0126259B
+	//@@author A0126159A
 	private String executeClear() {
 		String output;
 		ClearCommand clearing = new ClearCommand(tasks, events);

@@ -20,6 +20,7 @@ import main.jarvas.Logic.RequiredField;
  * 			is the part of String that is required in term of RequiredField
  * @return	desire part of string
  */
+//@@author A0126159A
 public class GetSplittedString {
 	private static final String MESSAGE_INPUT_WRONG_FORMAT = "Input is wrong format.";
 	
@@ -103,6 +104,7 @@ public class GetSplittedString {
 	 * 			is the desire String
 	 * @return	the String after remove str
 	 */
+	//@@author A0126159A
 	private static String getContent(String[] arr, String str){
 		int i=0;
 		for(String s: arr){
@@ -126,6 +128,7 @@ public class GetSplittedString {
 	 * 			User's input
 	 * @return task name
 	 */
+	//@@author A0126159A
 	public static String getTask(String str){
 		if(str.contains("-")){
 			String taskName = str.trim().substring(0, str.indexOf('-') - 1);	
