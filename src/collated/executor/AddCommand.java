@@ -34,7 +34,7 @@ public class AddCommand {
 			output = addingTask.getOutput();
 		}
 	}
-	
+	//@@author A0126259B
 	//getter methods
 	public String getOutput(){
 		return output;
