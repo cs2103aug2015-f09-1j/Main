@@ -1,6 +1,5 @@
-/**
- * 
- */
+
+//@@author A0145381H
 package executor;
 
 import main.jarvas.TaskEvent;
@@ -10,7 +9,6 @@ import main.jarvas.Logic.RequiredField;
 import executor.GetRepeat.RepeatingFrequency;
 
 
-//@@author A0145381H
 public class AddEvent {
 	private static final String MSG_ADDEVENT_SUCCESS = "event \"%1$s\" successfully added";
 	private static final String MSG_ADDEVENT_FAIL = "Event date error";

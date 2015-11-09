@@ -128,7 +128,6 @@ public class JParser {
 			checkBefore = dateConverter(startDate).before(dateConverter(endDate));
 			checkEquals = dateConverter(startDate).equals(dateConverter(endDate));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}

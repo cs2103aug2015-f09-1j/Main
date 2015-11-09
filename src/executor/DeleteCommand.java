@@ -1,6 +1,5 @@
-/**
- * 
- */
+
+//@@author A0145381H
 package executor;
 
 import java.util.Vector;
@@ -11,7 +10,6 @@ import main.jarvas.Logic;
 import main.jarvas.TaskEvent;
 import main.jarvas.TaskToDo;
 
-//@@author A0145381H
 public class DeleteCommand {
 	private static final String MSG_DELETE_SUCCESS = "\"%1$s\" successfully deleted";
 	private static final String MSG_DELETE_FAIL = "\"%1$s\" failed to delete(out of bound)";

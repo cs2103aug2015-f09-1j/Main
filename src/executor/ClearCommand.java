@@ -1,6 +1,5 @@
-/**
- * 
- */
+
+//@@author A0145381H
 package executor;
 
 import java.util.Vector;
@@ -12,7 +11,6 @@ import main.jarvas.TaskToDo;
  * this class perform clear functionality for Jarvas
  *
  */
-//@@author A0145381H
 public class ClearCommand {
 	private static final String MSG_TASK_CLEAR = "Events and Tasks are cleared";
 	

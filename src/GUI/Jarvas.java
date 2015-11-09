@@ -1,4 +1,5 @@
 
+//@@author A0145381H
 package GUI;
 import java.util.*;
 import java.util.logging.Logger;
@@ -24,7 +25,6 @@ import javafx.scene.layout.*;
  * 
  */
 
-//@@author A0145381H
 public class Jarvas extends Application{
 	
 	
@@ -75,7 +75,7 @@ public class Jarvas extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
-
+		System.out.println(JParser.dateConverter("TODAY"));
 		Logic logic = new Logic();
         Vector<TaskToDo> tasks = logic.returnNewTasks();
         alltasks = FXCollections.observableArrayList();
@@ -136,7 +136,8 @@ public class Jarvas extends Application{
             		else{
                     	alltasks.add(DONE + (i+1) + TASK_NAME + tasks.get(i).getName() + _DONE);
             		}
-                	alltasks.add(DONE + TASK_DUE + tasks.get(i).getStartDate().toString().replace(CST, EMPTY));
+                	String task = DONE + TASK_DUE + tasks.get(i).getStartDate().toString().replace(CST, EMPTY);
+            		alltasks.add(task.substring(0, task.length() - 8) + task.substring(task.length() - 5));
             	}
         	}
         	else{
@@ -145,12 +146,15 @@ public class Jarvas extends Application{
             		alltasks.add(UNDONE + TASK_DUE + tasks.get(i).getStartDate());
             	}
             	else if(JParser.dateChecker(tasks.get(i).getStartDate().toString(), TODAY)){
+            		System.out.println(i);
                 	alltasks.add(OVERDUE + UNDONE + (i+1) + TASK_NAME + tasks.get(i).getName() + _OVERDUE);
-                	alltasks.add(OVERDUE + UNDONE + TASK_DUE + tasks.get(i).getStartDate().toString().replace(CST, EMPTY));
+                	String task = OVERDUE + UNDONE + TASK_DUE + tasks.get(i).getStartDate().toString().replace(CST, EMPTY);
+            		alltasks.add(task.substring(0, task.length() - 8) + task.substring(task.length() - 5));
             	}
             	else{
                 	alltasks.add(UNDONE + (i+1) + TASK_NAME + tasks.get(i).getName());
-                	alltasks.add(UNDONE + TASK_DUE + tasks.get(i).getStartDate().toString().replace(CST, EMPTY));
+                	String task = UNDONE + TASK_DUE + tasks.get(i).getStartDate().toString().replace(CST, EMPTY);
+            		alltasks.add(task.substring(0, task.length() - 8) + task.substring(task.length() - 5));
             	}
         	}
         }
@@ -158,6 +162,7 @@ public class Jarvas extends Application{
 
     //@@author A0145381H
 	private void addEvents(Vector<TaskEvent> events) {
+		String event;
 		for(int i=0; events != null && i<events.size();i++) {
         	if(events.get(i).getDone()){
         		if(JParser.dateChecker(events.get(i).getEndDate().toString(), TODAY)){
@@ -166,18 +171,24 @@ public class Jarvas extends Application{
         		else{
         			alltasks.add(DONE + (i+1) + EVENT_NAME + events.get(i).getName() + _DONE);
         		}
-        		alltasks.add(DONE + EVENT_START + events.get(i).getStartDate().toString().replace(CST, EMPTY));
-            	alltasks.add(DONE + EVENT_END + events.get(i).getEndDate().toString().replace(CST, EMPTY));
+            	event = DONE + EVENT_START + events.get(i).getStartDate().toString().replace(CST, EMPTY);
+        		alltasks.add(event.substring(0, event.length() - 8) + event.substring(event.length() - 5));
+        		event = DONE + EVENT_END + events.get(i).getEndDate().toString().replace(CST, EMPTY);
+        		alltasks.add(event.substring(0, event.length() - 8) + event.substring(event.length() - 5));
         	}
         	else if(JParser.dateChecker(events.get(i).getEndDate().toString(), TODAY)){
             	alltasks.add(OVERDUE + UNDONE + (i+1) + EVENT_NAME + events.get(i).getName() + _OVERDUE);
-            	alltasks.add(OVERDUE + UNDONE + EVENT_START + events.get(i).getStartDate().toString().replace(CST, EMPTY));
-            	alltasks.add(OVERDUE + UNDONE + EVENT_END + events.get(i).getEndDate().toString().replace(CST, EMPTY));
+            	event = OVERDUE + UNDONE + EVENT_START + events.get(i).getStartDate().toString().replace(CST, EMPTY);
+        		alltasks.add(event.substring(0, event.length() - 8) + event.substring(event.length() - 5));
+        		event = OVERDUE + UNDONE + EVENT_END + events.get(i).getEndDate().toString().replace(CST, EMPTY);
+        		alltasks.add(event.substring(0, event.length() - 8) + event.substring(event.length() - 5));
         	}
         	else{
             	alltasks.add(UNDONE + (i+1) + EVENT_NAME + events.get(i).getName());
-            	alltasks.add(UNDONE + EVENT_START + events.get(i).getStartDate().toString().replace(CST, EMPTY));
-            	alltasks.add(UNDONE + EVENT_END + events.get(i).getEndDate().toString().replace(CST, EMPTY));
+            	event = UNDONE + EVENT_START + events.get(i).getStartDate().toString().replace(CST, EMPTY);
+        		alltasks.add(event.substring(0, event.length() - 8) + event.substring(event.length() - 5));
+            	event = UNDONE + EVENT_END + events.get(i).getEndDate().toString().replace(CST, EMPTY);
+        		alltasks.add(event.substring(0, event.length() - 8) + event.substring(event.length() - 5));
         	}
         }
 	}
@@ -296,6 +307,7 @@ public class Jarvas extends Application{
 
         //@@author A0145381H
 		private void addEventsForSearch(Vector<TaskEvent> eventsForSearch) {
+			String event;
 			for(int i=0; eventsForSearch != null && i<eventsForSearch.size();i++) {
 				if(eventsForSearch.get(i).getDone()){
 					if(JParser.dateChecker(eventsForSearch.get(i).getEndDate().toString(), TODAY)){
@@ -304,18 +316,24 @@ public class Jarvas extends Application{
 					else{
 				    	alltasks.add(S_DONE + (i+1) + EVENT_NAME + eventsForSearch.get(i).getName() + _DONE);
 					}
-			    	alltasks.add(S_DONE + EVENT_START + eventsForSearch.get(i).getStartDate().toString().replace(CST, EMPTY));
-			    	alltasks.add(S_DONE + EVENT_END + eventsForSearch.get(i).getEndDate().toString().replace(CST, EMPTY));
+			    	event = S_DONE + EVENT_START + eventsForSearch.get(i).getStartDate().toString().replace(CST, EMPTY);
+	        		alltasks.add(event.substring(0, event.length() - 8) + event.substring(event.length() - 5));
+			    	event = S_DONE + EVENT_END + eventsForSearch.get(i).getEndDate().toString().replace(CST, EMPTY);
+	        		alltasks.add(event.substring(0, event.length() - 8) + event.substring(event.length() - 5));
 				}
 				else if(JParser.dateChecker(eventsForSearch.get(i).getEndDate().toString(), TODAY)){
 			    	alltasks.add(OVERDUE + S_UNDONE + (i+1) + EVENT_NAME + eventsForSearch.get(i).getName() + _OVERDUE);
-			    	alltasks.add(OVERDUE + S_UNDONE + EVENT_START + eventsForSearch.get(i).getStartDate().toString().replace(CST, EMPTY));
-			    	alltasks.add(OVERDUE + S_UNDONE + EVENT_END + eventsForSearch.get(i).getEndDate().toString().replace(CST, EMPTY));
+			    	event = OVERDUE + S_UNDONE + EVENT_START + eventsForSearch.get(i).getStartDate().toString().replace(CST, EMPTY);
+	        		alltasks.add(event.substring(0, event.length() - 8) + event.substring(event.length() - 5));
+			    	event = OVERDUE + S_UNDONE + EVENT_END + eventsForSearch.get(i).getEndDate().toString().replace(CST, EMPTY);
+	        		alltasks.add(event.substring(0, event.length() - 8) + event.substring(event.length() - 5));
 				}
 				else{
 			    	alltasks.add(S_UNDONE + (i+1) + EVENT_NAME + eventsForSearch.get(i).getName());
-			    	alltasks.add(S_UNDONE + EVENT_START + eventsForSearch.get(i).getStartDate().toString().replace(CST, EMPTY));
-			    	alltasks.add(S_UNDONE + EVENT_END + eventsForSearch.get(i).getEndDate().toString().replace(CST, EMPTY));
+			    	event = S_UNDONE + EVENT_START + eventsForSearch.get(i).getStartDate().toString().replace(CST, EMPTY);
+	        		alltasks.add(event.substring(0, event.length() - 8) + event.substring(event.length() - 5));
+			    	event = S_UNDONE + EVENT_END + eventsForSearch.get(i).getEndDate().toString().replace(CST, EMPTY);
+	        		alltasks.add(event.substring(0, event.length() - 8) + event.substring(event.length() - 5));
 				}
 			}
 		}
@@ -344,11 +362,13 @@ public class Jarvas extends Application{
 			    	}
 	            	else if(JParser.dateChecker(tasksForSearch.get(i).getStartDate().toString(), TODAY)){
 	                	alltasks.add(OVERDUE + S_UNDONE + (i+1) + TASK_NAME + tasksForSearch.get(i).getName() + _OVERDUE);
-	                	alltasks.add(OVERDUE + S_UNDONE + TASK_DUE + tasksForSearch.get(i).getStartDate().toString().replace(CST, EMPTY));
+	                	String task = OVERDUE + S_UNDONE + TASK_DUE + tasksForSearch.get(i).getStartDate().toString().replace(CST, EMPTY);
+	            		alltasks.add(task.substring(0, task.length() - 8) + task.substring(task.length() - 5));
 	            	}
 			    	else{
 				    	alltasks.add(S_UNDONE + (i+1) + TASK_NAME + tasksForSearch.get(i).getName());
-			        	alltasks.add(S_UNDONE + TASK_DUE + tasksForSearch.get(i).getStartDate().toString().replace(CST, EMPTY));
+			        	String task = S_UNDONE + TASK_DUE + tasksForSearch.get(i).getStartDate().toString().replace(CST, EMPTY);
+	            		alltasks.add(task.substring(0, task.length() - 8) + task.substring(task.length() - 5));
 			    	}
 				}
 			}

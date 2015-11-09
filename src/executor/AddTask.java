@@ -1,6 +1,5 @@
-/**
- * 
- */
+
+//@@author A0145381H
 package executor;
 
 import java.util.Vector;
@@ -18,7 +17,6 @@ import executor.GetRepeat.RepeatingFrequency;
  * this class perform add task functionality for jarvas
  *
  */
-//@@author A0145381H
 public class AddTask {
 
 	private static final String MESSAGE_INPUT_WRONG_FORMAT = "Input is wrong format.";
