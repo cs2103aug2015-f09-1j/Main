@@ -50,6 +50,8 @@ public class Jarvas extends Application{
 	private static final String JARVAS = "Jarvas";
 	private static final String EMPTY = "";
 	private static final String SPACE = " ";
+	private static final String CST = "CST ";
+	private static final String _DONE = "(DONE)";
 
 	private ObservableList<String> alltasks;
 	private ListView<String> allTasks;
@@ -73,40 +75,10 @@ public class Jarvas extends Application{
         Vector<TaskToDo> tasks = logic.returnNewTasks();
         alltasks = FXCollections.observableArrayList();
         alltasks.add(TASKS);
-        for(int i=0; i<tasks.size();i++) {
-        	if(tasks.get(i).getDone()){
-            	alltasks.add(DONE + (i+1) + TASK_NAME + tasks.get(i).getName());
-            	if(tasks.get(i).getStartDate() == null){
-            		alltasks.add(DONE + TASK_DUE + tasks.get(i).getStartDate());
-            	}
-            	else{
-                	alltasks.add(DONE + TASK_DUE + tasks.get(i).getStartDate().toString().replace("CST ", ""));
-            	}
-        	}
-        	else{
-            	alltasks.add(UNDONE + (i+1) + TASK_NAME + tasks.get(i).getName());
-            	if(tasks.get(i).getStartDate() == null){
-            		alltasks.add(UNDONE + TASK_DUE + tasks.get(i).getStartDate());
-            	}
-            	else{
-                	alltasks.add(UNDONE + TASK_DUE + tasks.get(i).getStartDate().toString().replace("CST ", ""));
-            	}
-        	}
-        }
+        addTasks(tasks);
         Vector<TaskEvent> events = logic.returnNewEvents();
         alltasks.add(EVENTS);
-        for(int i=0; events != null && i<events.size();i++) {
-        	if(events.get(i).getDone()){
-            	alltasks.add(DONE + (i+1) + EVENT_NAME + events.get(i).getName());
-            	alltasks.add(DONE + EVENT_START + events.get(i).getStartDate().toString().replace("CST ", ""));
-            	alltasks.add(DONE + EVENT_END + events.get(i).getEndDate().toString().replace("CST ", ""));
-        	}
-        	else{
-            	alltasks.add(UNDONE + (i+1) + EVENT_NAME + events.get(i).getName());
-            	alltasks.add(UNDONE + EVENT_START + events.get(i).getStartDate().toString().replace("CST ", ""));
-            	alltasks.add(UNDONE + EVENT_END + events.get(i).getEndDate().toString().replace("CST ", ""));
-        	}
-        }
+        addEvents(events);
     	alltasks.add(UNDONE);
         allTasks = new ListView<>(alltasks);
         log = new Text();
@@ -142,6 +114,44 @@ public class Jarvas extends Application{
         primaryStage.setTitle(JARVAS);
         primaryStage.setScene(scene);
         primaryStage.show();
+	}
+
+	private void addTasks(Vector<TaskToDo> tasks) {
+		for(int i=0; i<tasks.size();i++) {
+        	if(tasks.get(i).getDone()){
+            	alltasks.add(DONE + (i+1) + TASK_NAME + tasks.get(i).getName() + _DONE);
+            	if(tasks.get(i).getStartDate() == null){
+            		alltasks.add(DONE + TASK_DUE + tasks.get(i).getStartDate());
+            	}
+            	else{
+                	alltasks.add(DONE + TASK_DUE + tasks.get(i).getStartDate().toString().replace(CST, EMPTY));
+            	}
+        	}
+        	else{
+            	alltasks.add(UNDONE + (i+1) + TASK_NAME + tasks.get(i).getName());
+            	if(tasks.get(i).getStartDate() == null){
+            		alltasks.add(UNDONE + TASK_DUE + tasks.get(i).getStartDate());
+            	}
+            	else{
+                	alltasks.add(UNDONE + TASK_DUE + tasks.get(i).getStartDate().toString().replace(CST, EMPTY));
+            	}
+        	}
+        }
+	}
+
+	private void addEvents(Vector<TaskEvent> events) {
+		for(int i=0; events != null && i<events.size();i++) {
+        	if(events.get(i).getDone()){
+            	alltasks.add(DONE + (i+1) + EVENT_NAME + events.get(i).getName() + _DONE);
+            	alltasks.add(DONE + EVENT_START + events.get(i).getStartDate().toString().replace(CST, EMPTY));
+            	alltasks.add(DONE + EVENT_END + events.get(i).getEndDate().toString().replace(CST, EMPTY));
+        	}
+        	else{
+            	alltasks.add(UNDONE + (i+1) + EVENT_NAME + events.get(i).getName());
+            	alltasks.add(UNDONE + EVENT_START + events.get(i).getStartDate().toString().replace(CST, EMPTY));
+            	alltasks.add(UNDONE + EVENT_END + events.get(i).getEndDate().toString().replace(CST, EMPTY));
+        	}
+        }
 	}
 	
 	//@@author
@@ -220,76 +230,16 @@ public class Jarvas extends Application{
             	alltasks.add(SEARCH_RESULT);
 
                 alltasks.add(TASK_FOR_SEARCH);
-                for(int i=0; i<tasksForSearch.size();i++) {
-                	if(tasksForSearch.get(i).getDone()){
-                    	alltasks.add(S_DONE + (i+1) + TASK_NAME + tasksForSearch.get(i).getName());
-                    	if(tasks.get(i).getStartDate() == null){
-                    		alltasks.add(DONE + TASK_DUE + tasks.get(i).getStartDate());
-                    	}
-                    	else{
-                        	alltasks.add(DONE + TASK_DUE + tasks.get(i).getStartDate().toString().replace("CST ", ""));
-                    	}
-                	}
-                	else{
-                    	alltasks.add(S_UNDONE + (i+1) + TASK_NAME + tasksForSearch.get(i).getName());
-                    	if(tasks.get(i).getStartDate() == null){
-                    		alltasks.add(UNDONE + TASK_DUE + tasks.get(i).getStartDate());
-                    	}
-                    	else{
-                        	alltasks.add(UNDONE + TASK_DUE + tasks.get(i).getStartDate().toString().replace("CST ", ""));
-                    	}
-                	}
-                }
+                addTasksForSearch(tasksForSearch);
                 alltasks.add(EVENT_FOR_SEARCH);
-                for(int i=0; eventsForSearch != null && i<eventsForSearch.size();i++) {
-                	if(eventsForSearch.get(i).getDone()){
-                    	alltasks.add(S_DONE + (i+1) + EVENT_NAME + eventsForSearch.get(i).getName());
-                    	alltasks.add(S_DONE + EVENT_START + eventsForSearch.get(i).getStartDate().toString().replace("CST ", ""));
-                    	alltasks.add(S_DONE + EVENT_END + eventsForSearch.get(i).getEndDate().toString().replace("CST ", ""));
-                	}
-                	else{
-                    	alltasks.add(S_UNDONE + (i+1) + EVENT_NAME + eventsForSearch.get(i).getName());
-                    	alltasks.add(S_UNDONE + EVENT_START + eventsForSearch.get(i).getStartDate().toString().replace("CST ", ""));
-                    	alltasks.add(S_UNDONE + EVENT_END + eventsForSearch.get(i).getEndDate().toString().replace("CST ", ""));
-                	}
-                }
+                addEventsForSearch(eventsForSearch);
             	alltasks.add(DONE);
             	
             }
             alltasks.add(TASKS);
-            for(int i=0; i<tasks.size();i++) {
-            	if(tasks.get(i).getDone()){
-                	alltasks.add(DONE + (i+1) + TASK_NAME + tasks.get(i).getName());
-                	if(tasks.get(i).getStartDate() == null){
-                		alltasks.add(DONE + TASK_DUE + tasks.get(i).getStartDate());
-                	}
-                	else{
-                    	alltasks.add(DONE + TASK_DUE + tasks.get(i).getStartDate().toString().replace("CST ", ""));
-                	}
-            	}
-            	else{
-                	alltasks.add(UNDONE + (i+1) + TASK_NAME + tasks.get(i).getName());
-                	if(tasks.get(i).getStartDate() == null){
-                		alltasks.add(UNDONE + TASK_DUE + tasks.get(i).getStartDate());
-                	}
-                	else{
-                    	alltasks.add(UNDONE + TASK_DUE + tasks.get(i).getStartDate().toString().replace("CST ", ""));
-                	}
-            	}
-            }
+            addTasks(tasks);
             alltasks.add(EVENTS);
-            for(int i=0; events != null && i<events.size();i++) {
-            	if(events.get(i).getDone()){
-                	alltasks.add(DONE + (i+1) + EVENT_NAME + events.get(i).getName());
-                	alltasks.add(DONE + EVENT_START + events.get(i).getStartDate().toString().replace("CST ", ""));
-                	alltasks.add(DONE + EVENT_END + events.get(i).getEndDate().toString().replace("CST ", ""));
-            	}
-            	else{
-                	alltasks.add(UNDONE + (i+1) + EVENT_NAME + events.get(i).getName());
-                	alltasks.add(UNDONE + EVENT_START + events.get(i).getStartDate().toString().replace("CST ", ""));
-                	alltasks.add(UNDONE + EVENT_END + events.get(i).getEndDate().toString().replace("CST ", ""));
-            	}
-            }
+            addEvents(events);
         	alltasks.add(UNDONE);
             input.setText(EMPTY);
             allTasks = new ListView<>(alltasks);
@@ -303,6 +253,44 @@ public class Jarvas extends Application{
     	                }
     	            });
         }
+
+		private void addEventsForSearch(Vector<TaskEvent> eventsForSearch) {
+			for(int i=0; eventsForSearch != null && i<eventsForSearch.size();i++) {
+				if(eventsForSearch.get(i).getDone()){
+			    	alltasks.add(S_DONE + (i+1) + EVENT_NAME + eventsForSearch.get(i).getName() + _DONE);
+			    	alltasks.add(S_DONE + EVENT_START + eventsForSearch.get(i).getStartDate().toString().replace(CST, EMPTY));
+			    	alltasks.add(S_DONE + EVENT_END + eventsForSearch.get(i).getEndDate().toString().replace(CST, EMPTY));
+				}
+				else{
+			    	alltasks.add(S_UNDONE + (i+1) + EVENT_NAME + eventsForSearch.get(i).getName());
+			    	alltasks.add(S_UNDONE + EVENT_START + eventsForSearch.get(i).getStartDate().toString().replace(CST, EMPTY));
+			    	alltasks.add(S_UNDONE + EVENT_END + eventsForSearch.get(i).getEndDate().toString().replace(CST, EMPTY));
+				}
+			}
+		}
+
+		private void addTasksForSearch(Vector<TaskToDo> tasksForSearch) {
+			for(int i=0; i<tasksForSearch.size();i++) {
+				if(tasksForSearch.get(i).getDone()){
+			    	alltasks.add(S_DONE + (i+1) + TASK_NAME + tasksForSearch.get(i).getName() + _DONE);
+			    	if(tasksForSearch.get(i).getStartDate() == null){
+			    		alltasks.add(S_DONE + TASK_DUE + tasksForSearch.get(i).getStartDate());
+			    	}
+			    	else{
+			        	alltasks.add(S_DONE + TASK_DUE + tasksForSearch.get(i).getStartDate().toString().replace(CST, EMPTY));
+			    	}
+				}
+				else{
+			    	alltasks.add(S_UNDONE + (i+1) + TASK_NAME + tasksForSearch.get(i).getName());
+			    	if(tasksForSearch.get(i).getStartDate() == null){
+			    		alltasks.add(S_UNDONE + TASK_DUE + tasksForSearch.get(i).getStartDate());
+			    	}
+			    	else{
+			        	alltasks.add(S_UNDONE + TASK_DUE + tasksForSearch.get(i).getStartDate().toString().replace(CST, EMPTY));
+			    	}
+				}
+			}
+		}
     }
 	
     //@@author Jaime
