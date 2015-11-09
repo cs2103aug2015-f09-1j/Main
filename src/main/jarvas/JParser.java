@@ -94,7 +94,13 @@ public class JParser {
 	public static Date dateConverter(String inputDate){
 		List<DateGroup> groups = parser.parse(inputDate);
 		Date convertedDate = null;
-	    for(DateGroup group:groups)  {
+	    convertedDate = convertDate(groups, convertedDate);
+		return convertedDate;
+	}
+	
+	//@@author Jaime	
+	private static Date convertDate(List<DateGroup> groups, Date convertedDate) {
+		for(DateGroup group:groups)  {
 		    Date dates = group.getDates().get(0);    
 		    int line = group.getLine();
 		    int column = group.getPosition();
@@ -104,14 +110,13 @@ public class JParser {
 		    boolean isRecurreing = group.isRecurring();
 		    Date recursUntil = group.getRecursUntil();
 		    convertedDate = dates;
-		    
 	       }
 		return convertedDate;
 	}
 	
 	//@@author
 	public static boolean dateChecker(String startDate, String endDate){
-		if(dateConverter(startDate).before(dateConverter(endDate)) || dateConverter(startDate).equals(dateConverter(endDate))){
+		if(isStartBeforeEnd(startDate, endDate)){
 			return true;
 		}
 		else{
@@ -119,4 +124,8 @@ public class JParser {
 		}
 	}
 	
+	//@@author Jaime
+	private static boolean isStartBeforeEnd(String startDate, String endDate) {
+		return dateConverter(startDate).before(dateConverter(endDate)) || dateConverter(startDate).equals(dateConverter(endDate));
+	}
 }
