@@ -29,6 +29,7 @@ public class TaskEvent implements Task, Comparable<TaskEvent>{
 		dateOfEvent.setUntilDate(null);
 		frequency=RepeatingFrequency.NOTREPEATING;
 	}
+	//@@author A0134109N
 	public TaskEvent(String eventName , String startDate , String endDate,
 			int index, boolean status){
 			dateOfEvent = new DateOfEvent();
@@ -40,7 +41,7 @@ public class TaskEvent implements Task, Comparable<TaskEvent>{
 			frequency=RepeatingFrequency.NOTREPEATING;
 			dateOfEvent.setUntilDate(null);
 	}
-	
+	//@@author A0134109N
 	public TaskEvent(String eventName , String startDate , String endDate, int index, boolean status, String frequency){
 		dateOfEvent = new DateOfEvent();
 		this.index = index;
@@ -51,8 +52,8 @@ public class TaskEvent implements Task, Comparable<TaskEvent>{
 		this.frequency=GetRepeat.convertStrtoFrequency(frequency);
 		dateOfEvent.setUntilDate(null);
 	}
-	
-public TaskEvent(String eventName , String startDate , String endDate, int index, boolean status, RepeatingFrequency frequency){
+	//@@author A0134109N
+	public TaskEvent(String eventName , String startDate , String endDate, int index, boolean status, RepeatingFrequency frequency){
 		dateOfEvent = new DateOfEvent();
 		this.index = index;
 		this.eventName= eventName;
@@ -63,6 +64,7 @@ public TaskEvent(String eventName , String startDate , String endDate, int index
 		dateOfEvent.setUntilDate(null);
 
 	}
+	//@@author A0134109N
 	public TaskEvent(String eventName , String startDate , String endDate, int index, boolean status, RepeatingFrequency frequency,String untilDate){
 		dateOfEvent = new DateOfEvent();
 		this.index = index;
@@ -74,6 +76,7 @@ public TaskEvent(String eventName , String startDate , String endDate, int index
 		dateOfEvent.setUntilDate(JParser.dateConverter(untilDate));
 
 	}
+	//@@author A0134109N
 	public TaskEvent(String eventName , String startDate , String endDate, int index, boolean status, String frequency,String untilDate){
 		dateOfEvent = new DateOfEvent();
 		this.index = index;
@@ -106,7 +109,7 @@ public TaskEvent(String eventName , String startDate , String endDate, int index
 		}
 		return temp;
 	}
-
+	//@@author A0134109N
 	public RepeatingFrequency getFrequency() {
 		return frequency;
 	}
@@ -184,7 +187,7 @@ public TaskEvent(String eventName , String startDate , String endDate, int index
 	
 	
 	
-	
+	//@@author A0134109N
 	public void setNextStartDate(){
 		try {
 			dateOfEvent.setStartDate(sdf.parse(getNextDate(getStartDate())));
@@ -192,7 +195,7 @@ public TaskEvent(String eventName , String startDate , String endDate, int index
 			e.printStackTrace();
 		}
 	}
-	
+	//@@author A0134109N
 	public void setNextEndDate(){
 		try {
 			dateOfEvent.setStartDate(sdf.parse(getNextDate(getEndDate())));
@@ -272,6 +275,7 @@ public TaskEvent(String eventName , String startDate , String endDate, int index
 		String temp = eventName + WORD_FROM + sdf.format(getStartDate()) + WORD_TO + sdf.format(getEndDate()); 
 		return temp;
 	}
+	//@@author A0134109N
 	@Override
 	public int compareTo(TaskEvent o) {
 		return getStartDate().compareTo(o.getStartDate());	

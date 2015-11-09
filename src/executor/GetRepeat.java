@@ -19,7 +19,6 @@ public class GetRepeat {
 	};
 	
 	public static RepeatingFrequency getRepeat(String contentStr2) {
-		// TODO Auto-generated method stub
 		GetSplittedString gsString = new GetSplittedString(contentStr2, RequiredField.REPEAT);
 		String temp = gsString.getReturnStr().trim();
 		if(gsString.getOutput() == null){

@@ -121,7 +121,7 @@ public class Logic {
 		storage.processTasks(tasks,events,status);
 		return output;
 	}
-
+	//@@author A0134109N
 	private String executeRedo() {
 		String output;
 		RedoCommand redoing = new RedoCommand(storage);
@@ -130,6 +130,7 @@ public class Logic {
 		return output;
 	}
 
+	//@@author A0134109N
 	private String executeUndo() {
 		String output;
 		UndoCommand undoing = new UndoCommand(storage);
@@ -205,7 +206,7 @@ public class Logic {
 		return eventsForSearch;
 	}
 	
-	//@@author
+	//@@author A0134109N
 	public String saveFile(String contentStr2){
 		if(storage.saveToLocation(contentStr2)){
 			return String.format(MSG_SAVE_SUCCESS, contentStr2);
@@ -244,7 +245,7 @@ public class Logic {
 	/** 
 	 * This function initialize the vector for tasks
 	 */
-	//@@author
+	//@@author A0134109N
 	public void getOriginalTasks() {
 		Vector<TaskToDo> returnTask = storage.convertToTask();
 		indexTask = returnTask.size();

@@ -19,7 +19,7 @@ import executor.sortCommand;
 import executor.GetRepeat.RepeatingFrequency;
 
 //import src.Controller;
-//@@author
+//@@author A0134109N
 public class Storage{
 	public static final String NEW_FILE_NAME = "mytextfile.txt";
 	public static final String ERROR_NEW_FILE = "ERROR! In creating new file";
@@ -47,7 +47,7 @@ public class Storage{
 		this(filename);
 	}
 	
-	//@@author
+	//@@author A0134109N
 	Storage(String inputFileName){
 		filename = inputFileName;
 		tempTaskUndo = new Stack<JSONArray>();
@@ -81,7 +81,7 @@ public class Storage{
 		}
 	}
 	
-	//@@author
+	//@@author A0134109N
 	public static Storage getInstance(){
 		if(instance == null){
 			instance = new Storage();
@@ -89,13 +89,13 @@ public class Storage{
 		return instance;
 	}
 	
-	//@@author
+	//@@author A0134109N
 	public void doStuff(){
 		fileRead();
 		seperateJSONArray();
 	}
 	
-	//@@author
+	//@@author A0134109N
 	public boolean saveToLocation(String newFileName){
 		filename = newFileName;
 		File newTemp = new File(filename);
@@ -112,7 +112,7 @@ public class Storage{
 		return true;
 	}
 	
-	//@@author
+	//@@author A0134109N
 	private void seperateJSONArray() {
 		// TODO Auto-generated method stub
 
@@ -120,7 +120,7 @@ public class Storage{
 		newEvent = (JSONArray)totalTask.get("Events");
 	}
 
-	//@@author
+	//@@author A0134109N
 	private void saveToStorage(){
 		try{
 				
@@ -138,7 +138,7 @@ public class Storage{
 	/**
 	 * This function read the content of file 
 	 */
-	//@@author
+	//@@author A0134109N
 	private void fileRead(){
 		logger.log(Level.INFO, filename + " is being read");
 		JSONParser jarvasParser = new JSONParser();
@@ -157,7 +157,7 @@ public class Storage{
 	 * This function convert content of JSONArray into vector
 	 * @return converted content in vector
 	 */
-	//@@author
+	//@@author A0134109N
 	public Vector<TaskToDo> convertToTask(){
 		Vector<TaskToDo> vecTask = new Vector<TaskToDo>();
 		for(int i=0; newTask != null && i<newTask.size(); i++){
@@ -174,7 +174,7 @@ public class Storage{
 		return vecTask;
 	}
 	
-	//@@author
+	//@@author A0134109N
 	public Vector<TaskEvent> convertToEvent() {
 		Vector<TaskEvent> vecEvent = new Vector<TaskEvent>();
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -204,12 +204,12 @@ public class Storage{
 	 * @param object
 	 * 			is JSONObject that going to be added
 	 */
-	//@@author
+	//@@author A0134109N
 	public void convertToJSONArray(JSONObject newObject, JSONArray newArray){
 		newArray.add(newObject);
 	}
 	
-	//@@author
+	//@@author A0134109N
 	private void combineJSONArray(){
 		Map<String, JSONArray> mapTask = new HashMap<String, JSONArray>();
 		mapTask.put("Tasks", newTask);
@@ -222,7 +222,7 @@ public class Storage{
 	 * @param tasks
 	 * 			is the task to be converted
 	 */
-	//@@author
+	//@@author A0134109N
 	private void convertTaskToJSONObject(Vector<TaskToDo> tasks){
 		newTask = new JSONArray();
 		for(int i=0; i<tasks.size(); i++){
@@ -244,7 +244,7 @@ public class Storage{
 	 * @param events
 	 * 			is the event to be converted
 	 */
-	//@@author
+	//@@author A0134109N
 	private void convertEventToJSONObject(Vector<TaskEvent> events){
 		newEvent = new JSONArray();
 		for(int i=0; i<events.size(); i++){
@@ -269,7 +269,7 @@ public class Storage{
 	 * @param tasks 
 	 * 
 	 */
-	//@@author
+	//@@author A0134109N
 	public void processTasks(Vector<TaskToDo> tasks, Vector<TaskEvent> events, boolean status) {
 		if(status == true)
 			pushToHistory();
@@ -279,7 +279,7 @@ public class Storage{
 		
 	}
 	
-	//@@author
+	//@@author A0134109N
 	public String undoStorage(){
 		try{
 			if(checker() == false){
@@ -296,7 +296,7 @@ public class Storage{
 		return "Nothing to undo";
 	}
 	
-	//@@author
+	//@@author A0134109N
 	public String redoStorage(){
 		try{
 			if(checker() == false){
@@ -314,7 +314,7 @@ public class Storage{
 			
 	}
 	
-	//@@author
+	//@@author A0134109N
 	private boolean checker(){
 		try{
 			if(tempTaskUndo.peek().equals(newTask) && tempEventUndo.peek().equals(newEvent))
@@ -326,7 +326,7 @@ public class Storage{
 		}
 	}
 	
-	//@@author
+	//@@author A0134109N
 	private void pushToHistory(){
 		if(undoStatus==false){
 			tempTaskUndo.push(newTask);	

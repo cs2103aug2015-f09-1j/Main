@@ -309,7 +309,7 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 		
 	}
 	
-	//@@author
+	//@@author A0134109N
 	@Override
 	public int compareTo(TaskToDo o) {
 		if(getStartDate() == null){

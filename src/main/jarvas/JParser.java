@@ -92,7 +92,7 @@ public class JParser {
 		}
 	}
 	
-	//@@author
+	//@@author A0134109N
 	public static Date dateConverter(String inputDate){
 		List<DateGroup> groups = parser.parse(inputDate);
 		Date convertedDate = null;
@@ -111,7 +111,7 @@ public class JParser {
 		return convertedDate;
 	}
 	
-	//@@author
+	//@@author A0134109N
 	public static boolean dateChecker(String startDate, String endDate){
 		if(dateConverter(startDate).before(dateConverter(endDate)) || dateConverter(startDate).equals(dateConverter(endDate))){
 			return true;
@@ -120,7 +120,7 @@ public class JParser {
 			return false;
 		}
 	}
-	
+	//@@author A0134109N
 	public static String getRepeatString(RepeatingFrequency repeat) {
 		// TODO Auto-generated method stub
 		String temp=null;

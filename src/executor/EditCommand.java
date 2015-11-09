@@ -40,6 +40,7 @@ public class EditCommand {
 	String output;
 	String contentStr;
 	
+	//@@author A0134109N
 	public EditCommand(Vector<TaskToDo> task, Vector<TaskEvent> event, String contentStr){
 		tasks = task;
 		events = event;
@@ -131,6 +132,7 @@ public class EditCommand {
 	/**
 	 * @param contentStrArr
 	 */
+	//@@author A0134109N
 	private void editEventRepeat(String[] contentStrArr) {
 		String input = textFormer(contentStrArr,0);
 		if(input.contains("until")){
@@ -172,6 +174,7 @@ public class EditCommand {
 	 * edit the event's end date 
 	 * @param contentStrArr	is the array that contain desire date
 	 */
+	//@@author A0134109N
 	private void editEventEndDate(String[] contentStrArr) {
 		if(events.size() < Integer.parseInt(contentStrArr[1])){
 			output = String.format(MSG_EVENT_NOTEXIST, contentStrArr[1]);
@@ -190,6 +193,7 @@ public class EditCommand {
 	 * edit the event's start date
 	 * @param contentStrArr is the array that contain desire date
 	 */
+	//@@author A0134109N
 	private void editEventStartDate(String[] contentStrArr) {
 		if(events.size() < Integer.parseInt(contentStrArr[1])){
 			output = String.format(MSG_EVENT_NOTEXIST, contentStrArr[1]);
@@ -208,6 +212,7 @@ public class EditCommand {
 	 * edit the name of event
 	 * @param contentStrArr is the array that contain desire name
 	 */
+	//@@author A0134109N
 	private void editEventName(String[] contentStrArr) {
 		if(events.size() < Integer.parseInt(contentStrArr[1])){
 			output = String.format(MSG_EVENT_NOTEXIST, contentStrArr[1]);
@@ -261,6 +266,7 @@ public class EditCommand {
 	/**
 	 * @param contentStrArr
 	 */
+	//@@author A0134109N
 	private void editTaskRepeat(String[] contentStrArr) {
 		String input = textFormer(contentStrArr,0);
 		if(input.contains("until")){
@@ -300,6 +306,7 @@ public class EditCommand {
 	 * edit task's due date
 	 * @param contentStrArr is the content of array contain desire due date
 	 */
+	//@@author A0134109N
 	private void editTaskDueDate(String[] contentStrArr) {
 		if(tasks.size() < Integer.parseInt(contentStrArr[1])){
 			output = String.format(MSG_TASK_NOTEXIST, contentStrArr[1]);
@@ -318,6 +325,7 @@ public class EditCommand {
 	 * edit the task name
 	 * @param contentStrArr is the content of array content desire task name
 	 */
+	//@@author A0134109N
 	private void ediTaskName(String[] contentStrArr) {
 		if(tasks.size() < Integer.parseInt(contentStrArr[1])){
 			output = String.format(MSG_TASK_NOTEXIST, contentStrArr[1]);
@@ -330,7 +338,7 @@ public class EditCommand {
 			logger.log(Level.INFO, output);
 		}
 	}
-	
+	//@@author A0134109N
 	private String textFormer(String[] input, int start){
 		String output = "";
 		for(int i=start; i<input.length; i++){

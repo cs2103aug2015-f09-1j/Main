@@ -16,7 +16,7 @@ public class sortCommand{
 	
 	Vector<TaskToDo> tasks;
 	Vector<TaskEvent> events;
-
+	//@@author A0134109N
 	public sortCommand(Vector<TaskToDo> tasks, Vector<TaskEvent> events){
 		this.tasks = tasks;
 		this.events = events;
@@ -27,16 +27,17 @@ public class sortCommand{
 	/**
 	 * this method sort all the content inside vector tasks and events
 	 */
+	//@@author A0134109N
 	private void sortAll() {
 		Collections.sort(tasks);
 		Collections.sort(events);
 	}
 
-	
+	//@@author A0134109N
 	public Vector<TaskToDo> returnTasks(){
 		return tasks;
 	}
-	
+	//@@author A0134109N
 	public Vector<TaskEvent> returnEvents(){
 		return events;
 	}
