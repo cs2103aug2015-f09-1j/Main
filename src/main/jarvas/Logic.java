@@ -68,7 +68,7 @@ public class Logic {
 	 * @return message to be printed
 	 */
 
-	//@@author A0126259B
+	//@@author A0126159A
 	public String execute(String input){
 	
 		assert(input!=null):"input in excute function is null";
