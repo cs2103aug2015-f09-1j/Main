@@ -18,6 +18,7 @@ import executor.GetRepeat.RepeatingFrequency;
  * this class perform add task functionality for jarvas
  *
  */
+//@@author A0145381H
 public class AddTask {
 
 	private static final String MESSAGE_INPUT_WRONG_FORMAT = "Input is wrong format.";
@@ -98,7 +99,6 @@ public class AddTask {
 	 * 		frequency in String
 	 */
 	private String getRepeatString(RepeatingFrequency repeat) {
-		// TODO Auto-generated method stub
 		String temp=null;
 		switch (repeat) {
 		case DAILY:

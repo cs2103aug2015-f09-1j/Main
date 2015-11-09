@@ -12,6 +12,7 @@ import main.jarvas.TaskToDo;
  * this class provide search functionality to Jarvas
  *
  */
+//@@author A0145381H
 public class SearchCommand {
 
 	private static final String MSG_SEARCH_SUCCESS = "KeyWords \"%1$s\" found";

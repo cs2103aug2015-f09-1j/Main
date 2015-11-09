@@ -59,6 +59,7 @@ public class EditCommand {
 	 * @throws ParseException 
 	 * @throws NumberFormatException 
 	 */
+	//@@author A0145381H
 	private void edit() {
 		String[] contentStrArr = contentStr.split(SPLITSTRING);
 		if(contentStrArr == null || contentStrArr.length < 1){
@@ -74,6 +75,7 @@ public class EditCommand {
 	 * edit the task or event with given content
 	 * @param contentStrArr is the content that splitted into array
 	 */
+	//@@author A0145381H
 	private void editWithContent(String[] contentStrArr) {
 		if(contentStrArr[0].equals(TASK)){
 			editTask(contentStrArr);
@@ -91,6 +93,7 @@ public class EditCommand {
 	 * edit event with give content
 	 * @param contentStrArr is the content that splitted into array
 	 */
+	//@@author A0145381H
 	private void editEvent(String[] contentStrArr) {
 		if(contentStrArr.length < 4){
 			editWithInvalidFormat();	
@@ -105,6 +108,7 @@ public class EditCommand {
 	 * edit the event from the given array
 	 * @param contentStrArr is the content that splitted int array
 	 */
+	//@@author A0145381H
 	private void addEventWithField(String[] contentStrArr) {
 		if(contentStrArr[2].equals(NAME)){
 			editEventName(contentStrArr);
@@ -125,7 +129,6 @@ public class EditCommand {
 	
 	
 	/**
-<<<<<<< Updated upstream
 	 * @param contentStrArr
 	 */
 	private void editEventRepeat(String[] contentStrArr) {
@@ -157,6 +160,7 @@ public class EditCommand {
 	 * save the invalid msg into output 
 	 * @param contentStr3
 	 */
+	//@@author A0145381H
 	private void editWithInvalidFormat() {
 
 		output = String.format(MSG_EDIT_INVALID_FORMAT);
@@ -222,6 +226,7 @@ public class EditCommand {
 	 * edit the task
 	 * @param contentStrArr is the content of user command
 	 */
+	//@@author A0145381H
 	private void editTask(String[] contentStrArr) {
 		if(contentStrArr.length < 4){
 			editWithInvalidFormat();	
@@ -236,6 +241,7 @@ public class EditCommand {
 	 * edit the task with the given field
 	 * @param contentStrArr is the content of array content the field
 	 */
+	//@@author A0145381H
 	private void editTaskWithField(String[] contentStrArr) {
 		if(contentStrArr[2].equals(NAME)){
 			ediTaskName(contentStrArr);
@@ -253,7 +259,6 @@ public class EditCommand {
 	
 	
 	/**
-<<<<<<< Updated upstream
 	 * @param contentStrArr
 	 */
 	private void editTaskRepeat(String[] contentStrArr) {
@@ -284,6 +289,7 @@ public class EditCommand {
 	 * set the invalid msg into output
 	 *
 	 */
+	//@@author A0145381H
 	private void editTaskInvalidFormat() {
 		output = String.format(MSG_EDIT_INVALID_FORMAT);	
 		logger.log(Level.INFO, output);

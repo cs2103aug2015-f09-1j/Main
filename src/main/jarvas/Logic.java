@@ -185,17 +185,20 @@ public class Logic {
 		return output;
 	}
 	
-	//@@author
+
+	//@@author A0145381H
 	public boolean getIsCommandSearch(){
 		return IsCommandSearch;
 	}
 	
-	//@@author
+
+	//@@author A0145381H
 	public Vector<TaskToDo> getTasksForSearch(){
 		return tasksForSearch;
 	}
 	
-	//@@author
+
+	//@@author A0145381H
 	public Vector<TaskEvent> getEventsForSearch(){
 		return eventsForSearch;
 	}

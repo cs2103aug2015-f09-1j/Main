@@ -16,18 +16,16 @@ import executor.DeleteCommand;
 import executor.MarkCommand;
 import main.jarvas.Logic;
 
-/**
- * 
- *
- */
+
+//@@author A0145381H
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class LogicTestTxt {
 	Logic logic = null;
 	private static final String MSG_HELP =
-			  "Add Task : add <name> -due  <date> -repeat <daily/weekly/monthly/yearly> -Until <date>\n"
+			  "Add Task  : add <name> -due  <date> -repeat <daily/weekly/monthly/yearly> -Until <date>\n"
 			+ " Add Event: add <name> -from <date> -to <date>\n"
 			+ " Delete   : delete task/event <index>\n"
-			+ " Edit     : edit task/event <index> name/due/from/to <attribute>\n"
+			+ " Edit     : edit task/event <index> name/due/from/to/repeat <attribute>\n"
 			+ " Save     : save <filename>\n"
 			+ " Clear    : clear\n"
 			+ " Mark     : mark task/event <index> <done/undone>\n"
@@ -61,9 +59,9 @@ public class LogicTestTxt {
 				logic.execute("add go to park"));
 		assertEquals("task \"do homework\" successfully added", 
 				logic.execute("a do homework"));
-		assertEquals("task \"go to the tutorial for SE \" successfully added", 
+		assertEquals("task \"go to the tutorial for SE\" successfully added", 
 				logic.execute("add go to the tutorial for SE -due tommorrow"));
-		assertEquals("task \"fix the bug in Jarvas \" successfully added", 
+		assertEquals("task \"fix the bug in Jarvas\" successfully added", 
 				logic.execute("a fix the bug in Jarvas -d 12/12/2015 00:11"));
 		assertEquals("task \"finish the lab for OS(WEEKLY)\" successfully added", 
 				logic.execute("add finish the lab for OS -due Monday 10am - repeat weekly"));
@@ -80,7 +78,7 @@ public class LogicTestTxt {
 	
 	@Test
 	public void testExecute_edit(){
-		assertEquals("\"12/13/2015\" successfully edited", logic.execute("edit task 1 due 12/13/2015 00:11" ));
+		assertEquals("\"task 1\" successfully edited", logic.execute("edit task 1 due 12/13/2015 00:11" ));
 	}
 	@Test
 	public void testExecute_help(){

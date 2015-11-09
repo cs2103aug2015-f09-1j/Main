@@ -9,10 +9,8 @@ import main.jarvas.JParser;
 import main.jarvas.Logic.RequiredField;
 import executor.GetRepeat.RepeatingFrequency;
 
-/**
- * @author A0145381H
- *
- */
+
+//@@author A0145381H
 public class AddEvent {
 	private static final String MSG_ADDEVENT_SUCCESS = "event \"%1$s\" successfully added";
 	private static final String MSG_ADDEVENT_FAIL = "Event date error";
@@ -92,7 +90,6 @@ public class AddEvent {
 	
 	
 	private String getRepeatString(RepeatingFrequency repeat) {
-		// TODO Auto-generated method stub
 		String temp=null;
 		switch (repeat) {
 		case DAILY:

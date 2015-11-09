@@ -32,7 +32,8 @@ public class MarkCommand {
 	int indexTask;
 	int indexEvent;
 	String output;
-	
+
+	//@@author A0145381H
 	public MarkCommand(Vector<TaskToDo> task, Vector<TaskEvent> event, int taskIndex, int eventIndex, String contentStr2){
 		tasks = task;
 		events = event;
@@ -43,20 +44,24 @@ public class MarkCommand {
 		doneTask();
 	}
 	
-	
+
+	//@@author A0145381H
 	public String getOutput(){
 		return output;
 	}
-	
+
+	//@@author A0145381H
 	public int getIndexTask(){
 		return indexTask;
 	}
 	
-	
+
+	//@@author A0145381H
 	public int getIndexEvent(){
 		return indexEvent;
 	}
 
+	//@@author A0145381H
 	private void doneTask(){
 		String[] contentStr3 = contentString.split(SPLITSTRING);
 		if(contentStr3 == null){
@@ -71,6 +76,7 @@ public class MarkCommand {
 	/**
 	 * this method store the "invalid" msg into output
 	 */
+	//@@author A0145381H
 	private void markWithWrongNumber() {
 		output = String.format(MSG_DONE_WRONG_FORMAT);
 	}
@@ -80,6 +86,7 @@ public class MarkCommand {
 	 * this method mark the task and event
 	 * @param contentStrArr is the string array content the command	
 	 */
+	//@@author A0145381H
 	private void markWithValidFormat(String[] contentStrArr) {
 		TaskToDo temp = null;
 		TaskEvent tempEvent = null;
@@ -108,6 +115,7 @@ public class MarkCommand {
 	/**
 	 * this method save the output as Wrong Format
 	 */
+	//@@author A0145381H
 	private void markWithWrongFormat() {
 		output = String.format(MSG_DONE_FAIL, contentString);
 	}
@@ -118,6 +126,7 @@ public class MarkCommand {
 	 * @param contentStr3	is the string array content the command
 	 * @param temp	the event that will be marked
 	 */
+	//@@author A0145381H
 	private void markEvent(String[] contentStrArr, TaskEvent temp) {
 		if(Integer.parseInt(contentStrArr[1]) > events.size() || Integer.parseInt(contentStrArr[1]) < 1){
 			markOutOfBound();
@@ -132,6 +141,7 @@ public class MarkCommand {
 	/**
 	 * this method save the output as out of bound
 	 */
+	//@@author A0145381H
 	private void markOutOfBound() {
 		output = String.format(MSG_DONE_OUT_OF_BOUND);
 	}
@@ -142,6 +152,7 @@ public class MarkCommand {
 	 * @param contentStr3 is the string array contain command
 	 * @param temp the task to be marked
 	 */
+	//@@author A0145381H
 	private void markTask(String[] contentStrArr, TaskToDo temp) {
 		if(Integer.parseInt(contentStrArr[1]) > tasks.size() || Integer.parseInt(contentStrArr[1]) < 1){
 			markOutOfBound();
