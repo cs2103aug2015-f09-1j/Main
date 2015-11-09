@@ -39,7 +39,7 @@ public class JParser {
 		ADD, EDIT, DELETE, SORT, SEARCH, INVALID, EXIT, CLEAR, HELP, DISPLAY , FROM , TO , SAVE, MARK, UNDO, REDO, 
 	};
 	
-	//@@author Jaime
+	//@@author A0126159A
 	private static final Logger logger = Logger.getLogger(Logic.class.getName());
 	static Parser parser = new Parser();
 	public static CommandType determineCommandType(String commandTypeString) {

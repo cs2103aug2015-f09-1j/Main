@@ -15,7 +15,7 @@ import executor.UndoCommand;
 import executor.sortCommand;
 
 
-//@@author JQ
+//@@author A0126159A
 public class Logic {
 	private static final String MSG_INVALID_INPUT = "invalid input";
 	private static final String MSG_SAVE_SUCCESS = "File \"%1$s\" successfully saved";
@@ -39,7 +39,7 @@ public class Logic {
 		TASKDUEDATE,TASKLOCATION,EVENT_STARTDATE,EVENT_ENDDATE,REPEAT,UNTIL
 	};
 	
-	//@@author
+	//@@author A0126159A
 	private static final Logger logger = Logger.getLogger(Logic.class.getName());
 	String contentStr;
 	String output;
@@ -65,7 +65,7 @@ public class Logic {
 	 * 			is user input
 	 * @return message to be printed
 	 */
-	//@@author Jaime
+	//@@author A0126159A
 	public String execute(String input){
 	
 		assert(input!=null):"input in excute function is null";
@@ -138,7 +138,8 @@ public class Logic {
 		getOriginalTasks();
 		return output;
 	}
-
+	
+	//@@author A0126159A
 	private String executeMark() {
 		String output;
 		MarkCommand marking = new MarkCommand(tasks, events, indexTask, indexEvent, contentStr);
@@ -148,6 +149,7 @@ public class Logic {
 		return output;
 	}
 
+	//@@author A0126159A
 	private String executeEdit() {
 		String output;
 		EditCommand editing = new EditCommand(tasks, events, contentStr);
@@ -155,6 +157,7 @@ public class Logic {
 		return output;
 	}
 
+	//@@author A0126159A
 	private String executeClear() {
 		String output;
 		ClearCommand clearing = new ClearCommand(tasks, events);
@@ -162,6 +165,7 @@ public class Logic {
 		return output;
 	}
 
+	//@@author A0126159A
 	private String executeSearch() {
 		String output;
 		IsCommandSearch = true;
@@ -172,6 +176,7 @@ public class Logic {
 		return output;
 	}
 
+	//@@author A0126159A
 	private String executeDelete() {
 		String output;
 		DeleteCommand deleting = new DeleteCommand(contentStr, tasks, events);
@@ -179,6 +184,7 @@ public class Logic {
 		return output;
 	}
 
+	//@@author A0126159A
 	private String executeAdd() {
 		String output;
 		AddCommand adding = new AddCommand(contentStr, indexTask, indexEvent, tasks, events);
@@ -221,7 +227,7 @@ public class Logic {
 	 * 
 	 * @return help msg
 	 */
-	//@@author
+	//@@author A0126159A
 	private String displayHelp(){
 		logger.log(Level.INFO, "display help function");
 		return MSG_HELP;
@@ -232,7 +238,7 @@ public class Logic {
 	 * 
 	 * @return all tasks in String
 	 */
-	//@@author
+	//@@author A0126159A
 	public String displayTask(){
 		logger.log(Level.INFO, "display task function");
 		String temp = "";
@@ -260,7 +266,7 @@ public class Logic {
 	 * This function return the new vector contains tasks after each operation
 	 * @return  new tasks vector
 	 */
-	//@@author Jaime
+	//@@author A0126159A
 	public Vector<TaskToDo> returnNewTasks() {
 		//Return the new vector contains tasks after each operation
 		return tasks;
@@ -270,7 +276,7 @@ public class Logic {
 	 * This function return the new vector contains tasks after each operation
 	 * @return  new tasks vector
 	 */
-	//@@author Jaime
+	//@@author A0126159A
 	public Vector<TaskEvent> returnNewEvents() {
 		//Return the new vector contains tasks after each operation
 		return events;

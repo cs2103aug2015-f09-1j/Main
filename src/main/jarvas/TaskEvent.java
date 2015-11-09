@@ -29,6 +29,7 @@ public class TaskEvent implements Task, Comparable<TaskEvent>{
 		dateOfEvent.setUntilDate(null);
 		frequency=RepeatingFrequency.NOTREPEATING;
 	}
+	
 	//@@author A0134109N
 	public TaskEvent(String eventName , String startDate , String endDate,
 			int index, boolean status){
@@ -87,6 +88,7 @@ public class TaskEvent implements Task, Comparable<TaskEvent>{
 		this.frequency=GetRepeat.convertStrtoFrequency(frequency);
 		dateOfEvent.setUntilDate(JParser.dateConverter(untilDate));
 	}
+	
 	/*********** START OF RECURRING *************/
 	public String getStrFrequency(){
 		String temp=null;
@@ -126,9 +128,7 @@ public class TaskEvent implements Task, Comparable<TaskEvent>{
 		return getNextDate(getEndDate());
 	}
 	
-	
-	
-	
+	//@@author
 	public String getNextDate(Date date){
 		GregorianCalendar calendar = new GregorianCalendar();
 	    calendar.setTime(date);
@@ -153,13 +153,12 @@ public class TaskEvent implements Task, Comparable<TaskEvent>{
 		return sdf.format(calendar.getTime());
 	}
 	
-	
-
+	//@@author 
 	public Date nextCompareDate(){
 		return getNextCompareDate(getStartDate());
 	}
 	
-	
+	//@@author 
 	public Date getNextCompareDate(Date date){
 		GregorianCalendar calendar = new GregorianCalendar();
 	    calendar.setTime(date);
@@ -184,9 +183,6 @@ public class TaskEvent implements Task, Comparable<TaskEvent>{
 		return calendar.getTime();
 	}
 	
-	
-	
-	
 	//@@author A0134109N
 	public void setNextStartDate(){
 		try {
@@ -195,6 +191,7 @@ public class TaskEvent implements Task, Comparable<TaskEvent>{
 			e.printStackTrace();
 		}
 	}
+	
 	//@@author A0134109N
 	public void setNextEndDate(){
 		try {
@@ -205,10 +202,12 @@ public class TaskEvent implements Task, Comparable<TaskEvent>{
 	}
 	
 	/***********   END OF RECURRING *************/
+	//@@author A0126159A
 	public int getIndex(){
 		return index;
 	}
 	
+	//@@author A0126159A
 	public void setDone(String status){
 		if(status.equals("done")){
 			done = true;
@@ -217,41 +216,56 @@ public class TaskEvent implements Task, Comparable<TaskEvent>{
 			done = false;
 		}
 	}
+	
+	//@@author A0126159A
 	public boolean getDone(){
 		return done;
 	}
 	
-	
+	//@@author A0126159A
 	@Override
 	public String getName() {
 		return eventName;
 	}
-
+	
+	//@@author A0126159A
 	@Override
 	public void setName(String taskName) {
 		this.eventName = taskName;
 		
 	}
 	
+	//@@author 
 	public void setStart(String startDate){
 		dateOfEvent.setStartDate(JParser.dateConverter(startDate));
 	}	
 	
+	//@@author 
 	public void setEnd(String endDate){
 		dateOfEvent.setEndDate(JParser.dateConverter(endDate));
 	}
+	
+	//@@author 
 	public Date getStartDate() {
 		return dateOfEvent.getStartDate();
 	}
+	
+	//@@author 
 	public String getStringStartDate(){
 		return sdf.format(getStartDate());
 	}
+	
+	//@@author 
 	public String getStringEndDate(){
 		return sdf.format(getEndDate());
 	}
+	
+	//@@author 
 	public Date getEndDate() {
 		return dateOfEvent.getEndDate();
 	}
+	
+	//@@author 
 	public String getStringUntilDate(){
 		if(getUntilDate()!=null){
 			return sdf.format(getUntilDate());	
@@ -260,21 +274,24 @@ public class TaskEvent implements Task, Comparable<TaskEvent>{
 			return "";
 		}
 	}
+	
+	//@@author 
 	public Date getUntilDate() {
 		return dateOfEvent.getUntilDate();
 	}
-	
+
+	//@@author 
 	public void setUntil(String untilDate){
 		dateOfEvent.setUntilDate(JParser.dateConverter(untilDate));
 	}
-	
 
-	
+	//@@author 
 	@Override
 	public String print() {
 		String temp = eventName + WORD_FROM + sdf.format(getStartDate()) + WORD_TO + sdf.format(getEndDate()); 
 		return temp;
 	}
+	
 	//@@author A0134109N
 	@Override
 	public int compareTo(TaskEvent o) {
