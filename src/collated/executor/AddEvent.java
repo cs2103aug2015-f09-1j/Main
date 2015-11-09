@@ -90,7 +90,7 @@ public class AddEvent {
 	}
 	
 	
-	//@@author A0126259A	
+	//@@author A0126259B	
 	private String getRepeatString(RepeatingFrequency repeat) {
 		String temp=null;
 		switch (repeat) {

@@ -40,17 +40,17 @@ public class DateOfEvent {
 		this.endDate = endDate;
 	}
 	
-	//@@author A0126159B
+	//@@author A0126159A
 	public Date getStartDate() {
 		return startDate;
 	}
 	
-	//@@author A0126159B
+	//@@author A0126159A
 	public Date getUntilDate() {
 		return untilDate;
 	}
 	
-	//@@author A0126159B
+	//@@author A0126159A
 	public void setUntilDate(Date untilDate) {
 		this.untilDate = untilDate;
 	}
