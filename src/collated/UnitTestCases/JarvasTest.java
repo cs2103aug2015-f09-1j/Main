@@ -22,7 +22,7 @@ public class JarvasTest {
 		assertEquals("invalid input", logic.execute("444"));
 		assertEquals("invalid input", logic.execute("eeeee"));
 		//equivalence partitioning for valid value partition (addtask command follow by dueDate)
-		assertEquals("task \"ola\" successfully added", logic.execute("addtask ola -due 3/3/3/3/3"));
+		assertEquals("task \"ola\" successfully added", logic.execute("add ola -due tommorrow"));
 		//Test short form
 		assertEquals("task \"yolo\" successfully added", logic.execute("a yolo"));
 		assertEquals("\"task 1\" successfully edited", logic.execute("e task 1 due now"));
@@ -31,12 +31,14 @@ public class JarvasTest {
 	}
 	
 
+	//@@author A0145381H
+	
 	@Test
 	public void testAddEvent(){
 		// equivalence partitioning with valid date format mm/dd/yyyy HH/MM
-		assertEquals("event \"ola\" successfully added", logic.execute("ola -from 12/12/1991 12:12 -to 12/12/1991 12:13"));
+		assertEquals("event \"ola\" successfully added", logic.execute("a ola -from 12/12/2991 12:12 -to 12/12/2991 12:13"));
 		//equivalence partitioning with invalid date format
-		assertEquals("invalid format of date", logic.execute("ola -from 12/12/1991 12 -to 12/12/1991 12:13"));
+		assertEquals("Event date error", logic.execute("a ola -from 12/12/2991 12 -to 12/12/1291 12:13"));
 	}
 
 	@Test
