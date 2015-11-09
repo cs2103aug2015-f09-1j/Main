@@ -2,7 +2,7 @@ package main.jarvas;
 
 import java.util.Date;
 
-//@@author
+//@@author A0126259B
 public class DateOfEvent {
 	Date startDate;
 	Date endDate;
@@ -11,46 +11,46 @@ public class DateOfEvent {
 	/**
 	 * 
 	 */
-	//@@author
+	//@@author A0126259B
 	public DateOfEvent() {
 		startDate = null;
 		endDate = null;
 		untilDate = null;
 	}
 	
-	//@@author
+	//@@author A0126259B
 	public DateOfEvent(Date startDate , Date endDate ,Date untilDate){
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.untilDate = untilDate;
 	}
 	
-	//@@author
+	//@@author A0126259B
 	public void setStartDate(Date startDate){
 		this.startDate = startDate;
 	}
 	
-	//@@author
+	//@@author A0126259B
 	public Date getEndDate() {
 		return endDate;
 	}
 	
-	//@@author
+	//@@author A0126259B
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 	
-	//@@author
+	//@@author A0126259B
 	public Date getStartDate() {
 		return startDate;
 	}
 	
-	//@@author
+	//@@author A0126259B
 	public Date getUntilDate() {
 		return untilDate;
 	}
 	
-	//@@author
+	//@@author A0126259B
 	public void setUntilDate(Date untilDate) {
 		this.untilDate = untilDate;
 	}

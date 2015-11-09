@@ -10,7 +10,7 @@ import org.junit.Test;
 import main.jarvas.Logic;
 
 
-//@@author
+//@@author A0126259B	
 public class JarvasTest {
 
 	GUI.Jarvas jarvas = new GUI.Jarvas();
@@ -40,7 +40,7 @@ public class JarvasTest {
 	//@@author
 	@Test
 	public void testAddEvent(){
-		// equivalence partitioning with valid date format dd/mm/yyyy HH/MM
+		// equivalence partitioning with valid date format mm/dd/yyyy HH/MM
 		assertEquals("event \"ola\" successfully added", logic.execute("ola -from 12/12/1991 12:12 -to 12/12/1991 12:13"));
 		//equivalence partitioning with invalid date format
 		assertEquals("invalid format of date", logic.execute("ola -from 12/12/1991 12 -to 12/12/1991 12:13"));

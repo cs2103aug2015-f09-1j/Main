@@ -51,6 +51,7 @@ public class AddEvent {
 	 * @return
 	 * 		the Date in String of the event last
 	 */
+	//@@author A0126259B	
 	private String getUntilDate(String contentStr){
 		GetSplittedString temp = new GetSplittedString(contentStr, RequiredField.UNTIL);
 		return temp.getReturnStr();
@@ -70,6 +71,7 @@ public class AddEvent {
 	 * 			is the content of command
 	 * @return	Date in String
 	 */
+	//@@author A0126259B	
 	private String getStartDate(String contentStr2) {
 		GetSplittedString gsString = new GetSplittedString(contentStr2, RequiredField.EVENT_STARTDATE);
 		return gsString.getReturnStr();
@@ -82,13 +84,14 @@ public class AddEvent {
 	 * 			is the content of command
 	 * @return	Date in String
 	 */
+	//@@author A0126259B	
 	private String getEndDate(String contentStr2) {
 		GetSplittedString gsString = new GetSplittedString(contentStr2, RequiredField.EVENT_ENDDATE);
 		return gsString.getReturnStr();
 	}
 	
 	
-	
+	//@@author A0126259B	
 	private String getRepeatString(RepeatingFrequency repeat) {
 		String temp=null;
 		switch (repeat) {

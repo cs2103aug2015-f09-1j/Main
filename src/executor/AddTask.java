@@ -76,6 +76,7 @@ public class AddTask {
 	 * 			user's input content
 	 * @return the due date of task
 	 */
+	//@@author A0126259B	
 	private String getDueDate(String contentStr2) {
 		// TODO Auto-generated method stub
 		GetSplittedString gsString = new GetSplittedString(contentStr2, RequiredField.TASKDUEDATE);
@@ -86,6 +87,7 @@ public class AddTask {
 			return null;
 		}
 	}
+	//@@author A0126259B	
 	private String getUntilDate(String contentStr){
 		GetSplittedString temp = new GetSplittedString(contentStr, RequiredField.UNTIL);
 		return temp.getReturnStr();
@@ -98,6 +100,7 @@ public class AddTask {
 	 * @return
 	 * 		frequency in String
 	 */
+	//@@author A0126259B	
 	private String getRepeatString(RepeatingFrequency repeat) {
 		String temp=null;
 		switch (repeat) {

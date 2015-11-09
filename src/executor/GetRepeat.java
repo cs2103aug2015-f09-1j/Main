@@ -12,12 +12,11 @@ import main.jarvas.Logic.RequiredField;
  *
  */
 public class GetRepeat {
-
-
+	
 	public enum RepeatingFrequency {
 		NOTREPEATING,DAILY,WEEKLY,MONTHLY,YEARLY,WRONG
 	};
-	
+	//@@author A0126259B	
 	public static RepeatingFrequency getRepeat(String contentStr2) {
 		GetSplittedString gsString = new GetSplittedString(contentStr2, RequiredField.REPEAT);
 		String temp = gsString.getReturnStr().trim();
@@ -39,7 +38,7 @@ public class GetRepeat {
 			return RepeatingFrequency.WRONG;
 		}
 	}
-	
+	//@@author A0126259B	
 	public static RepeatingFrequency convertStrtoFrequency(String frequency) {
 		switch (frequency) {
 		case "weekly":

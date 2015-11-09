@@ -40,6 +40,7 @@ public class LogicTestTxt {
 	/**
 	 * @throws java.lang.Exception
 	 */
+	//@@author A0126259B	
 	@Before
 	public void setUp() throws Exception {
 		logic=new Logic();
@@ -50,6 +51,7 @@ public class LogicTestTxt {
 	/**
 	 * @throws java.lang.Exception
 	 */
+	//@@author A0126259B	
 	@After
 	public void tearDown() throws Exception {
 		logic.execute("clear");
@@ -72,24 +74,28 @@ public class LogicTestTxt {
 		assertEquals("Input is wrong format.", 
 				logic.execute("add do homework -du 12/12/2015 00:11 -repeat daily"));
 	}
-	
+	//@@author A0126259B	
 	@Test
 	public void testExecute_delete() {
 		assertEquals("\"task 1\" successfully deleted", logic.execute("delete task 1" ));
 	}
 	
+	//@@author A0126259B	
 	@Test
 	public void testExecute_edit(){
 		assertEquals("\"task 1\" successfully edited", logic.execute("edit task 1 due 12/13/2015 00:11" ));
 	}
+	//@@author A0126259B	
 	@Test
 	public void testExecute_help(){
 		assertEquals(MSG_HELP, logic.execute("help"));
 	}
+	//@@author A0126259B	
 	@Test
 	public void testExecute_mark(){
 		assertEquals("\"task 1\" is marked", logic.execute("mark task 1 done"));
 	}
+	//@@author A0126259B	
 	@Test
 	public void testExecute_invalid(){
 		assertEquals("invalid input", logic.execute("ola"));

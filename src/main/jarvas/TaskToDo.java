@@ -12,7 +12,7 @@ import executor.GetRepeat.RepeatingFrequency;
 /**
  * Task class is a helper class
  */
-//@@author
+//@@author A0126259B
 public class TaskToDo implements Task, Comparable<TaskToDo>{
 	
 	public static final String EMPTY_SPACE = " ";
@@ -26,7 +26,7 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 	private boolean done;
 	RepeatingFrequency frequency;
 	
-	//@@author
+	//@@author A0126259B
 	public TaskToDo(){
 		taskName = new String();
 		dateOfEvent = new DateOfEvent();
@@ -37,7 +37,7 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 		dateOfEvent.setUntilDate(null);
 	}
 	
-	//@@author
+	//@@author A0126259B
 	public TaskToDo(String taskName, int index, boolean status){
 		setName(taskName);
 		this.index = index;
@@ -47,7 +47,7 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 		dateOfEvent.setUntilDate(null);
 	}
 	
-	//@@author
+	//@@author A0126259B
 	public TaskToDo(String taskName, String dueDate,  int index, boolean status){
 		setName(taskName);
 		this.index = index;
@@ -58,7 +58,7 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 		dateOfEvent.setUntilDate(null);
 	}
 	
-	//@@author
+	//@@author A0126259B
 	public TaskToDo(String taskName, String dueDate,  int index, boolean status,RepeatingFrequency frequency){
 		setName(taskName);
 		this.index = index;
@@ -69,7 +69,7 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 		dateOfEvent.setUntilDate(null);
 	}
 	
-	//@@author
+	//@@author A0126259B
 	public TaskToDo(String taskName, String dueDate,  int index, boolean status,RepeatingFrequency frequency,String untilDate){
 		setName(taskName);
 		this.index = index;
@@ -88,7 +88,7 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 	 * @param done2
 	 * @param frequency2
 	 */
-	//@@author
+	//@@author A0126259B
 	public TaskToDo(String taskName, String dueDate, int index, boolean status, String frequency) {
 		// TODO Auto-generated constructor stub
 		setName(taskName);
@@ -100,7 +100,7 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 		dateOfEvent.setUntilDate(null);
 	}
 	
-	//@@author
+	//@@author A0126259B
 	public TaskToDo(String taskName, String dueDate, int index, boolean status, String frequency,String untilDate) {
 		// TODO Auto-generated constructor stub
 		setName(taskName);
@@ -116,22 +116,22 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 	 * @param frequency2
 	 * @return
 	 */
-	//@@author
+	//@@author A0126259B
 	public RepeatingFrequency getFrequency() {
 		return frequency;
 	}
 
-	//@@author
+	//@@author A0126259B
 	public void setFrequency(RepeatingFrequency frequency) {
 		this.frequency = frequency;
 	}
 	
-	//@@author
+	//@@author A0126259B
 	public int getIndex(){
 		return index;
 	}
 	
-	//@@author
+	//@@author A0126259B
 	public void setDone(String status){
 		if(status.equals("done")){
 			done = true;
@@ -141,44 +141,44 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 		} 
 	}
 	
-	//@@author
+	//@@author A0126259B
 	public boolean getDone(){
 		return done;
 	}
 	
-	//@@author
+	//@@author A0126259B
 	@Override
 	public String getName() {
 		return taskName;
 	}
 
-	//@@author
+	//@@author A0126259B
 	@Override
 	public void setName(String taskName) {
 		this.taskName = taskName;
 	}
 
-	//@@author
+	//@@author A0126259B
 	public void setStart(String startDate){
 		dateOfEvent.setStartDate(JParser.dateConverter(startDate));
 	}	
 	
-	//@@author
+	//@@author A0126259B
 	public Date getStartDate() {
 		return dateOfEvent.getStartDate();
 	}
 	
-	//@@author
+	//@@author A0126259B
 	public void setUntil(String untilDate){
 		dateOfEvent.setUntilDate(JParser.dateConverter(untilDate));
 	}
 	
-	//@@author
+	//@@author A0126259B
 	public Date getUntilDate(){
 		return dateOfEvent.getUntilDate();
 	}
 	
-	//@@author
+	//@@author A0126259B
 	public String getStringUntilDate(){
 		if(getUntilDate()!=null){
 			return sdf.format(getUntilDate());	
@@ -188,7 +188,7 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 		}
 	}
 
-	//@@author
+	//@@author A0126259B
 	public String getStringStartDate(){
 		if(getStartDate()!=null){
 			return sdf.format(getStartDate());	
@@ -198,12 +198,12 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 		}
 	}
 	
-	//@@author
+	//@@author A0126259B
 	public String nextDate(){
 		return getNextDate();
 	}
 	
-	//@@author
+	//@@author A0126259B
 	public String getNextDate(){
 		GregorianCalendar calendar = new GregorianCalendar();
 	    calendar.setTime(getStartDate());
@@ -227,12 +227,12 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 		return sdf.format(calendar.getTime());
 	}
 	
-	//@@author
+	//@@author A0126259B
 	public Date nextCompareDate(){
 		return getNextCompareDate();
 	}
 	
-	//@@author
+	//@@author A0126259B
 	public Date getNextCompareDate(){
 		GregorianCalendar calendar = new GregorianCalendar();
 	    calendar.setTime(getStartDate());
@@ -256,7 +256,7 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 		return calendar.getTime();
 	}
 	
-	//@@author
+	//@@author A0126259B
 	public String getStrFrequency(){
 		String temp=null;
 		switch (frequency) {
@@ -279,7 +279,7 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 		return temp;
 	}
 	
-	//@@author
+	//@@author A0126259B
 	public void setNextDate(){
 		try {
 			dateOfEvent.setStartDate(sdf.parse(getNextDate()));
@@ -289,7 +289,7 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 		}
 	}
 	
-	//@@author
+	//@@author A0126259B
 	@Override
 	public String print() {
 		String temp = taskName + EMPTY_SPACE + sdf.format(getStartDate()); 
@@ -299,7 +299,7 @@ public class TaskToDo implements Task, Comparable<TaskToDo>{
 	/**
 	 * This function return tasks in term of string
 	 */
-	//@@author
+	//@@author A0126259B
 	@Override
 	public String toString(){
 		String temp = "";

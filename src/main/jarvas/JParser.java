@@ -1,5 +1,10 @@
 package main.jarvas;
 import java.util.logging.Logger;
+
+import javax.swing.text.StyledEditorKit.BoldAction;
+
+import org.junit.Before;
+
 import java.util.logging.Level;
 import java.util.Date;
 import java.util.List;
@@ -10,7 +15,7 @@ import com.joestelmach.natty.Parser;
 
 import executor.GetRepeat.RepeatingFrequency;
 
-//@@author
+//@@author A0126259B	
 public class JParser {
 	public static final String COMMAND_ADD = "add";
 	public static final String COMMAND_ADD_SHORT = "a";
@@ -34,14 +39,16 @@ public class JParser {
 	public static final String COMMAND_UNDO = "undo";
 	public static final String COMMAND_REDO = "redo";
 	public static final String ERROR_COMMAND_EMPTY = "command type string cannot be empty!";
-	
+	//@@author A0126259B	
 	public enum CommandType {
 		ADD, EDIT, DELETE, SORT, SEARCH, INVALID, EXIT, CLEAR, HELP, DISPLAY , FROM , TO , SAVE, MARK, UNDO, REDO, 
 	};
 	
+
 	//@@author A0126159A
 	private static final Logger logger = Logger.getLogger(Logic.class.getName());
 	static Parser parser = new Parser();
+	//@@author A0126259B	
 	public static CommandType determineCommandType(String commandTypeString) {
 		if (commandTypeString == null){
 			throw new Error();
@@ -96,24 +103,37 @@ public class JParser {
 	public static Date dateConverter(String inputDate){
 		List<DateGroup> groups = parser.parse(inputDate);
 		Date convertedDate = null;
-	    for(DateGroup group:groups)  {
-		    Date dates = group.getDates().get(0);    
-		    int line = group.getLine();
-		    int column = group.getPosition();
-		    String matchingValue = group.getText();
-		    String syntaxTree = group.getSyntaxTree().toStringTree();
-		    Map parseMap = group.getParseLocations();
-		    boolean isRecurreing = group.isRecurring();
-		    Date recursUntil = group.getRecursUntil();
-		    convertedDate = dates;
-		    
-	       }
+		
+			for(DateGroup group:groups)  {
+			    Date dates = group.getDates().get(0);    
+			    int line = group.getLine();
+			    int column = group.getPosition();
+			    String matchingValue = group.getText();
+			    String syntaxTree = group.getSyntaxTree().toStringTree();
+			    Map parseMap = group.getParseLocations();
+			    boolean isRecurreing = group.isRecurring();
+			    Date recursUntil = group.getRecursUntil();
+			    convertedDate = dates;
+			    
+			   }
+
 		return convertedDate;
 	}
 	
 	//@@author A0134109N
 	public static boolean dateChecker(String startDate, String endDate){
-		if(dateConverter(startDate).before(dateConverter(endDate)) || dateConverter(startDate).equals(dateConverter(endDate))){
+		boolean checkBefore = true;
+		boolean checkEquals= true;
+		try {
+			checkBefore = dateConverter(startDate).before(dateConverter(endDate));
+			checkEquals = dateConverter(startDate).equals(dateConverter(endDate));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		
+		if( checkBefore|| checkEquals ){
 			return true;
 		}
 		else{

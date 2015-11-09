@@ -26,6 +26,7 @@ public class GetSplittedString {
 	private String output;
 	private String returnStr;
 	private String returnStr1;
+	//@@author A0126259B	
 	public GetSplittedString(String str,RequiredField requiredField){
 		try{
 			String removedTaskName = str.replace(getTask(str), "");
@@ -85,7 +86,7 @@ public class GetSplittedString {
 			returnStr = "";
 		}
 	}
-	
+	//@@author A0126259B	
 	public String getReturnStr(){
 		return returnStr;
 	}

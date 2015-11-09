@@ -13,9 +13,10 @@ import main.jarvas.JParser;
 import main.jarvas.JParser.CommandType;
 
 /**
- * @author ONGJI_000
+ * this class do Unit Testing for Jparser class
  *
  */
+//@@author A0126259B	
 public class JParserTest {
 
 	/**
@@ -32,7 +33,7 @@ public class JParserTest {
 	public void tearDown() throws Exception {
 	}
 
-
+	//white box approach, equivalent partition, function coverage
 	@Test
 	public void testDetermineCommand(){
 		assertEquals(CommandType.ADD, JParser.determineCommandType("add"));

@@ -26,6 +26,7 @@ public class ClearCommand {
 	 * @param events
 	 * 			is the vector of events
 	 */
+	
 	public ClearCommand(Vector<TaskToDo> tasks, Vector<TaskEvent> events){
 		tasks.clear();
 		events.clear();

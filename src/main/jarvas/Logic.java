@@ -15,7 +15,8 @@ import executor.UndoCommand;
 import executor.sortCommand;
 
 
-//@@author A0126159A
+
+//@@author A0126259B
 public class Logic {
 	private static final String MSG_INVALID_INPUT = "invalid input";
 	private static final String MSG_SAVE_SUCCESS = "File \"%1$s\" successfully saved";
@@ -34,12 +35,12 @@ public class Logic {
 			+ " Undo		: undo\n"
 			+ " Redo		: redo\n"
 			+ " Exit		: exit";
-			
+	//@@author A0126259B		
 	public enum RequiredField {
 		TASKDUEDATE,TASKLOCATION,EVENT_STARTDATE,EVENT_ENDDATE,REPEAT,UNTIL
 	};
 	
-	//@@author A0126159A
+
 	private static final Logger logger = Logger.getLogger(Logic.class.getName());
 	String contentStr;
 	String output;
@@ -52,6 +53,7 @@ public class Logic {
 	Vector <TaskToDo> tasksForSearch;
 	Vector <TaskEvent> eventsForSearch;
 	boolean IsCommandSearch;
+	//@@author A0126259B
 	public Logic(){
 		storage = Storage.getInstance();
 		storage.doStuff();
@@ -65,7 +67,8 @@ public class Logic {
 	 * 			is user input
 	 * @return message to be printed
 	 */
-	//@@author A0126159A
+
+	//@@author A0126259B
 	public String execute(String input){
 	
 		assert(input!=null):"input in excute function is null";
@@ -138,8 +141,8 @@ public class Logic {
 		getOriginalTasks();
 		return output;
 	}
-	
-	//@@author A0126159A
+
+	//@@author A0126259B
 	private String executeMark() {
 		String output;
 		MarkCommand marking = new MarkCommand(tasks, events, indexTask, indexEvent, contentStr);
@@ -157,7 +160,7 @@ public class Logic {
 		return output;
 	}
 
-	//@@author A0126159A
+	//@@author A0126259B
 	private String executeClear() {
 		String output;
 		ClearCommand clearing = new ClearCommand(tasks, events);
@@ -177,6 +180,7 @@ public class Logic {
 	}
 
 	//@@author A0126159A
+
 	private String executeDelete() {
 		String output;
 		DeleteCommand deleting = new DeleteCommand(contentStr, tasks, events);
@@ -184,7 +188,7 @@ public class Logic {
 		return output;
 	}
 
-	//@@author A0126159A
+	//@@author A0126259B
 	private String executeAdd() {
 		String output;
 		AddCommand adding = new AddCommand(contentStr, indexTask, indexEvent, tasks, events);
@@ -227,7 +231,8 @@ public class Logic {
 	 * 
 	 * @return help msg
 	 */
-	//@@author A0126159A
+
+	//@@author A0126259B
 	private String displayHelp(){
 		logger.log(Level.INFO, "display help function");
 		return MSG_HELP;

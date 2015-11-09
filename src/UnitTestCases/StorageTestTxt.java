@@ -15,9 +15,10 @@ import sun.security.jca.GetInstance;
 import sun.util.logging.resources.logging;
 
 /**
- * 
+ * this Storage class Unit testing included logicTest.txt
  *
  */
+//@@author A0126259B	
 public class StorageTestTxt {
 	Logic logic = null;
 	Storage storage = null;

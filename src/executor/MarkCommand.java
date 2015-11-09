@@ -168,6 +168,7 @@ public class MarkCommand {
 	 * @param contentStr3 is the string array contain commands
 	 * @param temp the task to be marked
 	 */
+	
 	private void markTaskWithCorrectIndex(String[] contentStr3, TaskToDo temp) {
 		tasks.get(Integer.parseInt(contentStr3[1])-1).setDone(contentStr3[2]);
 		int taskIndex = Integer.parseInt(contentStr3[1])-1;
@@ -189,6 +190,7 @@ public class MarkCommand {
 	 * @param contentStr3 is the string array contain commands
 	 * @param temp the task to be marked
 	 */
+		
 	private void markEventWithCorrectIndex(String[] contentStr3, TaskEvent temp) {
 		events.get(Integer.parseInt(contentStr3[1])-1).setDone(contentStr3[2]);
 		

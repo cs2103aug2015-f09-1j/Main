@@ -48,7 +48,7 @@ public class EditCommand {
 		edit();
 	}
 	
-	
+	//@@author A0126259B	
 	public String getOutput(){
 		return output;
 	}

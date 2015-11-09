@@ -19,6 +19,7 @@ import main.jarvas.TaskToDo;
  * 
  *
  */
+//@@author A0126259B	
 public class TaskToDoTest {
 	TaskToDo task = null;
 	/**
@@ -55,12 +56,5 @@ public class TaskToDoTest {
 		assertEquals("Test1", task.getName());
 		
 	}
-//	@Test
-//	public void testStartDate(){
-//		assertEquals(new GregorianCalendar(2014, 12, 12, 0, 11, 0).getTime(), task.getStartDate());
-//	}
-//	@Test
-//	public void testNextDate(){
-//		assertEquals(new GregorianCalendar(2014, 12, 19, 0, 11, 0).getTime(), task.getNextDate());
-//	}
+
 }
