@@ -17,8 +17,7 @@ import executor.GetRepeat.RepeatingFrequency;
  * this class perform add task functionality for jarvas
  *
  */
-public class AddTask {
-
+public class AddTask {	
 	private static final String MESSAGE_INPUT_WRONG_FORMAT = "Input is wrong format.";
 	private static final String MSG_ADD_SUCCESS = "task \"%1$s\" successfully added";
 	private static final String MSG_ADD_FAIL = "task date error";
@@ -29,6 +28,7 @@ public class AddTask {
 	/**
 	 * 
 	 */
+	//@@author A0126259B	
 	public AddTask(String contentStr, int index, Vector<TaskToDo> task){
 		indexTask = index;
 		TaskToDo temp;

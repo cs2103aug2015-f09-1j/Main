@@ -13,7 +13,7 @@ import main.jarvas.TaskToDo;
  */
 
 public class AddCommand {
-	
+	//@@author A0126259B	
 	String contentString;
 	int indexTask;
 	int indexEvent;
