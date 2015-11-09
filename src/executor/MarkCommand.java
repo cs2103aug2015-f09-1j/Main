@@ -84,9 +84,9 @@ public class MarkCommand {
 		TaskToDo temp = null;
 		TaskEvent tempEvent = null;
 		try{
-			if(!tasks.isEmpty())
+			if(!tasks.isEmpty() && Integer.parseInt(contentStrArr[1]) <= tasks.size())
 				temp = tasks.get(Integer.parseInt(contentStrArr[1])-1);
-			if(!events.isEmpty())
+			if(!events.isEmpty() && Integer.parseInt(contentStrArr[1]) <= events.size())
 				tempEvent = events.get(Integer.parseInt(contentStrArr[1])-1);
 			if(contentStrArr[0].equals(TASK)){
 				markTask(contentStrArr, temp);
@@ -99,6 +99,7 @@ public class MarkCommand {
 			}
 			
 		}catch(Exception e){
+			e.printStackTrace();
 			markWithWrongNumber();
 		}
 	}
